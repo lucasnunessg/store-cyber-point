@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import '../App.css'
 
 interface Product {
   id: number;
   title: string;
   description: string;
   image: string;
+  price: number;
 }
 
 function Api() {
-  const [products, setProducts] = useState<Product[]>([]); // Definindo o tipo de products como Product[]
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -25,13 +27,13 @@ function Api() {
   }, []);
 
   return (
-    <div>
+    <div className='divProducts'>
       {products.map((product) => (
-        <div key={product.id}>
+        <div key={product.id} className='product'>
           <h3>{product.title}</h3>
-          <img src={product.image} alt={product.title} /> {}
-
+          <img src={product.image} alt={product.title} />
           <p>{product.description}</p>
+          <p className='price'>Price: ${product.price.toFixed(2)}</p>
         </div>
       ))}
     </div>
