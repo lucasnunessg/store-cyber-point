@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import '../App.css'
+import { useEffect, useState } from 'react';
+import '../App.css';
 
 interface Product {
   id: number;
@@ -11,6 +11,8 @@ interface Product {
 
 function Api() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [startExibition, setstartExibition] = useState<number>(0);
+  const productsPerPage = 10;
 
   useEffect(() => {
     async function fetchProducts() {
@@ -26,16 +28,30 @@ function Api() {
     fetchProducts();
   }, []);
 
+  const handleNextPage = () => {
+    setstartExibition(startExibition + productsPerPage);
+  };
+
+  const handlePrevPage = () => {
+    setstartExibition(startExibition - productsPerPage);
+  };
+
   return (
-    <div className='divProducts'>
-      {products.map((product) => (
-        <div key={product.id} className='product'>
-          <h3>{product.title}</h3>
-          <img src={product.image} alt={product.title} />
-          <p>{product.description}</p>
-          <p className='price'>Price: ${product.price.toFixed(2)}</p>
-        </div>
-      ))}
+    <div className='container'>
+      <div className='button-container'>
+        <button onClick={handlePrevPage} disabled={startExibition === 0} className="pagination-button">Anterior</button>
+        <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length} className="pagination-button">Próximo</button>
+      </div>
+      <div className='divProducts'>
+        {products.slice(startExibition, startExibition + productsPerPage).map((product) => (
+          <div key={product.id} className='product'>
+            <h3>{product.title}</h3>
+            <img src={product.image} alt={product.title} />
+            <p>{product.description}</p>
+            <p className='price'>Price: ${product.price.toFixed(2)}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
