@@ -3,6 +3,9 @@
   flex-direction: column;
   align-items: center;
 }
+body {
+  background-color: beige;
+}
 
 .button-container {
   margin-bottom: 20px;
@@ -39,4 +42,19 @@
 .product img {
   width: 100%;
   height: auto;
+}
+
+.myHeader {
+  background-color:beige; /* Cor de fundo do cabeçalho */
+  color:black; /* Cor do texto */
+  padding: 20px 0; /* Espaçamento interno superior e inferior */
+}
+
+.myHeader header {
+  text-align: center; /* Centralizar o conteúdo do cabeçalho */
+}
+
+.myHeader h1 {
+  margin: 0; /* Remover margem padrão do h1 */
+  font-size: 2rem; /* Tamanho da fonte */
 }
