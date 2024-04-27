@@ -40,6 +40,7 @@ function Api() {
   };
 
   return (
+    
     <div className='container'>
       <div className='button-container'>
         <button onClick={handlePrevPage} disabled={startExibition === 0} className="pagination-button">Anterior</button>
