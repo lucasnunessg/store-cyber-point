@@ -12,7 +12,8 @@ interface Product {
 function Api() {
   const [products, setProducts] = useState<Product[]>([]);
   const [startExibition, setstartExibition] = useState<number>(0);
-  const productsPerPage = 10;
+  const [loading, setLoading] = useState<boolean>(true);
+  const productsPerPage = 4;
 
   useEffect(() => {
     async function fetchProducts() {
@@ -22,6 +23,8 @@ function Api() {
         setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -42,16 +45,20 @@ function Api() {
         <button onClick={handlePrevPage} disabled={startExibition === 0} className="pagination-button">Anterior</button>
         <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length} className="pagination-button">Próximo</button>
       </div>
-      <div className='divProducts'>
-        {products.slice(startExibition, startExibition + productsPerPage).map((product) => (
-          <div key={product.id} className='product'>
-            <h3>{product.title}</h3>
-            <img src={product.image} alt={product.title} />
-            <p>{product.description}</p>
-            <p className='price'>Price: ${product.price.toFixed(2)}</p>
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className='divProducts'>
+          {products.slice(startExibition, startExibition + productsPerPage).map((product) => (
+            <div key={product.id} className='product'>
+              <h3>{product.title}</h3>
+              <img src={product.image} alt={product.title} />
+              <p>{product.description}</p>
+              <p className='price'>Price: ${product.price.toFixed(2)}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
