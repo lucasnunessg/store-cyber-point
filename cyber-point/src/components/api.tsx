@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import '../App.css';
 
 interface Product {
@@ -13,6 +13,7 @@ function Api() {
   const [products, setProducts] = useState<Product[]>([]);
   const [startExibition, setstartExibition] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -31,20 +32,30 @@ function Api() {
     fetchProducts();
   }, []);
 
-  const handleNextPage = () => {
-    setstartExibition(startExibition + productsPerPage);
-  };
+  useEffect(() => {
+    document.body.classList.toggle('dark-mode', isDarkMode);
+    document.body.classList.toggle('light-mode', !isDarkMode);
+  }, [isDarkMode]);
 
-  const handlePrevPage = () => {
+  const handleNextPage = useCallback(() => {
+    setstartExibition(startExibition + productsPerPage);
+  }, [startExibition, productsPerPage]);
+
+  const handlePrevPage = useCallback(() => {
     setstartExibition(startExibition - productsPerPage);
-  };
+  },[startExibition, productsPerPage]);
+
+  const toggleDarkMode = useCallback(() => {
+    setIsDarkMode(prevMode => !prevMode);
+  }, []);
+   // aqui o toggle nao depende da pagina ser renderizada ou atualizada e sim se é true ou false, nao precisa depender de nada
 
   return (
-    
-    <div className='container'>
+    <div>
       <div className='button-container'>
         <button onClick={handlePrevPage} disabled={startExibition === 0} className="pagination-button">Anterior</button>
         <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length} className="pagination-button">Próximo</button>
+        <button onClick={toggleDarkMode} className="toggle-button">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
       </div>
       {loading ? (
         <p>Loading...</p>
