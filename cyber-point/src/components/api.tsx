@@ -14,6 +14,7 @@ function Api() {
   const [startExibition, setstartExibition] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>('');
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -49,7 +50,9 @@ function Api() {
     setIsDarkMode(prevMode => !prevMode);
   }, []);
    // aqui o toggle nao depende da pagina ser renderizada ou atualizada e sim se é true ou false, nao precisa depender de nada
-
+   const filteredProducts = products.filter((product) =>
+   product.title.toLowerCase().includes(search.toLowerCase())
+ );
   return (
     <div>
       <div className='button-container'>
@@ -57,11 +60,15 @@ function Api() {
         <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length} className="pagination-button">Próximo</button>
         <button onClick={toggleDarkMode} className="toggle-button">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
       </div>
+      <input type='text' placeholder='Digite o nome do produto' 
+      value={search}
+      
+      onChange={(e)=> setSearch(e.target.value)}></input>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <div className='divProducts'>
-          {products.slice(startExibition, startExibition + productsPerPage).map((product) => (
+          {filteredProducts.slice(startExibition, startExibition + productsPerPage).map((product) => (
             <div key={product.id} className='product'>
               <h3>{product.title}</h3>
               <img src={product.image} alt={product.title} />
