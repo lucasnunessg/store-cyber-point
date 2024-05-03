@@ -49,12 +49,14 @@ function Api() {
   const toggleDarkMode = useCallback(() => {
     setIsDarkMode(prevMode => !prevMode);
   }, []);
-   // aqui o toggle nao depende da pagina ser renderizada ou atualizada e sim se é true ou false, nao precisa depender de nada
+   // aqui o toggle nao depende da pagina ser renderizada ou atualizada 
+   // e sim se é true ou false, nao precisa depender de nada p acréscimo de callback
    const filteredProducts = products.filter((product) =>
    product.title.toLowerCase().includes(search.toLowerCase())
  );
   return (
     <div>
+           
       <div className='button-container'>
         <button onClick={handlePrevPage} disabled={startExibition === 0} className="pagination-button">Anterior</button>
         <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length} className="pagination-button">Próximo</button>
@@ -68,7 +70,8 @@ function Api() {
         <p>Loading...</p>
       ) : (
         <div className='divProducts'>
-          {filteredProducts.slice(startExibition, startExibition + productsPerPage).map((product) => (
+          {filteredProducts.slice(startExibition, startExibition + productsPerPage)
+          .map((product) => (
             <div key={product.id} className='product'>
               <h3>{product.title}</h3>
               <img src={product.image} alt={product.title} />
