@@ -10,6 +10,12 @@ it('Testa se o header é "Lucas Store', () => {
 
 it('Testa se acha o botão de "Próximo"', () => {
     render (<Api />)
-    const inputNextPage = screen.getByText('Próximo');
+    const inputNextPage = screen.getByText(/Próximo/i);
     expect(inputNextPage).toBeInTheDocument();
+});
+
+it('testa se acha o botão "Anterior"', () => {
+render(<Api />)
+const inputPreviousPage = screen.getByText(/Anterior/i);
+expect(inputPreviousPage).toBeInTheDocument();
 });
