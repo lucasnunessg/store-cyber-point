@@ -9,12 +9,14 @@ interface Product {
   price: number;
 }
 
+
 function Api() {
   const [products, setProducts] = useState<Product[]>([]);
   const [startExibition, setstartExibition] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
+  const [cart, setCart] = useState<Product[]>([]);
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -45,6 +47,10 @@ function Api() {
   const handlePrevPage = useCallback(() => {
     setstartExibition(startExibition - productsPerPage);
   },[startExibition, productsPerPage]);
+
+  const handleAddCart = useCallback((product: Product) => {
+  setCart(prevCart => [...prevCart, product]);
+  }, []);
 
   const toggleDarkMode = useCallback(() => {
     setIsDarkMode(prevMode => !prevMode);
@@ -77,6 +83,7 @@ function Api() {
               <img src={product.image} alt={product.title} />
               <p>{product.description}</p>
               <p className='price'>Price: ${product.price.toFixed(2)}</p>
+              <button onClick={() => handleAddCart(product)}>Adicionar ao carrinho</button>
             </div>
           ))}
         </div>
