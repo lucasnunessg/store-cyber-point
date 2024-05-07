@@ -21,6 +21,7 @@ function Api({ onNextPageClick }: ApiProps) {
   const [loading, setLoading] = useState<boolean>(true);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
+  const [quantityProducts, setQuantityProducts] = useState<number>(0);
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -56,6 +57,16 @@ function Api({ onNextPageClick }: ApiProps) {
 
   },[startExibition, productsPerPage]);
 
+  const addProductCount = useCallback(() => {
+    setQuantityProducts(quantityProducts + 1);
+  }, [quantityProducts]);
+
+  const decreaseProductCount = useCallback(() => {
+    if(quantityProducts > 0){
+      setQuantityProducts(quantityProducts - 1)
+    }
+  }, [quantityProducts])
+
 
 
   const toggleDarkMode = useCallback(() => {
@@ -78,6 +89,11 @@ function Api({ onNextPageClick }: ApiProps) {
       value={search}
       
       onChange={(e)=> setSearch(e.target.value)}></input>
+      <div className='quantify-container'>
+      <button onClick={decreaseProductCount}>-</button>
+      <span>{quantityProducts}</span>
+      <button onClick={addProductCount}>+</button>
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : (
