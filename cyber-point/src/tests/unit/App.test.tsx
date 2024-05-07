@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 
-import Api from '../../components/api'
+import Api from '../../components/api';
 import MyHeader from '../../components/MyHeader';
 
 it('Testa se o header é "Lucas Store', () => {
@@ -24,7 +24,7 @@ expect(inputPreviousPage).toBeInTheDocument();
 
 it('testa o botão proximo e seu funcionamento', () => {
  const mockHandleNextPage = vi.fn();
-render(<Api handleNextPage={mockHandleNextPage} />)
+render(<Api onNextPageClick={mockHandleNextPage} />)
 
 const inputNextPage = screen.getByText(/Próximo/i);
 expect(inputNextPage).toBeInTheDocument();

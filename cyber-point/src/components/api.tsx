@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import '../App.css';
 
+interface ApiProps {
+  onNextPageClick?: () => void;
+}
+
+
 interface Product {
   id: number;
   title: string;
@@ -10,13 +15,12 @@ interface Product {
 }
 
 
-function Api() {
+function Api({ onNextPageClick }: ApiProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [startExibition, setstartExibition] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
-  const [cart, setCart] = useState<Product[]>([]);
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -46,11 +50,12 @@ function Api() {
 
   const handlePrevPage = useCallback(() => {
     setstartExibition(startExibition - productsPerPage);
-  },[startExibition, productsPerPage]);
+    if(onNextPageClick) {
+      onNextPageClick();
+    }
+  },[startExibition, productsPerPage, onNextPageClick]);
 
-  const handleAddCart = useCallback((product: Product) => {
-  setCart(prevCart => [...prevCart, product]);
-  }, []);
+
 
   const toggleDarkMode = useCallback(() => {
     setIsDarkMode(prevMode => !prevMode);
@@ -83,7 +88,6 @@ function Api() {
               <img src={product.image} alt={product.title} />
               <p>{product.description}</p>
               <p className='price'>Price: ${product.price.toFixed(2)}</p>
-              <button onClick={() => handleAddCart(product)}>Adicionar ao carrinho</button>
             </div>
           ))}
         </div>
