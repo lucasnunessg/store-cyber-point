@@ -46,14 +46,15 @@ function Api({ onNextPageClick }: ApiProps) {
 
   const handleNextPage = useCallback(() => {
     setstartExibition(startExibition + productsPerPage);
-  }, [startExibition, productsPerPage]);
-
-  const handlePrevPage = useCallback(() => {
-    setstartExibition(startExibition - productsPerPage);
     if(onNextPageClick) {
       onNextPageClick();
     }
-  },[startExibition, productsPerPage, onNextPageClick]);
+  }, [startExibition, productsPerPage, onNextPageClick]);
+
+  const handlePrevPage = useCallback(() => {
+    setstartExibition(startExibition - productsPerPage);
+
+  },[startExibition, productsPerPage]);
 
 
 

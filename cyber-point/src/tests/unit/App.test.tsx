@@ -29,7 +29,7 @@ render(<Api onNextPageClick={mockHandleNextPage} />)
 const inputNextPage = screen.getByText(/Próximo/i);
 expect(inputNextPage).toBeInTheDocument();
 
-fireEvent.click(inputNextPage, mockHandleNextPage);
+fireEvent.click(inputNextPage);
 
 expect(mockHandleNextPage).toHaveBeenCalled();
 
