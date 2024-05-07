@@ -5,7 +5,6 @@ interface ApiProps {
   onNextPageClick?: () => void;
 }
 
-
 interface Product {
   id: number;
   title: string;
@@ -14,14 +13,13 @@ interface Product {
   price: number;
 }
 
-
 function Api({ onNextPageClick }: ApiProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [startExibition, setstartExibition] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
-  const [quantityProducts, setQuantityProducts] = useState<number>(0);
+  const [quantityProducts, setQuantityProducts] = useState<{ [key: number]: number }>({});
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -54,61 +52,57 @@ function Api({ onNextPageClick }: ApiProps) {
 
   const handlePrevPage = useCallback(() => {
     setstartExibition(startExibition - productsPerPage);
-
   },[startExibition, productsPerPage]);
 
-  const addProductCount = useCallback(() => {
-    setQuantityProducts(quantityProducts + 1);
-  }, [quantityProducts]);
+  const addProductCount = useCallback((productId: number) => {
+    setQuantityProducts(prevQuantity => ({
+      ...prevQuantity,
+      [productId]: (prevQuantity[productId] || 0) + 1
+    }));
+  },[]);
 
-  const decreaseProductCount = useCallback(() => {
-    if(quantityProducts > 0){
-      setQuantityProducts(quantityProducts - 1)
-    }
-  }, [quantityProducts])
-
-
+  const decreaseQuantity = useCallback((productId: number) => {
+    setQuantityProducts(prevQuantity => ({
+      ...prevQuantity,
+      [productId]: Math.max((prevQuantity[productId] || 0) - 1, 0)
+    }));
+  }, []);
 
   const toggleDarkMode = useCallback(() => {
     setIsDarkMode(prevMode => !prevMode);
   }, []);
-   // aqui o toggle nao depende da pagina ser renderizada ou atualizada 
-   // e sim se é true ou false, nao precisa depender de nada p acréscimo de callback
-   const filteredProducts = products.filter((product) =>
-   product.title.toLowerCase().includes(search.toLowerCase())
- );
+
+  const filteredProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div>
-           
       <div className='button-container'>
         <button onClick={handlePrevPage} disabled={startExibition === 0} className="pagination-button">Anterior</button>
         <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length} className="pagination-button">Próximo</button>
         <button onClick={toggleDarkMode} className="toggle-button">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
       </div>
-      <input type='text' placeholder='Digite o nome do produto' 
-      value={search}
-      
-      onChange={(e)=> setSearch(e.target.value)}></input>
-      <div className='quantify-container'>
-      <button onClick={decreaseProductCount}>-</button>
-      <span>{quantityProducts}</span>
-      <button onClick={addProductCount}>+</button>
-      </div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className='divProducts'>
-          {filteredProducts.slice(startExibition, startExibition + productsPerPage)
-          .map((product) => (
+      <input type='text' placeholder='Digite o nome do produto' value={search} onChange={(e)=> setSearch(e.target.value)} />
+      <div className="divProducts">
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          filteredProducts.slice(startExibition, startExibition + productsPerPage).map((product) => (
             <div key={product.id} className='product'>
               <h3>{product.title}</h3>
               <img src={product.image} alt={product.title} />
               <p>{product.description}</p>
               <p className='price'>Price: ${product.price.toFixed(2)}</p>
+              <div className="quantity-container">
+                <button onClick={() => decreaseQuantity(product.id)}>-</button>
+                <span>{quantityProducts[product.id] || 0}</span>
+                <button onClick={() => addProductCount(product.id)}>+</button>
+              </div>
             </div>
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
     </div>
   );
 }
