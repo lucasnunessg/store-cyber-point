@@ -54,19 +54,25 @@ function Api({ onNextPageClick }: ApiProps) {
     setstartExibition(startExibition - productsPerPage);
   },[startExibition, productsPerPage]);
 
-  const addProductCount = useCallback((productId: number) => {
-    setQuantityProducts(prevQuantity => ({
-      ...prevQuantity,
-      [productId]: (prevQuantity[productId] || 0) + 1
-    }));
-  },[]);
 
-  const decreaseQuantity = useCallback((productId: number) => {
+  const addProductCount = (productId: number) => {
+    setQuantityProducts(prevQuantify => ({
+      ...prevQuantify,
+      [productId]: (prevQuantify[productId] || 0) +1
+    }));
+  };
+
+  const handleProductCart = (productId: number) => {
+    localStorage.setItem(`selectedProducts-${productId}`, JSON.stringify(productId));
+  }
+
+
+  const decreaseQuantity = (productId: number) => {
     setQuantityProducts(prevQuantity => ({
       ...prevQuantity,
       [productId]: Math.max((prevQuantity[productId] || 0) - 1, 0)
     }));
-  }, []);
+  };
 
   const toggleDarkMode = useCallback(() => {
     setIsDarkMode(prevMode => !prevMode);
@@ -95,10 +101,11 @@ function Api({ onNextPageClick }: ApiProps) {
               <p>{product.description}</p>
               <p className='price'>Price: ${product.price.toFixed(2)}</p>
               <div className="quantity-container">
-                <button onClick={() => decreaseQuantity(product.id)}>-</button>
+                <button onClick={() => decreaseQuantity(product.id)}>-</button> 
                 <span>{quantityProducts[product.id] || 0}</span>
-                <button onClick={() => addProductCount(product.id)}>+</button>
+                <button onClick={() => addProductCount(product.id)}>+</button>  
               </div>
+              <button onClick={() => handleProductCart(product.id)}>Adicionar ao carrinho</button>
             </div>
           ))
         )}
