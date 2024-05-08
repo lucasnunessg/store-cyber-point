@@ -64,7 +64,7 @@ function Api({ onNextPageClick }: ApiProps) {
 
   const handleProductCart = (productId: number) => {
     localStorage.setItem(`selectedProducts-${productId}`, JSON.stringify(productId));
-  }
+  }; //verificar uma outra logica pq aqui ta criando uma chave para cada produto adicionado, tentar mudar para um array
 
 
   const decreaseQuantity = (productId: number) => {
