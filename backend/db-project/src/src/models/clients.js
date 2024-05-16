@@ -1,0 +1,25 @@
+const { DataTypes } = require("sequelize");
+
+const ClientsModel = (sequelize, DataTypes) => {
+  const Client = sequelize.define('Client', {
+    fullName: DataTypes.STRING,
+    address: DataTypes.STRING,
+    contact: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  }, {
+    timestamps: false, 
+    underscored: true, 
+    tableName: 'clients', 
+  });
+
+  return Client;
+};
+
+module.exports = ClientsModel;
