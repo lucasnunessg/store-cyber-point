@@ -8,6 +8,14 @@ const getAllClient = async() => {
     return clients
 };
 
+const getClientByName = async (id, name) => {
+    const client = await Client.findOne({ where: { id, name,
+        attributes: ['fullName', 'address', 'contact']
+     } });
+
+    return client
+};
+
 const getClientById = async(id) => {
     const clients = await Client.findOne({ where: { id },
         attributes: ['fullName', 'address', 'contact'] });
@@ -39,6 +47,7 @@ const deleteClient = async(id) => {
 module.exports = {
     getAllClient,
     getClientById,
+    getClientByName, 
     updateClient,
     createClient,
     deleteClient,

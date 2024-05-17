@@ -8,7 +8,22 @@ const getAllClient = async (_req, res) => {
         console.log(e.message)
         return res.status(500).json({ message: 'Não foi possível encontrar clientes' })
     };
-}
+};
+
+const getClientByName = async (req, res) => {
+    try{
+        const { id } = req.params;
+        const { name } = req.body;
+
+    const client = await clientService.getClientByName(id, name)
+    if(!client) return res.status(404).json({ message: 'Cliente não encontrado' })
+        return res.status(200).json(client);
+    }catch(e){
+        console.log(e.message)
+            return res.status(500).json({ message: 'error' })
+        }
+    }
+
 
 const getClientById = async (req, res) => {
     try{
@@ -64,6 +79,7 @@ const deleteClient = async (req, res) => {
 module.exports = {
     getAllClient,
     getClientById,
+    getClientByName,
     updateClient,
     createClient,
     deleteClient,
