@@ -10,7 +10,61 @@ const getAllClient = async (_req, res) => {
     };
 }
 
+const getClientById = async (req, res) => {
+    try{
+        const { id } = req.params
+        const clients = await clientService.getClientById(id);
+        if(!clients) return res.status(404).json({ message: 'Não foi possível encontrar cliente' })
+        return res.status(200).json(clients)
+    }catch(e){
+        console.log(e.message)
+        return res.status(500).json({ message: 'Error' })
+    }
+};
 
+const createClient = async(req, res) => {
+    try{
+        const { fullName, address, contact, email, password } = req.body;
+
+        const newClient = await clientService
+        .createClient(fullName, address, contact, email, password)
+        return res.status(201).json(newClient)
+    }catch(e){
+        console.log(e.message)
+        return res.status(500).json({ message: 'error' })
+    }
+}
+
+const updateClient = async(req,res) => {
+    try{
+        const { id } = req.params;
+        const { fullName, address, contact, email, password } = req.body
+
+        const updateClient = await clientService
+        .updateClient(id, fullName, address, contact, email, password)
+        if(!updateClient) return res.status(404).json({ message: 'Não foi possível atualizar' });
+        return res.status(200).json({ message: 'Usuário atualizado!' })
+    }catch(e){
+        console.log(e.message)
+        return res.status(500).json({ message: 'Error' })
+    };
+}
+
+const deleteClient = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await clientService.deleteClient(id)
+        return res.status(200).json({ message: 'Cliente deletado com sucesso!' })
+
+    }catch(e){
+        console.log(e.message)
+        return res.status(403).json({ message: 'error' })
+    }
+}
 module.exports = {
     getAllClient,
+    getClientById,
+    updateClient,
+    createClient,
+    deleteClient,
 }

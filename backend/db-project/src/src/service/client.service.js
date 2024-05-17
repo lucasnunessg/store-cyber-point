@@ -9,12 +9,37 @@ const getAllClient = async() => {
 };
 
 const getClientById = async(id) => {
-    const clients = await Client.findOne({ where: { id } });
+    const clients = await Client.findOne({ where: { id },
+        attributes: ['fullName', 'address', 'contact'] });
 
     return clients
 }
 
+const updateClient = async (id, fullName, address, contact, email, password) => {
+    const [updatedRows] = await Client.update(
+        { fullName, address, contact, email, password }, 
+        { where: { id } }
+    );
+
+    return updatedRows; 
+}
+
+const createClient = async(fullName, address, contact, email, password) => {
+    const newClient = await Client.create({ fullName, address, contact, email, password });
+
+    return newClient
+}
+
+const deleteClient = async(id) => {
+    const client = await Client.destroy({ where: { id } })
+
+    return client;
+};
+
 module.exports = {
     getAllClient,
     getClientById,
+    updateClient,
+    createClient,
+    deleteClient,
 }
