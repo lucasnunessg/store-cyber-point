@@ -6,7 +6,7 @@ const loginClient = async (req, res, next) => {
         const client = await loginService.loginClient({ email, password });
         if(!client){
             return res.status(400).json({ message: 'Dados incorretos!' });
-        } return res.status(200).json(client)
+        } 
         next()
     }catch(e){
         console.log(e.message)

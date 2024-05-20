@@ -1,9 +1,8 @@
 const jwt = require('jsonwebtoken');
-const { Client } = require('../models')
 
-const secret = process.env.JWT_SECRET;
+const secret = process.env.JWT_SECRET || 'secretpassword';
 const jwtConfig = {
-    expiredIn: '1d',
+    expiresIn: '1d',
     algorithm: 'HS256'
 };
 
