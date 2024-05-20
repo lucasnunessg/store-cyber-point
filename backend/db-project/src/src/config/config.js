@@ -3,7 +3,7 @@ const config = {
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
   host: process.env.MYSQL_HOST,
-  port: process.env.MYSQL_PORT, // Alterado para port
+  port: process.env.MYSQL_PORT,
   dialect: 'mysql',
 };
 
@@ -11,4 +11,5 @@ module.exports = {
   development: config,
   test: config,
   production: config,
+  jwtSecret: process.env.JWT_SECRET,
 };
