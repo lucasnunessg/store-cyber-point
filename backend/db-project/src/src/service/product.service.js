@@ -6,6 +6,13 @@ const getAllProducts = async () => {
     return products
 };
 
+const getProductsById = async(id) => {
+    const products = await Product.findOne({ where: { id } });
+
+    return products;
+}
+
 module.exports = {
     getAllProducts,
+    getProductsById,
 }
