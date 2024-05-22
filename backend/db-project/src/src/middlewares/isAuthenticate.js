@@ -13,9 +13,11 @@ const isAuthenticated = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, secret);
         req.user = decoded.data.Client; 
+        next();
     } catch (err) {
         return res.status(401).json({ message: 'Token inválido' });
     }
+    
 };
 
 module.exports = {
