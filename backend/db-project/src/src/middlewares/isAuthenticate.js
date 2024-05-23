@@ -1,8 +1,26 @@
+
 const jwt = require('jsonwebtoken');
-const Redis = require('ioredis');
 const secret = process.env.JWT_SECRET || 'secretpassword';
 
-const redisClient = new Redis();
+let allowlist = [];
+
+let denylist = [];
+
+function addToAllowlist(token) {
+    allowlist.push(token);
+}
+
+function isInAllowlist(token) {
+    return allowlist.includes(token);
+}
+
+function addToDenylist(token) {
+    denylist.push(token);
+}
+
+function isInDenylist(token) {
+    return denylist.includes(token);
+}
 
 const isAuthenticated = async (req, res, next) => {
     const { authorization } = req.headers;
@@ -13,20 +31,14 @@ const isAuthenticated = async (req, res, next) => {
 
     const token = authorization.split(' ')[1];
 
-    if (token == null) {
-        return res.status(401).json({ message: 'Sem token' });
-    }
-
-    const inDenyList = await redisClient.get(`bl_${token}`);
-    if (inDenyList) {
+    if (isInDenylist(token)) {
         return res.status(401).json({ message: 'JWT Rejeitado' });
     }
 
     try {
         const decoded = jwt.verify(token, secret);
         req.user = decoded.data.Client;
-        req.tokenExp = decoded.exp;
-        req.token = token;
+        addToAllowlist(token); 
         next();
     } catch (err) {
         return res.status(401).json({ message: 'Token inválido' });
@@ -35,4 +47,8 @@ const isAuthenticated = async (req, res, next) => {
 
 module.exports = {
     isAuthenticated,
+    addToAllowlist,
+    isInAllowlist,
+    addToDenylist,
+    isInDenylist
 };

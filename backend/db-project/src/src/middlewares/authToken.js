@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { addToDenylist } = require('../middlewares/isAuthenticate');
 
 const secret = process.env.JWT_SECRET || 'secretpassword';
 const jwtConfig = {
@@ -12,6 +13,13 @@ const generateToken = async (req, res) => {
         const token = jwt.sign({ data: { Client: email } }, secret, jwtConfig);
         const path = req.originalUrl.replace(/\d+/g, '');
         const status = path === '/login' ? 200 : 201;
+
+        const decoded = jwt.decode(token);
+        if (decoded.exp * 1000 < Date.now()) {
+            addToDenylist(token); 
+            return res.status(401).json({ message: 'Token expirado' });
+        }
+
         return res.status(status).json({ token });
     } catch (e) {
         console.log(e.message);
