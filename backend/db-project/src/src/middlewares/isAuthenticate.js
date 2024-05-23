@@ -41,7 +41,11 @@ const isAuthenticated = async (req, res, next) => {
         addToAllowlist(token); 
         next();
     } catch (err) {
-        return res.status(401).json({ message: 'Token inválido' });
+      if(err.name === 'TokenExpiredError'){
+        addToDenylist(token);
+        return res.status(401).json({ message: 'Token expirado' })
+      }
+      return res.status(401).json({ message: 'Token inválido' })
     }
 };
 

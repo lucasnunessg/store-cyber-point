@@ -14,15 +14,9 @@ const generateToken = async (req, res) => {
         const path = req.originalUrl.replace(/\d+/g, '');
         const status = path === '/login' ? 200 : 201;
 
-        const decoded = jwt.decode(token);
-        if (decoded.exp * 1000 < Date.now()) {
-            addToDenylist(token); 
-            return res.status(401).json({ message: 'Token expirado' });
-        }
-
+  
         return res.status(status).json({ token });
     } catch (e) {
-        console.log(e.message);
         return res.status(500).json({ message: 'Falha interna de servidor' });
     }
 };
