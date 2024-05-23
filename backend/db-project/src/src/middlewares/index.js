@@ -1,7 +1,7 @@
 const loginMiddleware = require('./login.middleware');
-const isAuthenticate = require('./isAuthenticate');
+const isAuthenticated = require('./isAuthenticated');
 
 module.exports = {
     loginMiddleware,
-    isAuthenticate,
+    isAuthenticated,
 }

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { addToDenylist } = require('../middlewares/isAuthenticate');
+const { addToDenylist } = require('./isAuthenticated');
 
 const secret = process.env.JWT_SECRET || 'secretpassword';
 const jwtConfig = {

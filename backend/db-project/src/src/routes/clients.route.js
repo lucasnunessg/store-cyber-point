@@ -1,6 +1,6 @@
 const route = require('express').Router();
 const { clientsController } = require('../controller');
-const { isAuthenticated } = require('../middlewares/isAuthenticate');
+const { isAuthenticated } = require('../middlewares/isAuthenticated');
 
 route.get('/clients', clientsController.getAllClient);
 route.get('/clients/:id', isAuthenticated, clientsController.getClientById);
