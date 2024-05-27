@@ -16,6 +16,7 @@ function Login() {
       });
       console.log('Usuário logado', response.data);
     } catch (error) {
+      if(email === '' || password === '') return setError('Dados vazios')
       setError('Credenciais inválidas, por favor, tente novamente');
       console.log('erro ao logar', error);
     }
