@@ -24,7 +24,7 @@ function Login() {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Faça seu login</h2>
       {error && <div>{error}</div>}
       <form onSubmit={handleSubmit}>
         <div>
