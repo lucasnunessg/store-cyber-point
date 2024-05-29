@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import axios from 'axios';
 import '../App.css';
 
 interface ApiProps {
@@ -26,9 +27,8 @@ function Api({ onNextPageClick }: ApiProps) {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        const data = await response.json();
-        setProducts(data);
+        const response = await axios.get("https://fakestoreapi.com/products");
+        setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
