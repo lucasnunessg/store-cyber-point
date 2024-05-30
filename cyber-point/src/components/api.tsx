@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
+import api from './fetchApi';
 
-import axios from 'axios';
 import '../App.css';
 
 interface ApiProps {
@@ -27,8 +27,9 @@ function Api({ onNextPageClick }: ApiProps) {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await axios.get("https://fakestoreapi.com/products");
+        const response = await api.get("/products"); // Usa a instância do Axios
         setProducts(response.data);
+        console.log(setProducts)
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
@@ -55,7 +56,6 @@ function Api({ onNextPageClick }: ApiProps) {
     setstartExibition(startExibition - productsPerPage);
   },[startExibition, productsPerPage]);
 
-
   const addProductCount = (productId: number) => {
     setQuantityProducts(prevQuantify => ({
       ...prevQuantify,
@@ -65,8 +65,7 @@ function Api({ onNextPageClick }: ApiProps) {
 
   const handleProductCart = (productId: number) => {
     localStorage.setItem(`selectedProducts-${productId}`, JSON.stringify(productId));
-  }; //verificar uma outra logica pq aqui ta criando uma chave para cada produto adicionado, tentar mudar para um array
-
+  }; 
 
   const decreaseQuantity = (productId: number) => {
     setQuantityProducts(prevQuantity => ({
