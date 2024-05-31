@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import api from './fetchApi';
 
-import '../App.css';
-
 interface ApiProps {
   onNextPageClick?: () => void;
 }
@@ -27,9 +25,8 @@ function Api({ onNextPageClick }: ApiProps) {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await api.get("/products"); // Usa a instância do Axios
+        const response = await api.get("/products"); 
         setProducts(response.data);
-        console.log(setProducts)
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
@@ -84,23 +81,23 @@ function Api({ onNextPageClick }: ApiProps) {
 
   return (
     <div>
-      <div className='button-container'>
-        <button onClick={handlePrevPage} disabled={startExibition === 0} className="pagination-button">Anterior</button>
-        <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length} className="pagination-button">Próximo</button>
-        <button onClick={toggleDarkMode} className="toggle-button">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
+      <div>
+        <button onClick={handlePrevPage} disabled={startExibition === 0}>Anterior</button>
+        <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length}>Próximo</button>
+        <button onClick={toggleDarkMode}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
       </div>
       <input type='text' placeholder='Digite o nome do produto' value={search} onChange={(e)=> setSearch(e.target.value)} />
-      <div className="divProducts">
+      <div>
         {loading ? (
           <p>Loading...</p>
         ) : (
           filteredProducts.slice(startExibition, startExibition + productsPerPage).map((product) => (
-            <div key={product.id} className='product'>
+            <div key={product.id}>
               <h3>{product.title}</h3>
               <img src={product.image} alt={product.title} />
               <p>{product.description}</p>
-              <p className='price'>Price: ${product.price.toFixed(2)}</p>
-              <div className="quantity-container">
+              <p>Price: ${product.price.toFixed(2)}</p>
+              <div>
                 <button onClick={() => decreaseQuantity(product.id)}>-</button> 
                 <span>{quantityProducts[product.id] || 0}</span>
                 <button onClick={() => addProductCount(product.id)}>+</button>  
