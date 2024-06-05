@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { FormEvent, useState } from 'react';
+import '../App.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -16,17 +17,17 @@ function Login() {
       });
       console.log('Usuário logado', response.data);
     } catch (error) {
-      if(email === '' || password === '') return setError('Dados vazios')
+      if (email === '' || password === '') return setError('Dados vazios');
       setError('Credenciais inválidas, por favor, tente novamente');
       console.log('erro ao logar', error);
     }
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h2>Faça seu login</h2>
-      {error && <div>{error}</div>}
-      <form onSubmit={handleSubmit}>
+      {error && <div className="error-message">{error}</div>}
+      <form onSubmit={handleSubmit} className="login-form">
         <div>
           <label htmlFor='email'>E-mail:</label>
           <input

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import api from './fetchApi';
+import '../App.css'
 
 interface ApiProps {
   onNextPageClick?: () => void;
@@ -80,26 +81,26 @@ function Api({ onNextPageClick }: ApiProps) {
   );
 
   return (
-    <div>
-      <div>
+    <div className="api-container">
+      <div className="pagination-buttons">
         <button onClick={handlePrevPage} disabled={startExibition === 0}>Anterior</button>
         <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length}>Próximo</button>
         <button onClick={toggleDarkMode}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
       </div>
       <input type='text' placeholder='Digite o nome do produto' value={search} onChange={(e)=> setSearch(e.target.value)} />
-      <div>
+      <div className="product-list">
         {loading ? (
           <p>Loading...</p>
         ) : (
           filteredProducts.slice(startExibition, startExibition + productsPerPage).map((product) => (
-            <div key={product.id}>
-              <h3>{product.title}</h3>
-              <img src={product.image} alt={product.title} />
-              <p>{product.description}</p>
-              <p>Price: ${product.price.toFixed(2)}</p>
-              <div>
+            <div key={product.id} className="product">
+              <h3 className="product-title">{product.title}</h3>
+              <img src={product.image} alt={product.title} className="product-image" />
+              <p className="product-description">{product.description}</p>
+              <p className="product-price">Price: ${product.price.toFixed(2)}</p>
+              <div className="quantity-control">
                 <button onClick={() => decreaseQuantity(product.id)}>-</button> 
-                <span>{quantityProducts[product.id] || 0}</span>
+                <span className="quantity">{quantityProducts[product.id] || 0}</span>
                 <button onClick={() => addProductCount(product.id)}>+</button>  
               </div>
               <button onClick={() => handleProductCart(product.id)}>Adicionar ao carrinho</button>

@@ -1,70 +1,165 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-body {
-  background-color: beige;
+.api-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.button-container {
+.pagination-buttons {
   margin-bottom: 20px;
 }
 
-.pagination-button {
-  margin: 0 5px;
-  padding: 8px 16px;
-  background-color: #4CAF50;
-  color: white;
+.pagination-buttons button {
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  border-radius: 4px;
+  padding: 10px 20px;
+  margin-right: 10px;
   cursor: pointer;
-}
-
-.pagination-button:hover {
-  background-color: #45a049;
-}
-
-.divProducts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.product {
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 5px;
-  width: 250px;
 }
 
-.product img {
-  width: 100%;
-  height: auto;
-}
-
-.myHeader {
-  background-color:beige; 
-  color:black; 
-  padding: 20px 0; 
-}
-
-.myHeader header {
-  text-align: center; 
-}
-
-.myHeader h1 {
-  margin: 0; 
-  font-size: 2rem; /
+.pagination-buttons button:hover {
+  background-color: #0056b3;
 }
 
 .dark-mode {
-  background-color: black;
-  color: white;
+  background-color: #333;
+  color: #fff;
 }
 
 .light-mode {
-  background-color: white;
-  color: black;
+  background-color: #fff;
+  color: #333;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.product {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-title {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.product-image {
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  color: #666;
+}
+
+.product-price {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.quantity-control button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.quantity-control button:hover {
+  background-color: #0056b3;
+}
+
+.quantity {
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+button {
+  cursor: pointer;
+}
+
+input[type='text'] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form div {
+  margin-bottom: 20px;
+}
+
+.login-form label {
+  font-weight: bold;
+}
+
+.login-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
 }
