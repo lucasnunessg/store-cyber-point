@@ -8,7 +8,7 @@ interface LoginResponse {
   token: string;
 }
 
-const login = async (email: string, password: string): Promise<void> => {
+export const login = async (email: string, password: string): Promise<void> => {
   try {
     const response: AxiosResponse<LoginResponse> = await api.post('/login', { email, password });
     const token: string = response.data.token;
