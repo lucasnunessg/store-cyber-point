@@ -7,48 +7,47 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmitEmail = (event: FormEvent<HTMLInputElement>) => {
+    setEmail(event.currentTarget.value);
+  }
+  
+  const handlePasswordSubmit = (event: FormEvent<HTMLInputElement>) => {
+    setPassword(event.currentTarget.value);
+  }
 
-    try {
-      const response = await axios.post('/login', {
-        email,
-        password,
-      });
-      console.log('Usuário logado', response.data);
-    } catch (error) {
-      if (email === '' || password === '') return setError('Dados vazios');
-      setError('Credenciais inválidas, por favor, tente novamente');
-      console.log('erro ao logar', error);
-    }
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("Email:", email);
+    console.log("Password:", password);
+    axios.post('/login', {
+      email: email,
+      password: password,
+    }).then(response => {
+      localStorage.setItem('token', response.data.token);
+    }).catch(error => {
+      setError(error);
+    });
   };
 
   return (
-    <div className="login-container">
-      <h2>Faça seu login</h2>
-      {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleSubmit} className="login-form">
-        <div>
-          <label htmlFor='email'>E-mail:</label>
-          <input
-            type='text'
-            id='email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input 
+        type="email" 
+        placeholder="Email" 
+        value={email} 
+        onChange={handleSubmitEmail} 
+        required 
+      />
+      <input 
+        type="password" 
+        placeholder="Senha" 
+        value={password} 
+        onChange={handlePasswordSubmit} 
+        required 
+      />
+      <button type="submit">Login</button>
+      {error && <div className="error">{error}</div>}
+    </form>
   );
 }
 
