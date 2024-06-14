@@ -23,6 +23,7 @@ function Login() {
       email: email,
       password: password,
     }).then(response => {
+      console.log("Token aqqqq:", response.data.token);
       localStorage.setItem('token', response.data.token);
     }).catch(error => {
       setError(error.message);
