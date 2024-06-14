@@ -3,8 +3,8 @@ import { FormEvent, useState } from 'react';
 import '../App.css';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [error, setError] = useState('');
 
   const handleSubmitEmail = (event: FormEvent<HTMLInputElement>) => {
@@ -19,13 +19,13 @@ function Login() {
     event.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
-    axios.post('/login', {
+    axios.post('http://localhost:3001/login', {
       email: email,
       password: password,
     }).then(response => {
       localStorage.setItem('token', response.data.token);
     }).catch(error => {
-      setError(error);
+      setError(error.message);
     });
   };
 
