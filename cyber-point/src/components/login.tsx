@@ -7,11 +7,11 @@ function Login() {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState('');
 
-  const handleSubmitEmail = (event: FormEvent<HTMLInputElement>) => {
+  const handleEmailChange = (event: FormEvent<HTMLInputElement>) => {
     setEmail(event.currentTarget.value);
   }
-  
-  const handlePasswordSubmit = (event: FormEvent<HTMLInputElement>) => {
+
+  const handlePasswordChange = (event: FormEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
   }
 
@@ -19,14 +19,31 @@ function Login() {
     event.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
+
     axios.post('http://localhost:3001/login', {
       email: email,
       password: password,
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     }).then(response => {
-      console.log("Token aqqqq:", response.data.token);
-      localStorage.setItem('token', response.data.token);
+      const token = response.data.token; 
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+      localStorage.setItem('token', token);
+      localStorage.getItem('token')
+      console.log("Token:", token);
+      setEmail(''); //limpa email e password apos login
+      setPassword('');
+
     }).catch(error => {
-      setError(error.message);
+      console.error("Error:", error);
+      if (error.response) {
+        setError(error.response.data.message || 'An error occurred');
+      } else {
+        setError(error.message);
+      }
     });
   };
 
@@ -36,14 +53,14 @@ function Login() {
         type="email" 
         placeholder="Email" 
         value={email} 
-        onChange={handleSubmitEmail} 
+        onChange={handleEmailChange} 
         required 
       />
       <input 
         type="password" 
-        placeholder="Senha" 
+        placeholder="Password" 
         value={password} 
-        onChange={handlePasswordSubmit} 
+        onChange={handlePasswordChange} 
         required 
       />
       <button type="submit">Login</button>
