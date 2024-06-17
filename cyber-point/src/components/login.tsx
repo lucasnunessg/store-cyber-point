@@ -32,9 +32,7 @@ function Login() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       localStorage.setItem('token', token);
-      localStorage.getItem('token')
-      console.log("Token:", token);
-      setEmail(''); //limpa email e password apos login
+      setEmail('');
       setPassword('');
 
     }).catch(error => {
