@@ -30,7 +30,7 @@ function Login() {
     }).then(response => {
       const token = response.data.token; 
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
+      console.log(response.data.token)
       localStorage.setItem('token', token);
       setEmail('');
       setPassword('');
