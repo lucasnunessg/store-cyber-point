@@ -46,7 +46,7 @@ const createProduct = async(req, res) => {
         const newProduct = await productService
         .createProduct(title, price, description, category, image);
         if(!newProduct) return res.status(404).json({ message: 'Erro ao criar produto' })
-        return res.status(200).json(newProduct)
+        return res.status(201).json(newProduct)
     }catch(e){
         console.log(e.message)
         return res.status(500).json({ message: 'Internal error server' })
