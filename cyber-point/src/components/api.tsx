@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import api from './fetchApi';
-import '../App.css'
+import '../App.css';
 
 interface ApiProps {
   onNextPageClick?: () => void;
@@ -16,10 +16,14 @@ interface Product {
 
 function Api({ onNextPageClick }: ApiProps) {
   const [products, setProducts] = useState<Product[]>([]);
-  const [startExibition, setstartExibition] = useState<number>(0);
+  const [startExibition, setStartExibition] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(Infinity);
+  const [tempMinPrice, setTempMinPrice] = useState<number>(0);
+  const [tempMaxPrice, setTempMaxPrice] = useState<number>(Infinity);
   const [quantityProducts, setQuantityProducts] = useState<{ [key: number]: number }>({});
   const productsPerPage = 4;
 
@@ -44,26 +48,26 @@ function Api({ onNextPageClick }: ApiProps) {
   }, [isDarkMode]);
 
   const handleNextPage = useCallback(() => {
-    setstartExibition(startExibition + productsPerPage);
-    if(onNextPageClick) {
+    setStartExibition(prev => prev + productsPerPage);
+    if (onNextPageClick) {
       onNextPageClick();
     }
-  }, [startExibition, productsPerPage, onNextPageClick]);
+  }, [productsPerPage, onNextPageClick]);
 
   const handlePrevPage = useCallback(() => {
-    setstartExibition(startExibition - productsPerPage);
-  },[startExibition, productsPerPage]);
+    setStartExibition(prev => prev - productsPerPage);
+  }, [productsPerPage]);
 
   const addProductCount = (productId: number) => {
     setQuantityProducts(prevQuantify => ({
       ...prevQuantify,
-      [productId]: (prevQuantify[productId] || 0) +1
+      [productId]: (prevQuantify[productId] || 0) + 1
     }));
   };
 
   const handleProductCart = (productId: number) => {
     localStorage.setItem(`selectedProducts-${productId}`, JSON.stringify(productId));
-  }; 
+  };
 
   const decreaseQuantity = (productId: number) => {
     setQuantityProducts(prevQuantity => ({
@@ -76,9 +80,31 @@ function Api({ onNextPageClick }: ApiProps) {
     setIsDarkMode(prevMode => !prevMode);
   }, []);
 
-  const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredProducts = products.filter((product) => {
+    const productPrice = Number(product.price);
+    return (
+      product.title.toLowerCase().includes(search.toLowerCase()) &&
+      productPrice >= minPrice &&
+      productPrice <= maxPrice
+    );
+  });
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
+
+  const handleTempMinPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTempMinPrice(Number(event.target.value));
+  };
+
+  const handleTempMaxPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTempMaxPrice(Number(event.target.value));
+  };
+
+  const applyPriceFilter = () => {
+    setMinPrice(tempMinPrice);
+    setMaxPrice(tempMaxPrice);
+  };
 
   return (
     <div className="api-container">
@@ -87,7 +113,28 @@ function Api({ onNextPageClick }: ApiProps) {
         <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length}>Próximo</button>
         <button onClick={toggleDarkMode}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
       </div>
-      <input type='text' placeholder='Digite o nome do produto' value={search} onChange={(e)=> setSearch(e.target.value)} />
+      <input
+        type='text'
+        placeholder='Digite o nome do produto'
+        value={search}
+        onChange={handleSearch}
+      />
+      <h3>Busque por preço</h3>
+      <div>
+        <input
+          type="number"
+          value={tempMinPrice}
+          onChange={handleTempMinPriceChange}
+          placeholder="Preço mínimo"
+        />
+        <input
+          type="number"
+          value={tempMaxPrice}
+          onChange={handleTempMaxPriceChange}
+          placeholder="Preço máximo"
+        />
+        <button onClick={applyPriceFilter}>Filtrar</button>
+      </div>
       <div className="product-list">
         {loading ? (
           <p>Loading...</p>
@@ -99,9 +146,9 @@ function Api({ onNextPageClick }: ApiProps) {
               <p className="product-description">{product.description}</p>
               <p className="product-price">Price: ${product.price.toFixed(2)}</p>
               <div className="quantity-control">
-                <button onClick={() => decreaseQuantity(product.id)}>-</button> 
+                <button onClick={() => decreaseQuantity(product.id)}>-</button>
                 <span className="quantity">{quantityProducts[product.id] || 0}</span>
-                <button onClick={() => addProductCount(product.id)}>+</button>  
+                <button onClick={() => addProductCount(product.id)}>+</button>
               </div>
               <button onClick={() => handleProductCart(product.id)}>Adicionar ao carrinho</button>
             </div>
