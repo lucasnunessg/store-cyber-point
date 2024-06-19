@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { addToDenylist } = require('./isAuthenticated');
-const  { loginService }  = require('../service');
-
+const { loginService } = require('../service');
 
 const secret = process.env.JWT_SECRET || 'secretpassword';
 const jwtConfig = {
@@ -18,7 +17,9 @@ const generateToken = async (req, res) => {
             return res.status(400).json({ message: 'Credenciais inválidas' });
         }
 
-        const token = jwt.sign({ data: { Client: email } }, secret, jwtConfig);
+        const { role } = client;
+
+        const token = jwt.sign({ data: { email, role } }, secret, jwtConfig);
         const path = req.originalUrl.replace(/\d+/g, '');
         const status = path === '/login' ? 200 : 201;
 
