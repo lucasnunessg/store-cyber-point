@@ -23,17 +23,17 @@ const getClientById = async(id) => {
     return clients
 }
 
-const updateClient = async (id, fullName, address, contact, email, password) => {
+const updateClient = async (id, fullName, address, contact, email, password, role) => {
     const [updatedRows] = await Client.update(
-        { fullName, address, contact, email, password }, 
+        { fullName, address, contact, email, password, role }, 
         { where: { id } }
     );
 
     return updatedRows; 
 }
 
-const createClient = async(fullName, address, contact, email, password) => {
-    const newClient = await Client.create({ fullName, address, contact, email, password });
+const createClient = async(fullName, address, contact, email, password, role) => {
+    const newClient = await Client.create({ fullName, address, contact, email, password, role });
 
     return newClient
 }

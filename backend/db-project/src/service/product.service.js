@@ -12,15 +12,15 @@ const getProductsById = async(id) => {
     return products;
 };
 
-const createProduct = async(title, price, description, category, image) => {
-    const newProduct = await Product.create(title, price, description, category, image);
+const createProduct = async(title, price, description, image) => {
+    const newProduct = await Product.create(title, price, description, image);
 
     return newProduct;
 };
 
-const updateProduct = async(id, title, price, description, category, image) => {
+const updateProduct = async(id, title, price, description, image) => {
     const [updateRows] = await Product.update({
-        id, title, price, description, category, image}, { where: {
+        id, title, price, description, image}, { where: {
             id
         }}
     );

@@ -27,9 +27,9 @@ const getProductsById = async(req, res) => {
 const updateProduct = async(req, res) => {
     try{
         const { id } = req.params;
-        const { title, price, description, category, image } = req.body;
+        const { title, price, description, image } = req.body;
         const updateProduct = await productService.updateProduct(id, title, price,
-        description, category, image);
+        description, image);
         
         if(!updateProduct) return res.status(404)
             .json({ message: 'Não foi possível atualizar produto' })
@@ -42,9 +42,9 @@ const updateProduct = async(req, res) => {
 
 const createProduct = async(req, res) => {
     try{
-        const { title, price, description, category, image } = req.body
+        const { title, price, description, image } = req.body
         const newProduct = await productService
-        .createProduct(title, price, description, category, image);
+        .createProduct(title, price, description, image);
         if(!newProduct) return res.status(404).json({ message: 'Erro ao criar produto' })
         return res.status(201).json(newProduct)
     }catch(e){

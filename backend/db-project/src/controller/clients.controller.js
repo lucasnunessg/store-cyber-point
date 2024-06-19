@@ -39,10 +39,10 @@ const getClientById = async (req, res) => {
 
 const createClient = async(req, res) => {
     try{
-        const { fullName, address, contact, email, password } = req.body;
+        const { fullName, address, contact, email, password, role } = req.body;
 
         const newClient = await clientService
-        .createClient(fullName, address, contact, email, password)
+        .createClient(fullName, address, contact, email, password, role)
         return res.status(201).json(newClient)
     }catch(e){
         console.log(e.message)
@@ -53,10 +53,10 @@ const createClient = async(req, res) => {
 const updateClient = async(req,res) => {
     try{
         const { id } = req.params;
-        const { fullName, address, contact, email, password } = req.body
+        const { fullName, address, contact, email, password, role } = req.body
 
         const updateClient = await clientService
-        .updateClient(id, fullName, address, contact, email, password)
+        .updateClient(id, fullName, address, contact, email, password, role)
         if(!updateClient) return res.status(404).json({ message: 'Não foi possível atualizar' });
         return res.status(200).json({ message: 'Usuário atualizado!' })
     }catch(e){
