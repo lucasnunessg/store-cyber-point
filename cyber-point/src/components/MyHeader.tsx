@@ -1,15 +1,13 @@
-import Login from './login';
 
-function MyHeader (){
+function MyHeader() {
   return (
-<div className="myHeader">
-  <header>
-    <h1> Lucas Store </h1>
-    <Login />
-    <hr></hr>
-  </header>
-</div>
-  )
+    <div className="myHeader">
+      <header>
+        <h1>Lucas Store</h1>
+        <hr />
+      </header>
+    </div>
+  );
 }
 
-export default MyHeader
+export default MyHeader;
