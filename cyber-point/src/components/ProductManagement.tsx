@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import axios from 'axios';
 
-const AddProduct = async () => {
+function AddProduct () {
   const [productData, setProductData] = useState({
     id: '', 
     title: '',
@@ -92,6 +92,6 @@ const AddProduct = async () => {
       </form>
     </div>
   );
-};
+}
 
 export default AddProduct;

@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import Login from './login';
+import ProductManagement from './ProductManagement';
 
 function MyHeader() {
   return (
@@ -7,11 +7,7 @@ function MyHeader() {
       <header>
         <h1>Lucas Store</h1>
         <Login />
-        <nav>
-          <ul>
-            <li><Link to="/products">Produtos</Link></li>
-          </ul>
-        </nav>
+        <ProductManagement />
         <hr />
       </header>
     </div>
