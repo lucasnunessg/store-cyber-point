@@ -1,9 +1,7 @@
-
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET || 'secretpassword';
 
 let allowlist = [];
-
 let denylist = [];
 
 function addToAllowlist(token) {
@@ -37,15 +35,15 @@ const isAuthenticated = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, secret);
-        req.user = decoded.data.Client;
+        req.user = decoded.data;
         addToAllowlist(token); 
         next();
     } catch (err) {
-      if(err.name === 'TokenExpiredError'){
-        addToDenylist(token);
-        return res.status(401).json({ message: 'Token expirado' })
-      }
-      return res.status(401).json({ message: 'Token inválido' })
+        if (err.name === 'TokenExpiredError') {
+            addToDenylist(token);
+            return res.status(401).json({ message: 'Token expirado' });
+        }
+        return res.status(401).json({ message: 'Token inválido' });
     }
 };
 

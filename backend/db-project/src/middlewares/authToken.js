@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const { addToDenylist } = require('./isAuthenticated');
 const { loginService } = require('../service');
 
 const secret = process.env.JWT_SECRET || 'secretpassword';
@@ -18,6 +17,10 @@ const generateToken = async (req, res) => {
         }
 
         const { role } = client;
+
+        if(role !== 'admin'){
+          return res.status(403).json({ message: 'Acesso negado: Permissões insuficiêntes.' })
+        }
 
         const token = jwt.sign({ data: { email, role } }, secret, jwtConfig);
         const path = req.originalUrl.replace(/\d+/g, '');

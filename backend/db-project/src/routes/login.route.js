@@ -4,7 +4,7 @@ const { loginMiddleware  } = require('../middlewares');
 const { generateToken } = require('../middlewares/authToken')
  
 
-route.post('/login', generateToken, loginMiddleware.validateLogin, 
+route.post('/login',loginMiddleware.validateLogin, generateToken,
 loginController.loginClient);
 
 module.exports = route;
