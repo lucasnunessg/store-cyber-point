@@ -1,3 +1,4 @@
+import AddProduct from './AddProduct';
 import Login from './login';
 
 function MyHeader() {
@@ -6,6 +7,7 @@ function MyHeader() {
       <header>
         <h1>Lucas Store</h1>
         <Login />
+        <AddProduct />
         <hr />
       </header>
     </div>
