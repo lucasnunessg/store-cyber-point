@@ -9,14 +9,15 @@ const AddProduct: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post('http://localhost:3001/products', {
+      const produto = {
         title,
         price,
         description,
         image,
-      });
+      }
+      console.log("produto aqui" , produto)
+      const response = await axios.post('http://localhost:3001/products', produto );
       console.log("Produto adicionado!", response.data);
       setTitle('');
       setPrice('');
