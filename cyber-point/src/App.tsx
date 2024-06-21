@@ -1,16 +1,14 @@
-import Api from "./components/api"
+import { Route, Routes } from 'react-router-dom';
+import Api from "./components/api";
+import AddProductPage from './components/AddProductPage';
 
 function App() {
-
   return (
-    <>
-      <div>
-        <Api/>
-       
-      </div>
+    <Routes>
+      <Route path="/" element={<Api />} />
+      <Route path="/add-product" element={<AddProductPage />} />
+    </Routes>
+  );
+}
 
-    </>
-  )
-} 
-
-export default App
+export default App;
