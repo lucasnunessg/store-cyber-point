@@ -13,9 +13,9 @@ const getProductsById = async(id) => {
 };
 
 const createProduct = async(title, price, description, image) => {
-    const newProduct = await Product.create(title, price, description, image);
+  const newProduct = await Product.create({title, price, description, image});
 
-    return newProduct;
+    return newProduct;  
 };
 
 const updateProduct = async(id, title, price, description, image) => {
@@ -28,7 +28,7 @@ const updateProduct = async(id, title, price, description, image) => {
 };
 
 const deleteProduct = async(id) => {
-    const deleteProduct = await Client.destroy({ where: { id } });
+    const deleteProduct = await Product.destroy({ where: { id } });
 
     return deleteProduct;
 };
