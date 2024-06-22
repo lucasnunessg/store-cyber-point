@@ -135,6 +135,7 @@ function Api({ onNextPageClick }: ApiProps) {
         />
         <button onClick={applyPriceFilter}>Filtrar</button>
       </div>
+      
       <div className="product-list">
         {loading ? (
           <p>Loading...</p>
