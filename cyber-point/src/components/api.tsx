@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import api from './fetchApi';
+import EditProduct from './EditProduct';
 import '../App.css';
 
 interface ApiProps {
@@ -25,6 +26,7 @@ function Api({ onNextPageClick }: ApiProps) {
   const [tempMinPrice, setTempMinPrice] = useState<number>(0);
   const [tempMaxPrice, setTempMaxPrice] = useState<number>(Infinity);
   const [quantityProducts, setQuantityProducts] = useState<{ [key: number]: number }>({});
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -106,6 +108,22 @@ function Api({ onNextPageClick }: ApiProps) {
     setMaxPrice(tempMaxPrice);
   };
 
+  const handleEditProduct = (product: Product) => {
+    setEditingProduct(product)
+  };
+
+  const handleSave = (updatedProduct: Product) => {
+    setProducts(products.map((product) =>
+      product.id === updatedProduct.id ? updatedProduct : product
+    ));
+    setEditingProduct(null);
+  };
+
+  const handleCancel = () => {
+    setEditingProduct(null);
+  };
+
+
   return (
     <div className="api-container">
       <div className="pagination-buttons">
@@ -114,8 +132,8 @@ function Api({ onNextPageClick }: ApiProps) {
         <button onClick={toggleDarkMode}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
       </div>
       <input
-        type='text'
-        placeholder='Digite o nome do produto'
+        type="text"
+        placeholder="Digite o nome do produto"
         value={search}
         onChange={handleSearch}
       />
@@ -135,7 +153,7 @@ function Api({ onNextPageClick }: ApiProps) {
         />
         <button onClick={applyPriceFilter}>Filtrar</button>
       </div>
-      
+
       <div className="product-list">
         {loading ? (
           <p>Loading...</p>
@@ -152,10 +170,19 @@ function Api({ onNextPageClick }: ApiProps) {
                 <button onClick={() => addProductCount(product.id)}>+</button>
               </div>
               <button onClick={() => handleProductCart(product.id)}>Adicionar ao carrinho</button>
+              <button onClick={() => handleEditProduct(product)}>Editar</button>
             </div>
           ))
         )}
       </div>
+
+      {editingProduct && (
+        <EditProduct
+          product={editingProduct}
+          onSave={handleSave}
+          onCancel={handleCancel}
+        />
+      )}
     </div>
   );
 }
