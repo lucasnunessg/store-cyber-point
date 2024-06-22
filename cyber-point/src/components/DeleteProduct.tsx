@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React from 'react';
 import axios from 'axios';
 
 interface Product {
@@ -13,7 +13,9 @@ interface DeleteProductProps {
 }
 
 const DeleteProduct: React.FC<DeleteProductProps> = ({ product, onDelete, onCancel }) => {
-  const handleDelete = async () => {
+  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation(); // Impede a propagação do evento para evitar fechar o modal prematuramente
+
     try {
       await axios.delete(`http://localhost:3001/products/${product.id}`);
       onDelete(product.id);
@@ -24,7 +26,7 @@ const DeleteProduct: React.FC<DeleteProductProps> = ({ product, onDelete, onCanc
 
   return (
     <div className="delete-product-modal">
-      <p>Deseja realmente excluir este produto?</p>
+      <p>Deseja realmente excluir o produto "{product.title}"?</p>
       <div className="delete-buttons">
         <button onClick={handleDelete}>Sim, Excluir</button>
         <button onClick={onCancel}>Cancelar</button>
