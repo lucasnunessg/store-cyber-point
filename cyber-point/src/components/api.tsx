@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import api from './fetchApi';
 import EditProduct from './EditProduct';
+import DeleteProduct from './DeleteProduct'; 
 import '../App.css';
 
 interface ApiProps {
@@ -32,7 +33,7 @@ function Api({ onNextPageClick }: ApiProps) {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await api.get("/products"); 
+        const response = await api.get("/products");
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -109,7 +110,7 @@ function Api({ onNextPageClick }: ApiProps) {
   };
 
   const handleEditProduct = (product: Product) => {
-    setEditingProduct(product)
+    setEditingProduct(product);
   };
 
   const handleSave = (updatedProduct: Product) => {
@@ -123,6 +124,14 @@ function Api({ onNextPageClick }: ApiProps) {
     setEditingProduct(null);
   };
 
+  const handleDeleteProduct = async (productId: number) => {
+    try {
+      await api.delete(`/products/${productId}`);
+      setProducts(products.filter(product => product.id !== productId));
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
 
   return (
     <div className="api-container">
@@ -171,6 +180,7 @@ function Api({ onNextPageClick }: ApiProps) {
               </div>
               <button onClick={() => handleProductCart(product.id)}>Adicionar ao carrinho</button>
               <button onClick={() => handleEditProduct(product)}>Editar</button>
+              <DeleteProduct product={product} onDelete={() => handleDeleteProduct(product.id)} onCancel={() => {}} />
             </div>
           ))
         )}
