@@ -15,7 +15,7 @@ interface DeleteProductProps {
 const DeleteProduct: React.FC<DeleteProductProps> = ({ product, onDelete, onCancel }) => {
   const handleDelete = async () => {
     try {
-      const token = localStorage.getItem('token'); // Obter o token do localStorage
+      const token = localStorage.getItem('token'); 
       if (!token) {
         console.error('Token não encontrado. O usuário precisa estar autenticado.');
         return;
@@ -23,7 +23,7 @@ const DeleteProduct: React.FC<DeleteProductProps> = ({ product, onDelete, onCanc
 
       await axios.delete(`http://localhost:3001/products/${product.id}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Adicionar o token ao header Authorization
+          Authorization: `Bearer ${token}`, 
         },
       });
       onDelete(product.id);
