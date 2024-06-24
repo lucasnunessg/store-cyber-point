@@ -27,6 +27,7 @@ const EditProduct: React.FC<EditProductProps> = ({ product, onSave, onCancel }) 
       const updatedProduct = { ...product, title, price, description, image };
       await axios.put(`http://localhost:3001/products/${product.id}`, updatedProduct);
       onSave(updatedProduct);
+      
     } catch (error) {
       console.error('Erro ao editar produto', error);
     }

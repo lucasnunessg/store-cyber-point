@@ -13,11 +13,19 @@ interface DeleteProductProps {
 }
 
 const DeleteProduct: React.FC<DeleteProductProps> = ({ product, onDelete, onCancel }) => {
-  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation(); // Impede a propagação do evento para evitar fechar o modal prematuramente
-
+  const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3001/products/${product.id}`);
+      const token = localStorage.getItem('token'); // Obter o token do localStorage
+      if (!token) {
+        console.error('Token não encontrado. O usuário precisa estar autenticado.');
+        return;
+      }
+
+      await axios.delete(`http://localhost:3001/products/${product.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Adicionar o token ao header Authorization
+        },
+      });
       onDelete(product.id);
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
@@ -25,7 +33,7 @@ const DeleteProduct: React.FC<DeleteProductProps> = ({ product, onDelete, onCanc
   };
 
   return (
-    <div className="delete-product-modal">
+    <div className="delete-product">
       <p>Deseja realmente excluir o produto "{product.title}"?</p>
       <div className="delete-buttons">
         <button onClick={handleDelete}>Sim, Excluir</button>

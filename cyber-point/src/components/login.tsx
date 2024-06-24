@@ -38,6 +38,7 @@ function Login() {
   return (
     <form onSubmit={handleSubmit}>
       <input
+        id='inputMail'
         type="email"
         placeholder="Email"
         value={email}
@@ -45,6 +46,7 @@ function Login() {
         required
       />
       <input
+        id='inputPassword'
         type="password"
         placeholder="Password"
         value={password}
