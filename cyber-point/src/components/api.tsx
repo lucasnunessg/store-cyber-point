@@ -28,7 +28,7 @@ function Api({ onNextPageClick }: ApiProps) {
   const [tempMaxPrice, setTempMaxPrice] = useState<number>(Infinity);
   const [quantityProducts, setQuantityProducts] = useState<{ [key: number]: number }>({});
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-  const [cart, setCart] = useState<{ product: Product, quantity: number }[]>([]); // Estado do carrinho com quantidade
+  const [cart, setCart] = useState<{ product: Product, quantity: number }[]>([]); 
 
   const productsPerPage = 4;
 
@@ -118,6 +118,7 @@ function Api({ onNextPageClick }: ApiProps) {
     setEditingProduct(null);
   };
 
+
   const handleCancel = () => {
     setEditingProduct(null);
   };
@@ -138,11 +139,11 @@ function Api({ onNextPageClick }: ApiProps) {
       if (existingItem) {
         setCart(prevCart =>
           prevCart.map(item =>
-            item.product.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+            item.product.id === productId ? { ...item, quantity: item.quantity * 2 } : item
           )
         );
       } else {
-        setCart(prevCart => [...prevCart, { product: selectedProduct, quantity: 1 }]);
+        setCart(prevCart => [...prevCart, { product: selectedProduct, quantity: 1 * 2 }]);
       }
     }
   };
