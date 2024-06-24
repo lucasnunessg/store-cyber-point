@@ -1,19 +1,16 @@
-import { useState } from 'react';
 
+interface DarkModeProps {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
 
-
-function DarkMode() {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+function DarkMode({ isDarkMode, toggleDarkMode }: DarkModeProps) {
   const colorPage = isDarkMode ? 'black' : 'white';
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
 
   return (
     <div className='container' style={{ backgroundColor: colorPage }}>
       <div className='botaoColorMode'>
-        <button onClick={toggleDarkMode}>Modo escuro ou Modo Claro</button>
+        <button onClick={toggleDarkMode}>{isDarkMode ? 'Modo Claro' : 'Modo Escuro'}</button>
       </div>
     </div>
   );

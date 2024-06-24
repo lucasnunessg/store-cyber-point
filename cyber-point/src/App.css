@@ -1,41 +1,21 @@
+/* Estilos padrão (light mode) */
 .api-container {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 20px;
-}
-
-.pagination-buttons {
-  margin-bottom: 20px;
-}
-
-.pagination-buttons button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin-right: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.pagination-buttons button:hover {
-  background-color: #0056b3;
-}
-
-.dark-mode {
-  background-color: #333;
-  color: #fff;
-}
-
-.light-mode {
-  background-color: #fff;
-  color: #333;
+  background-color: blanchedalmond;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
 }
 
 .product {
@@ -43,6 +23,7 @@
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .product-title {
@@ -52,6 +33,7 @@
 
 .product-image {
   width: 100%;
+  height: auto;
   border-radius: 5px;
   margin-bottom: 10px;
 }
@@ -113,53 +95,54 @@ button:hover {
   background-color: #0056b3;
 }
 
-.login-container {
-  max-width: 400px;
-  margin: 0 auto;
+.cart {
+  max-width: 1200px;
+  margin-top: 20px;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  background-color: #fff;
+  border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
-.login-container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.login-form div {
-  margin-bottom: 20px;
-}
-
-.login-form label {
-  font-weight: bold;
-}
-
-.login-form input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.login-form button {
-  padding: 10px 20px;
-  background-color: #007bff;
+/* Estilos para o dark mode */
+.dark-mode .api-container {
+  background-color: #333;
   color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
-.login-form button:hover {
-  background-color: #0056b3;
+.dark-mode .product {
+  background-color: #444;
+  color: #fff;
 }
 
-.error-message {
-  color: red;
-  margin-top: 10px;
+.dark-mode .product-title {
+  color: #fff;
+}
+
+.dark-mode .product-description {
+  color: #ccc;
+}
+
+.dark-mode .product-price {
+  color: #fff;
+}
+
+.dark-mode input[type='text'] {
+  background-color: #666;
+  color: #fff;
+}
+
+.dark-mode button {
+  background-color: #444;
+  color: #fff;
+}
+
+.dark-mode button:hover {
+  background-color: #333;
+}
+
+.dark-mode .cart {
+  background-color: #555;
+  color: #fff;
 }

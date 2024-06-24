@@ -139,11 +139,11 @@ function Api({ onNextPageClick }: ApiProps) {
       if (existingItem) {
         setCart(prevCart =>
           prevCart.map(item =>
-            item.product.id === productId ? { ...item, quantity: item.quantity * 2 } : item
+            item.product.id === productId ? { ...item, quantity: item.quantity + 1 } : item
           )
         );
       } else {
-        setCart(prevCart => [...prevCart, { product: selectedProduct, quantity: 1 * 2 }]);
+        setCart(prevCart => [...prevCart, { product: selectedProduct, quantity: 1 }]);
       }
     }
   };

@@ -1,7 +1,6 @@
 import Login from './login';
 import AddProduct from './AddProduct';
 
-// Estilo CSS para o componente MyHeader
 const headerStyle = {
   backgroundColor: '#f0f0f0',
   padding: '20px',
@@ -13,7 +12,7 @@ function MyHeader() {
   return (
     <div className="myHeader" style={headerStyle}>
       <header>
-        <h1>Lucas Store</h1>
+        <h1>Cyber Point Store</h1>
         <Login />
         <AddProduct />
         <hr />
