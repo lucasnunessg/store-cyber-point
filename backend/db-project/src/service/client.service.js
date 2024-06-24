@@ -34,7 +34,7 @@ const updateClient = async (id, fullName, address, contact, email, password, rol
 
 const createClient = async(fullName, address, contact, email, password, role) => {
     const newClient = await Client.create({ fullName, address, contact, email, password, role });
-
+  if(role === '') return 'client'
     return newClient
 }
 
