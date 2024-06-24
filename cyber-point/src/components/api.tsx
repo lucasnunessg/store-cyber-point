@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import api from './fetchApi';
 import EditProduct from './EditProduct';
-import DeleteProduct from './DeleteProduct'; 
+import DeleteProduct from './DeleteProduct';
 import '../App.css';
 
 interface ApiProps {
@@ -28,6 +28,8 @@ function Api({ onNextPageClick }: ApiProps) {
   const [tempMaxPrice, setTempMaxPrice] = useState<number>(Infinity);
   const [quantityProducts, setQuantityProducts] = useState<{ [key: number]: number }>({});
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [cart, setCart] = useState<{ product: Product, quantity: number }[]>([]); // Estado do carrinho com quantidade
+
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -66,10 +68,6 @@ function Api({ onNextPageClick }: ApiProps) {
       ...prevQuantify,
       [productId]: (prevQuantify[productId] || 0) + 1
     }));
-  };
-
-  const handleProductCart = (productId: number) => {
-    localStorage.setItem(`selectedProducts-${productId}`, JSON.stringify(productId));
   };
 
   const decreaseQuantity = (productId: number) => {
@@ -133,6 +131,37 @@ function Api({ onNextPageClick }: ApiProps) {
     }
   };
 
+  const handleProductCart = (productId: number) => {
+    const selectedProduct = products.find(product => product.id === productId);
+    if (selectedProduct) {
+      const existingItem = cart.find(item => item.product.id === productId);
+      if (existingItem) {
+        setCart(prevCart =>
+          prevCart.map(item =>
+            item.product.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+          )
+        );
+      } else {
+        setCart(prevCart => [...prevCart, { product: selectedProduct, quantity: 1 }]);
+      }
+    }
+  };
+
+  const handleRemoveFromCart = (productId: number) => {
+    setCart(prevCart =>
+      prevCart.reduce((acc, item) => {
+        if (item.product.id === productId) {
+          if (item.quantity > 1) {
+            acc.push({ ...item, quantity: item.quantity - 1 });
+          }
+        } else {
+          acc.push(item);
+        }
+        return acc;
+      }, [] as { product: Product, quantity: number }[])
+    );
+  };
+
   return (
     <div className="api-container">
       <div className="pagination-buttons">
@@ -193,6 +222,19 @@ function Api({ onNextPageClick }: ApiProps) {
           onCancel={handleCancel}
         />
       )}
+
+      {/* Exemplo de como mostrar o carrinho */}
+      <div className="cart">
+        <h2>Carrinho</h2>
+        <ul>
+          {cart.map(item => (
+            <li key={item.product.id}>
+              {item.product.title} - ${item.product.price.toFixed(2)} x {item.quantity} = ${(item.product.price * item.quantity).toFixed(2)}
+              <button onClick={() => handleRemoveFromCart(item.product.id)}>Remover</button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
