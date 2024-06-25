@@ -37,18 +37,22 @@ const getClientById = async (req, res) => {
     }
 };
 
-const createClient = async(req, res) => {
-    try{
-        const { fullName, address, contact, email, password, role } = req.body;
+const createClient = async (req, res) => {
+  try {
+      const { fullName, address, contact, email, password } = req.body;
+      let { role } = req.body;
 
-        const newClient = await clientService
-        .createClient(fullName, address, contact, email, password, role)
-        return res.status(201).json(newClient)
-    }catch(e){
-        console.log(e.message)
-        return res.status(500).json({ message: 'error' })
-    }
-}
+      if (role === null || role === undefined) {
+          role = 'client'; 
+      }
+
+      const newClient = await clientService.createClient(fullName, address, contact, email, password, role);
+      return res.status(201).json(newClient);
+  } catch (e) {
+      console.error(e.message);
+      return res.status(500).json({ message: 'Error' });
+  }
+};
 
 const updateClient = async(req,res) => {
     try{
