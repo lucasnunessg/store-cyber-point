@@ -46,7 +46,7 @@ function Api({ onNextPageClick }: ApiProps) {
     }
 
     fetchProducts();
-  }, []);
+  }, [products]);  // sempre que quiser que seja instantanea a mudança, colocar no array
 
   useEffect(() => {
     document.body.classList.toggle('dark-mode', isDarkMode);

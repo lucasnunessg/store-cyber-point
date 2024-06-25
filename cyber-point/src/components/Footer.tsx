@@ -20,7 +20,6 @@ function MyFooter() {
         <h1>Cyber Point Store</h1>
         <p>Página web desenvolvida e mantida por: Lucas Pacheco Nunes</p>
         <p style={{ marginBottom: '0' }}>
-          Página do Instagram: 
           <a href="https://www.instagram.com/_cyberpoint/" target="_blank" rel="noopener noreferrer">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Instagram-Icon.png/1200px-Instagram-Icon.png" alt="Instagram Icon" style={instagramIconStyle} />
             _cyberpoint
