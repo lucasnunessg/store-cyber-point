@@ -35,9 +35,14 @@ function Login() {
       });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    delete axios.defaults.headers.common['Authorization'];
+    navigate('/login');
+  }; 
+
   return (
-    <form onSubmit={handleSubmit}
-    >
+    <form onSubmit={handleSubmit}>
       <input
         id='inputMail'
         type="email"
@@ -56,9 +61,7 @@ function Login() {
       />
       <button type="submit">Login</button>
       {error && <div className="error">{error}</div>}
-    
-
-      
+      <button type="button" onClick={handleLogout}>Logout</button>
     </form>
   );
 }
