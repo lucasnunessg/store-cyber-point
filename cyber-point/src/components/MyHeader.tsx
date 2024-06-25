@@ -1,6 +1,4 @@
-import Login from './login';
-import AddProduct from './AddProduct';
-import CreateClient from './RegisterComponent';
+import Login from "./login";
 
 const headerStyle = {
   backgroundColor: '#f0f0f0',
@@ -14,9 +12,7 @@ function MyHeader() {
     <div className="myHeader" style={headerStyle}>
       <header>
         <h1>Cyber Point Store</h1>
-        <Login />
-        <AddProduct />
-        <CreateClient />
+      <Login />
         
         <hr />
       </header>

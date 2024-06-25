@@ -20,14 +20,18 @@ const EditProduct: React.FC<EditProductProps> = ({ product, onSave, onCancel }) 
   const [price, setPrice] = useState<number>(product.price);
   const [description, setDescription] = useState<string>(product.description);
   const [image, setImage] = useState<string>(product.image);
+  const token = localStorage.getItem('token');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const updatedProduct = { ...product, title, price, description, image };
-      await axios.put(`http://localhost:3001/products/${product.id}`, updatedProduct);
+      await axios.put(`http://localhost:3001/products/${product.id}`, updatedProduct, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       onSave(updatedProduct);
-      
     } catch (error) {
       console.error('Erro ao editar produto', error);
     }

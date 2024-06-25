@@ -6,6 +6,7 @@ const AddProduct: React.FC = () => {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
+  const token = localStorage.getItem('token');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,9 +16,12 @@ const AddProduct: React.FC = () => {
         price,
         description,
         image,
-      }
-      console.log("produto aqui" , produto)
-      const response = await axios.post('http://localhost:3001/products', produto );
+      };
+      const response = await axios.post('http://localhost:3001/products', produto, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("Produto adicionado!", response.data);
       setTitle('');
       setPrice('');
@@ -31,6 +35,7 @@ const AddProduct: React.FC = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
+        <h1> Adicionar produto:</h1>
         <label>Título:</label>
         <input
           type="text"

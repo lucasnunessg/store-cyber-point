@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import api from './fetchApi';
 import EditProduct from './EditProduct';
 import DeleteProduct from './DeleteProduct';
+import AddProduct from './AddProduct'; 
 import '../App.css';
 
 interface ApiProps {
@@ -118,7 +119,6 @@ function Api({ onNextPageClick }: ApiProps) {
     setEditingProduct(null);
   };
 
-
   const handleCancel = () => {
     setEditingProduct(null);
   };
@@ -163,6 +163,8 @@ function Api({ onNextPageClick }: ApiProps) {
     );
   };
 
+  const token = localStorage.getItem('token');
+
   return (
     <div className="api-container">
       <div className="pagination-buttons">
@@ -193,6 +195,10 @@ function Api({ onNextPageClick }: ApiProps) {
         <button onClick={applyPriceFilter}>Filtrar</button>
       </div>
 
+      {token && (
+        <AddProduct />
+      )}
+
       <div className="product-list">
         {loading ? (
           <p>Loading...</p>
@@ -209,8 +215,12 @@ function Api({ onNextPageClick }: ApiProps) {
                 <button onClick={() => addProductCount(product.id)}>+</button>
               </div>
               <button onClick={() => handleProductCart(product.id)}>Adicionar ao carrinho</button>
-              <button onClick={() => handleEditProduct(product)}>Editar</button>
-              <DeleteProduct product={product} onDelete={() => handleDeleteProduct(product.id)} onCancel={() => {}} />
+              {token && (
+                <>
+                  <button onClick={() => handleEditProduct(product)}>Editar</button>
+                  <DeleteProduct product={product} onDelete={() => handleDeleteProduct(product.id)} onCancel={() => {}} />
+                </>
+              )}
             </div>
           ))
         )}
