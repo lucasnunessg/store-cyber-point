@@ -42,9 +42,9 @@ const updateProduct = async(req, res) => {
 
 const createProduct = async(req, res) => {
     try{
-        const { title, price, description, image } = req.body
+        const { title, price, description, image, category } = req.body
         const newProduct = await productService
-        .createProduct(title, price, description, image);
+        .createProduct(title, price, description, image, category);
         if(!newProduct) return res.status(404).json({ message: 'Erro ao criar produto' })
         return res.status(201).json(newProduct)
     }catch(e){
