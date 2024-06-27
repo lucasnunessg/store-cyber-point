@@ -1,5 +1,4 @@
 import Login from "./login";
-
 const headerStyle = {
   backgroundColor: '#f0f0f0',
   padding: '20px',

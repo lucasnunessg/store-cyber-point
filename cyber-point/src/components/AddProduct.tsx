@@ -6,6 +6,7 @@ const AddProduct: React.FC = () => {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
+  const [category, setCategory] = useState('');
   const token = localStorage.getItem('token');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -16,6 +17,8 @@ const AddProduct: React.FC = () => {
         price,
         description,
         image,
+        category,
+
       };
       const response = await axios.post('http://localhost:3001/products', produto, {
         headers: {
@@ -27,6 +30,7 @@ const AddProduct: React.FC = () => {
       setPrice('');
       setDescription('');
       setImage('');
+      setCategory('');
     } catch (error) {
       console.error('Erro ao adicionar produto', error);
     }
@@ -64,6 +68,14 @@ const AddProduct: React.FC = () => {
           type="text"
           value={image}
           onChange={(e) => setImage(e.target.value)}
+        />
+      </div>
+      <div>
+        <label>Categoria</label>
+        <input
+        type='text'
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
         />
       </div>
       <button type="submit">Adicionar Produto</button>
