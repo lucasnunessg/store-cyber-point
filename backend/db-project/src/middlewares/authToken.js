@@ -18,9 +18,9 @@ const generateToken = async (req, res) => {
 
         const { role } = client;
 
-        if(role !== 'admin'){
-          return res.status(403).json({ message: 'Acesso negado: Permissões insuficiêntes.' })
-        }
+        if (!role) {
+          client.role = 'client';
+      }
 
         const token = jwt.sign({ data: { email, role } }, secret, jwtConfig);
         const path = req.originalUrl.replace(/\d+/g, '');
