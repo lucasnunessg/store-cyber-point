@@ -1,4 +1,6 @@
 import Login from "./login";
+import NavBar from "./NavBar";
+
 const headerStyle = {
   backgroundColor: '#f0f0f0',
   padding: '20px',
@@ -12,6 +14,7 @@ function MyHeader() {
       <header>
         <h1>Cyber Point Store</h1>
       <Login />
+      <NavBar />
         
         <hr />
       </header>
