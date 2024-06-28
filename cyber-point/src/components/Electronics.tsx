@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from './fetchApi';
 
 export interface Product {
@@ -10,35 +10,46 @@ export interface Product {
 }
 
 const Electronics = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]); 
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1); // Página atual
-  const [totalPages, setTotalPages] = useState<number>(1); // Total de páginas
+  const [currentPage, setCurrentPage] = useState<number>(1); 
+  const [totalPages, setTotalPages] = useState<number>(1); 
+  const [search, setSearch] = useState<string>(''); 
   const productsPerPage = 4;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await api.get('/electronics');
-        const totalProducts = response.data.length;
+        const allProductsData = response.data;
+        setAllProducts(allProductsData); 
+        const totalProducts = allProductsData.length;
         const totalPages = Math.ceil(totalProducts / productsPerPage);
         setTotalPages(totalPages);
 
         const startIndex = (currentPage - 1) * productsPerPage;
         const endIndex = startIndex + productsPerPage;
-        const currentProducts = response.data.slice(startIndex, endIndex);
-        setProducts(currentProducts);
+        const currentProducts = allProductsData.slice(startIndex, endIndex);
+        setFilteredProducts(currentProducts);
 
         setLoading(false);
       } catch (error) {
-        setError(null)
+        setError(null);
         setLoading(false);
       }
     };
 
     fetchData();
   }, [currentPage]);
+
+  useEffect(() => {
+    const filtered = allProducts.filter((product) => 
+      product.title.toLowerCase().includes(search.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  }, [search, allProducts]);
 
   const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -48,14 +59,26 @@ const Electronics = () => {
     setCurrentPage(currentPage - 1);
   };
 
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading products: {error.message}</p>;
 
   return (
     <div>
       <h1>Electronics</h1>
+      <div>
+        <input
+          type='text'
+          placeholder='Digite o nome do produto'
+          value={search}
+          onChange={handleSearch}
+        />
+      </div>
       <div className="product-list">
-        {products.map(product => (
+        {filteredProducts.map(product => (
           <div key={product.id} className="product-item">
             <h3>{product.title}</h3>
             <p>{product.description}</p>
@@ -66,11 +89,11 @@ const Electronics = () => {
       </div>
       <div className="pagination">
         <button onClick={goToPrevPage} disabled={currentPage === 1}>
-          Prev Page
+          Anterior
         </button>
-        <span>Page {currentPage} of {totalPages}</span>
+        <span>Página: {currentPage} de {totalPages}</span>
         <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-          Next Page
+          Próxima
         </button>
       </div>
     </div>
