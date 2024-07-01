@@ -8,6 +8,7 @@ const AddProduct: React.FC = () => {
   const [image, setImage] = useState('');
   const [category, setCategory] = useState('');
   const token = localStorage.getItem('token');
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
