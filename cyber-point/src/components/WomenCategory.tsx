@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from './fetchApi';
 
 export interface Product {
@@ -11,20 +11,32 @@ export interface Product {
 
 const WomenCategory = () => {
   const [product, setProduct] = useState<Product[]>([]);
-  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get('/electronics');
+        const response = await api.get('/women');
         setProduct(response.data);
       } catch (error) {
-        setError(error);
+        console.log("erro ao procurar produtos");
       }
     };
     fetchData();
   }, []);
-
-});
+  return (
+    <div>
+      <h1>Women's Clothing</h1>
+      <div>
+        {product.map((product) => (
+          <div key={product.id} className='product-item-women'>
+            <h3>{product.title}</h3>
+            <h3>{product.description}</h3>
+            <img src={product.image} alt={product.title} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default WomenCategory;

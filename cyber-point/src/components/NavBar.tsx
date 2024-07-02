@@ -33,6 +33,8 @@ function NavBar() {
       <NavList>
         <NavItem>
           <NavLink to="/electronics">Eletrônicos</NavLink>
+          <NavLink to="/women">Women Clothings</NavLink>
+
         </NavItem>
       </NavList>
     </Navbar>
