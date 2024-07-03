@@ -13,6 +13,8 @@ const WomenCategory = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState<string>('');
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [totalPages, setTotalPages] = useState<number>(1); 
+
 
   useEffect(() => {
     const fetchData = async () => {
