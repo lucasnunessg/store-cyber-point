@@ -4,6 +4,7 @@ const productRoute = require('./products.route');
 const logoutRoute = require('./logout.route');
 const productsElectronics = require('./productsElectronics.route');
 const womenClothingRoute = require('./womenCategory.route');
+const jeweleryRoute = require('./jewelery.route');
 
 module.exports = {
     clientsRoute,
@@ -12,4 +13,5 @@ module.exports = {
     logoutRoute,
     productsElectronics,
     womenClothingRoute,
+    jeweleryRoute,
 }
