@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Product from '../Interface/IProduct';
 
-interface Product {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  price: number;
-}
+
 
 interface EditProductProps {
   product: Product;

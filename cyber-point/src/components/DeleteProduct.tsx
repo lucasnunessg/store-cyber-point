@@ -1,10 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import Product from '../Interface/IProduct';
 
-interface Product {
-  id: number;
-  title: string;
-}
+
 
 interface DeleteProductProps {
   product: Product;

@@ -4,18 +4,13 @@ import EditProduct from './EditProduct';
 import DeleteProduct from './DeleteProduct';
 import AddProduct from './AddProduct'; 
 import '../App.css';
+import Product from '../Interface/IProduct';
 
 interface ApiProps {
   onNextPageClick?: () => void;
 }
 
-export interface Product {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  price: number;
-}
+
 
 function Api({ onNextPageClick }: ApiProps) {
   const [products, setProducts] = useState<Product[]>([]);
