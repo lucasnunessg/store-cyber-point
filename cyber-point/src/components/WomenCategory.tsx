@@ -1,13 +1,8 @@
 import { useEffect, useState } from 'react';
 import api from './fetchApi';
+import Product from '../Interface/IProduct';
 
-export interface Product {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  price: number;
-}
+
 
 const WomenCategory = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
@@ -43,7 +38,7 @@ const WomenCategory = () => {
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
-    setCurrentPage(1); // Reset to the first page on search
+    setCurrentPage(1); 
   };
 
   const goToNextPage = () => {
