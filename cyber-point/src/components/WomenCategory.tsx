@@ -55,7 +55,7 @@ const WomenCategory = () => {
       <div>
         <input 
           type='text'
-          placeholder='Digite aqui o nome do produto'
+          placeholder='Digite o nome do produto'
           value={search}
           onChange={handleSearch}
         />
