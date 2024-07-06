@@ -12,7 +12,7 @@ const JeweleryCategory = () => {
       const response = await api.get('/jewelery')
       const allProductsData = response.data
       setAllProducts(allProductsData);
-    };
+    }; // aqui o fetch foi feito
    fetchData()
   },[])
 
