@@ -32,10 +32,11 @@ function NavBar() {
     <Navbar>
       <NavList>
         <NavItem>
-          <NavLink to="/">Página Inicial</NavLink>
-          <NavLink to="/electronics">Eletrônicos</NavLink>
-          <NavLink to="/women">Women Clothings</NavLink>
-          <NavLink to="/jewelery">Jewelery Category</NavLink>
+          <NavLink to="/">Página Inicial  </NavLink>
+          <NavLink to="/electronics">  Eletrônicos </NavLink>
+          <NavLink to="/women">  Women Clothings </NavLink>
+          <NavLink to="/jewelery">  Jewelery </NavLink>
+          <NavLink to="/mens">  Mens Clothing</NavLink>
 
         </NavItem>
       </NavList>
