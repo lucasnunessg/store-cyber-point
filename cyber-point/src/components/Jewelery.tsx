@@ -31,7 +31,7 @@ const JeweleryCategory = () => {
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
-    setCurrentPage(1); // Reset to first page on search change
+    setCurrentPage(1); 
   };
 
   const goToNextPage = () => {

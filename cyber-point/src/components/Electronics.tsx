@@ -20,15 +20,6 @@ const Electronics = () => {
         const response = await api.get('/electronics');
         const allProductsData = response.data;
         setAllProducts(allProductsData); 
-        const totalProducts = allProductsData.length;
-        const totalPages = Math.ceil(totalProducts / productsPerPage);
-        setTotalPages(totalPages);
-
-        const startIndex = (currentPage - 1) * productsPerPage;
-        const endIndex = startIndex + productsPerPage;
-        const currentProducts = allProductsData.slice(startIndex, endIndex);
-        setFilteredProducts(currentProducts);
-
         setLoading(false);
       } catch (error) {
         setError(null);
@@ -37,21 +28,24 @@ const Electronics = () => {
     };
 
     fetchData();
-  }, [currentPage]);
+  }, []);
 
   useEffect(() => {
     const filtered = allProducts.filter((product) => 
       product.title.toLowerCase().includes(search.toLowerCase())
     );
-    setFilteredProducts(filtered);
-  }, [search, allProducts]);
+    setTotalPages(Math.ceil(filtered.length / productsPerPage));
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+    setFilteredProducts(filtered.slice(startIndex, endIndex));
+  }, [search, allProducts, currentPage]);
 
   const goToNextPage = () => {
-    setCurrentPage(currentPage + 1);
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
   const goToPrevPage = () => {
-    setCurrentPage(currentPage - 1);
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, 1));
   };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +66,12 @@ const Electronics = () => {
           onChange={handleSearch}
         />
       </div>
+      <div className='pagination'>
+        <button onClick={goToPrevPage} disabled={currentPage === 1}>Anterior</button>
+        <span>Página: {currentPage} de {totalPages}</span>
+        <button onClick={goToNextPage} disabled={currentPage === totalPages}>Próxima</button>
+
+      </div>
       <div className="product-list">
         {filteredProducts.map(product => (
           <div key={product.id} className="product-item">
@@ -82,15 +82,7 @@ const Electronics = () => {
           </div>
         ))}
       </div>
-      <div className="pagination">
-        <button onClick={goToPrevPage} disabled={currentPage === 1}>
-          Anterior
-        </button>
-        <span>Página: {currentPage} de {totalPages}</span>
-        <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-          Próxima
-        </button>
-      </div>
+
     </div>
   );
 };
