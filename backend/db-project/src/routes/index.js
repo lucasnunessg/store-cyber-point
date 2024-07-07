@@ -5,6 +5,7 @@ const logoutRoute = require('./logout.route');
 const productsElectronics = require('./productsElectronics.route');
 const womenClothingRoute = require('./womenCategory.route');
 const jeweleryRoute = require('./jewelery.route');
+const mensClothingRoute = require('./mensClothing.route');
 
 module.exports = {
     clientsRoute,
@@ -14,4 +15,5 @@ module.exports = {
     productsElectronics,
     womenClothingRoute,
     jeweleryRoute,
+    mensClothingRoute,
 }

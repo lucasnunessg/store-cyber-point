@@ -5,6 +5,7 @@ const logoutController = require('./logout.controller');
 const productsElectronicsController = require('./productsElectronics.controller');
 const womenClothingController = require('./womenClothing.controller');
 const jeweleryController = require('./jewelery.controller');
+const mensClothingController = require('./mensClothing.controller');
 
 module.exports = {
     clientsController,
@@ -14,4 +15,5 @@ module.exports = {
     productsElectronicsController,
     womenClothingController,
     jeweleryController,
+    mensClothingController,
 };
