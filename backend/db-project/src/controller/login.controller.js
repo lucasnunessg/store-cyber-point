@@ -1,6 +1,6 @@
 const { loginService } = require('../service');
 
-const loginClient = async (req, res, next) => {
+const loginClient = async (req, res) => {
     try {
         const { email, password } = req.body
         const client = await loginService.loginClient({ email, password });
