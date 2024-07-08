@@ -10,6 +10,7 @@ const WomenCategory = () => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1); 
   const [totalPages, setTotalPages] = useState<number>(1); 
+  const [loading, setLoading] = useState(true)
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -18,8 +19,10 @@ const WomenCategory = () => {
         const response = await api.get('/women');
         const allProductsData = response.data;
         setAllProducts(allProductsData);
+        setLoading(false)
       } catch (error) {
         console.log("Erro ao procurar produtos");
+        setLoading(false)
       }
     };
     fetchData();
@@ -48,7 +51,7 @@ const WomenCategory = () => {
   const goToPrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   }
-
+  if (loading) return <p>Loading...</p>
   return (
     <div>
       <h1>Women's Clothing</h1>

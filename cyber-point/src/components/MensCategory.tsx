@@ -8,6 +8,7 @@ const MensCategory = () => {
   const [search, setSearch] = useState<string>(''); 
   const [currentPage, setCurrentPage] = useState<number>(1); 
   const [totalPages, setTotalPages] = useState<number>(1); 
+  const [loading, setLoading] = useState(true)
   const productsPerPage = 4;
 
 
@@ -20,8 +21,10 @@ const MensCategory = () => {
         const response = await api.get('/mens');
         const allProductsData = response.data;
         setAllProducts(allProductsData);
+        setLoading(false)
       } catch (error) {
         console.log("Erro ao procurar produtos");
+        setLoading(false)
       }
     };
     fetchData();
@@ -29,7 +32,7 @@ const MensCategory = () => {
 
   useEffect(() => {
     const filtered = allProducts.filter((product) => //faz um filtro no novo array e verifica a condiçao, se contem, devolve true
-    product.title.toLowerCase().includes(search.toLowerCase()));
+    product.title.toLowerCase().includes(search.toLowerCase())); 
     setTotalPages(filtered.length / productsPerPage)
 
     const startIndex = (currentPage - 1) * productsPerPage;
@@ -47,6 +50,7 @@ const MensCategory = () => {
   const goToPrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   }
+  if(loading) return <p>Loading...</p>
 
 
   return (

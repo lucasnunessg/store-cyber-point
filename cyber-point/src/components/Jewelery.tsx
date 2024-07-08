@@ -8,6 +8,7 @@ const JeweleryCategory = () => {
   const [search, setSearch] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1); 
   const [totalPages, setTotalPages] = useState<number>(1); 
+  const [loading, setLoading] = useState(true);
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -15,6 +16,7 @@ const JeweleryCategory = () => {
       const response = await api.get('/jewelery');
       const allProductsData = response.data;
       setAllProducts(allProductsData);
+      setLoading(false);
     };
     fetchData();
   }, []);
@@ -41,7 +43,7 @@ const JeweleryCategory = () => {
   const goToPrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
-
+  if(loading) return <p>Loading...</p>
   return (
     <div>
       <h1>Jewelery</h1>
