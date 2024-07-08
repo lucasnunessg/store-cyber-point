@@ -11,7 +11,15 @@ interface ApiProps {
   onNextPageClick?: () => void;
 }
 
+interface CurrencyRates {
+  [key: string]: number;
+}
 
+const currencyRates: CurrencyRates = {
+  USD: 1,
+  BRL: 5.5,
+  EUR: 0.9
+};
 
 function Api({ onNextPageClick }: ApiProps) {
   const [products, setProducts] = useState<Product[]>([]);
@@ -26,7 +34,7 @@ function Api({ onNextPageClick }: ApiProps) {
   const [quantityProducts, setQuantityProducts] = useState<{ [key: number]: number }>({});
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [cart, setCart] = useState<{ product: Product, quantity: number }[]>([]); 
-
+  const [selectedCurrency, setSelectedCurrency] = useState<string>('USD'); 
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -42,7 +50,7 @@ function Api({ onNextPageClick }: ApiProps) {
     }
 
     fetchProducts();
-  }, [products]);  // sempre que quiser que seja instantanea a mudança, colocar no array
+  }, []);
 
   useEffect(() => {
     document.body.classList.toggle('dark-mode', isDarkMode);
@@ -74,6 +82,7 @@ function Api({ onNextPageClick }: ApiProps) {
     }));
   };
 
+
   const toggleDarkMode = useCallback(() => {
     setIsDarkMode(prevMode => !prevMode);
   }, []);
@@ -89,6 +98,15 @@ function Api({ onNextPageClick }: ApiProps) {
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
+  };
+
+  const handleCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCurrency(event.target.value);
+  };
+
+  const convertPriceToSelectedCurrency = (price: number) => {
+    const rate = currencyRates[selectedCurrency];
+    return (price * rate).toFixed(2);
   };
 
   const handleTempMinPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -163,11 +181,17 @@ function Api({ onNextPageClick }: ApiProps) {
 
   return (
     <div className="api-container">
+      
       <div className="pagination-buttons">
         <button onClick={handlePrevPage} disabled={startExibition === 0}>Anterior</button>
         <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length}>Próximo</button>
         <button onClick={toggleDarkMode}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
       </div>
+      <select value={selectedCurrency} onChange={handleCurrencyChange}>
+        <option value="USD">USD</option>
+        <option value="BRL">BRL</option>
+        <option value="EUR">EUR</option>
+      </select>
       <input
         type="text"
         placeholder="Digite o nome do produto"
@@ -204,7 +228,7 @@ function Api({ onNextPageClick }: ApiProps) {
               <h3 className="product-title">{product.title}</h3>
               <img src={product.image} alt={product.title} className="product-image" />
               <p className="product-description">{product.description}</p>
-              <p className="product-price">Price: ${product.price.toFixed(2)}</p>
+              <p className="product-price">Preço: {convertPriceToSelectedCurrency(product.price)} {selectedCurrency}</p>
               <div className="quantity-control">
                 <button onClick={() => decreaseQuantity(product.id)}>-</button>
                 <span className="quantity">{quantityProducts[product.id] || 0}</span>
