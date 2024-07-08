@@ -5,6 +5,7 @@ import axios from 'axios';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [logout, setLogout] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -38,9 +39,13 @@ function Login() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     delete axios.defaults.headers.common['Authorization'];
-    navigate('/login');
+    setLogout(true)
+    setTimeout(() => {
+      setLogout(false)
+    }, 1100)
+    navigate('/');
   }; 
-
+  
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -61,7 +66,13 @@ function Login() {
       />
       <button type="submit">Login</button>
       {error && <div className="error">{error}</div>}
-      <button type="button" onClick={handleLogout}>Logout</button>
+      {logout ? (
+        <p>Saindo...</p>
+      ) : (
+        <button type="button" onClick={handleLogout}>Logout</button>
+
+      )
+      }
     </form>
   );
 }
