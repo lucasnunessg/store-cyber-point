@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Product from '../Interface/IProduct';
+import Cookies from 'js-cookie'; 
+
 
 
 
@@ -13,7 +15,7 @@ interface DeleteProductProps {
 const DeleteProduct: React.FC<DeleteProductProps> = ({ product, onDelete, onCancel }) => {
   const handleDelete = async () => {
     try {
-      const token = localStorage.getItem('token'); 
+      const token = Cookies.get('token'); 
       if (!token) {
         console.error('Token não encontrado. O usuário precisa estar autenticado.');
         return;

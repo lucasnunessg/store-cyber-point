@@ -1,6 +1,8 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'; 
 import axios from 'axios';
+
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -27,7 +29,7 @@ function Login() {
       .then(response => {
         const token = response.data.token;
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        localStorage.setItem('token', token);
+        Cookies.set('token', token);
         navigate('/');
       })
       .catch(error => {
@@ -37,7 +39,7 @@ function Login() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    Cookies.remove('token');
     delete axios.defaults.headers.common['Authorization'];
     setLogout(true)
     setTimeout(() => {
@@ -66,13 +68,13 @@ function Login() {
       />
       <button type="submit">Login</button>
       {error && <div className="error">{error}</div>}
-      {logout ? (
+    { logout ? (
         <p>Saindo...</p>
       ) : (
         <button type="button" onClick={handleLogout}>Logout</button>
 
       )
-      }
+    }
     </form>
   );
 }

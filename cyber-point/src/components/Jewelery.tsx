@@ -63,6 +63,7 @@ const JeweleryCategory = () => {
           <h3>{product.title}</h3>
           <p>{product.description}</p>
           <img src={product.image} alt={product.title} />
+          <p className="product-price">Price: ${product.price.toFixed(2)}</p>
         </div>
       ))}
     </div>

@@ -3,6 +3,7 @@ import api from './fetchApi';
 import EditProduct from './EditProduct';
 import DeleteProduct from './DeleteProduct';
 import AddProduct from './AddProduct'; 
+import Cookies from 'js-cookie'; 
 import '../App.css';
 import Product from '../Interface/IProduct';
 
@@ -158,7 +159,7 @@ function Api({ onNextPageClick }: ApiProps) {
     );
   };
 
-  const token = localStorage.getItem('token');
+  const token = Cookies.get('token');
 
   return (
     <div className="api-container">
