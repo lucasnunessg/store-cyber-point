@@ -12,6 +12,12 @@ const getProductsById = async (id) => {
   return products;
 };
 
+const getProductByCategory = async(category) => {
+  const pCategory = await Product.findOne({ where: { category } })
+
+  return pCategory;
+}
+
 const createProduct = async (title, price, description, image, category) => {
   const newProduct = await Product.create({ title, price, description, image, category});
 
@@ -48,4 +54,5 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  getProductByCategory,
 };

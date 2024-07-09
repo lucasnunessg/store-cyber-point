@@ -24,6 +24,18 @@ const getProductsById = async(req, res) => {
     }
 };
 
+const getProductByCategory = async(req, res) => {
+  try{
+    const { category } = req.params;
+    const pCategory = await productService.getProductByCategory(category);
+    if(!pCategory) return res.status(404).json({ message: 'Product not found' })
+      return res.status(200).json(pCategory)
+  }catch(e){
+    console.log(e.message)
+    return res.status(500).json({ message: 'internal error server' })
+  }
+}
+
 const updateProduct = async(req, res) => {
     try{
         const { id } = req.params;
@@ -70,4 +82,5 @@ module.exports = {
     createProduct,
     updateProduct,
     deleteProduct,
+    getProductByCategory,
 }

@@ -5,6 +5,7 @@ const { authorizeRole } = require('../middlewares/authorizeRole');
 
 route.get('/products', productController.getAllProduct);
 route.get('/products/:id', productController.getProductsById);
+route.get('/products/:category', productController.getProductByCategory);
 route.post('/products', isAuthenticated, authorizeRole('admin'), productController.createProduct);
 route.put('/products/:id', isAuthenticated, authorizeRole('admin'), productController.updateProduct);
 route.delete('/products/:id', isAuthenticated, authorizeRole('admin'), productController.deleteProduct);
