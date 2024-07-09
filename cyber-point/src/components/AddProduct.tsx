@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie'; 
+
 
 const AddProduct: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -7,7 +9,7 @@ const AddProduct: React.FC = () => {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
   const [category, setCategory] = useState('');
-  const token = localStorage.getItem('token');
+  const token = Cookies.get('token');
   
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

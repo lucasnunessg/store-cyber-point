@@ -35,6 +35,7 @@ function Api({ onNextPageClick }: ApiProps) {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [cart, setCart] = useState<{ product: Product, quantity: number }[]>([]); 
   const [selectedCurrency, setSelectedCurrency] = useState<string>('USD'); 
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!Cookies.get('token'));
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -56,6 +57,13 @@ function Api({ onNextPageClick }: ApiProps) {
     document.body.classList.toggle('dark-mode', isDarkMode);
     document.body.classList.toggle('light-mode', !isDarkMode);
   }, [isDarkMode]);
+
+  const token = Cookies.get('token');
+  
+  useEffect(() => {
+    const isAuthenticated = !!token;
+    setIsAuthenticated(isAuthenticated);
+  }, [token]);
 
   const handleNextPage = useCallback(() => {
     setStartExibition(prev => prev + productsPerPage);
@@ -81,7 +89,6 @@ function Api({ onNextPageClick }: ApiProps) {
       [productId]: Math.max((prevQuantity[productId] || 0) - 1, 0)
     }));
   };
-
 
   const toggleDarkMode = useCallback(() => {
     setIsDarkMode(prevMode => !prevMode);
@@ -177,11 +184,8 @@ function Api({ onNextPageClick }: ApiProps) {
     );
   };
 
-  const token = Cookies.get('token');
-
   return (
     <div className="api-container">
-      
       <div className="pagination-buttons">
         <button onClick={handlePrevPage} disabled={startExibition === 0}>Anterior</button>
         <button onClick={handleNextPage} disabled={startExibition + productsPerPage >= products.length}>Próximo</button>
@@ -215,7 +219,7 @@ function Api({ onNextPageClick }: ApiProps) {
         <button onClick={applyPriceFilter}>Filtrar</button>
       </div>
 
-      {token && (
+      {isAuthenticated && (
         <AddProduct />
       )}
 
@@ -235,7 +239,7 @@ function Api({ onNextPageClick }: ApiProps) {
                 <button onClick={() => addProductCount(product.id)}>+</button>
               </div>
               <button onClick={() => handleProductCart(product.id)}>Adicionar ao carrinho</button>
-              {token && (
+              {isAuthenticated && (
                 <>
                   <button onClick={() => handleEditProduct(product)}>Editar</button>
                   <DeleteProduct product={product} onDelete={() => handleDeleteProduct(product.id)} onCancel={() => {}} />

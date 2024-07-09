@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie'; 
 import axios from 'axios';
 
-
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,20 +30,22 @@ function Login() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         Cookies.set('token', token);
         navigate('/');
+        window.location.reload();
       })
       .catch(error => {
         console.error("Error:", error);
         setError(error.response?.data.message || 'An error occurred');
       });
   };
-
+  
   const handleLogout = () => {
     Cookies.remove('token');
     delete axios.defaults.headers.common['Authorization'];
     setLogout(true)
     setTimeout(() => {
       setLogout(false)
-    }, 1100)
+      window.location.reload();
+    }, 500)
     navigate('/');
   }; 
   
@@ -68,13 +69,11 @@ function Login() {
       />
       <button type="submit">Login</button>
       {error && <div className="error">{error}</div>}
-    { logout ? (
+      { logout ? (
         <p>Saindo...</p>
       ) : (
         <button type="button" onClick={handleLogout}>Logout</button>
-
-      )
-    }
+      )}
     </form>
   );
 }
