@@ -5,7 +5,6 @@ import DarkMode from './DarkMode';
 import '../css/womenCategory.css'
 
 
-
 const WomenCategory = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState<string>('');
@@ -81,7 +80,7 @@ const WomenCategory = () => {
             <h3>{product.title}</h3>
             <img src={product.image} alt={product.title} />
             <p className="product-price">Price: ${product.price.toFixed(2)}</p>
-            <p>{product.description}</p>
+            <p className='description-women'>{product.description}</p>
           </div>
         ))}
       </div>

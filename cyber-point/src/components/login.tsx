@@ -1,7 +1,9 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie'; 
+import RegisterComponent from './RegisterComponent' 
 import axios from 'axios';
+import '../css/Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -48,9 +50,11 @@ function Login() {
     }, 500)
     navigate('/');
   }; 
+
   
   return (
     <form onSubmit={handleSubmit}>
+      <div className='login-inputs'>
       <input
         id='inputMail'
         type="email"
@@ -59,6 +63,7 @@ function Login() {
         onChange={handleEmailChange}
         required
       />
+    {RegisterComponent()}
       <input
         id='inputPassword'
         type="password"
@@ -74,7 +79,10 @@ function Login() {
       ) : (
         <button type="button" onClick={handleLogout}>Logout</button>
       )}
+      </div>
+
     </form>
+      
   );
 }
 

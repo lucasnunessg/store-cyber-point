@@ -4,7 +4,6 @@ import EditProduct from './EditProduct';
 import DeleteProduct from './DeleteProduct';
 import AddProduct from './AddProduct'; 
 import Cookies from 'js-cookie'; 
-import '../App.css';
 import Product from '../Interface/IProduct';
 
 interface ApiProps {
