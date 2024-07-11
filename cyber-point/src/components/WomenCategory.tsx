@@ -72,7 +72,7 @@ const WomenCategory = () => {
         </button>
        <span>Página: {currentPage} de {totalPages}</span>
         <button onClick={goToNextPage} disabled={currentPage === totalPages}>
-          Próxima
+          Próxima 
         </button>
       </div>
       <div className='renderization-womens'>
