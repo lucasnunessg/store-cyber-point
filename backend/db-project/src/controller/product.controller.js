@@ -24,7 +24,7 @@ const getProductsById = async(req, res) => {
     }
 };
 
-const getProductByCategory = async(req, res) => {
+const getPCategory = async(req, res) => {
   try{
     const { category } = req.params;
     const pCategory = await productService.getProductByCategory(category);
@@ -82,5 +82,5 @@ module.exports = {
     createProduct,
     updateProduct,
     deleteProduct,
-    getProductByCategory,
+    getPCategory,
 }
