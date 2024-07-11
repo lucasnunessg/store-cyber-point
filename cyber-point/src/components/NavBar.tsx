@@ -16,6 +16,7 @@ const NavList = styled.ul`
 
 const NavItem = styled.li`
   font-size: 1.2rem;
+  display: inline;
 `;
 
 const NavLink = styled(Link)`
@@ -32,11 +33,11 @@ function NavBar() {
     <Navbar>
       <NavList>
         <NavItem>
-          <NavLink to="/">Página Inicial  </NavLink>
-          <NavLink to="/electronics">  Eletrônicos </NavLink>
-          <NavLink to="/women">  Women Clothings </NavLink>
-          <NavLink to="/jewelery">  Jewelery </NavLink>
-          <NavLink to="/mens">  Mens Clothing</NavLink>
+          <NavLink to="/">    Página Inicial           </NavLink>
+          <NavLink to="/electronics">  Eletrônicos        </NavLink>
+          <NavLink to="/women">Women Clothings </NavLink>
+          <NavLink to="/jewelery">Jewelery </NavLink>
+          <NavLink to="/mens">Mens Clothing</NavLink>
 
         </NavItem>
       </NavList>
