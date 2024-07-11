@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from './fetchApi';
 import Product from '../Interface/IProduct';
+import DarkMode from './DarkMode';
 import '../css/womenCategory.css'
 
 
@@ -63,14 +64,13 @@ const WomenCategory = () => {
           value={search}
           onChange={handleSearch}
         />
+      <DarkMode />
       </div>
-      <div className='prev-button'>
+      <div className='nagivations-buttons'>
       <button onClick={goToPrevPage} disabled={currentPage === 1}>
           Anterior
         </button>
-      </div>
        <span>Página: {currentPage} de {totalPages}</span>
-        <div className='next-button'>
         <button onClick={goToNextPage} disabled={currentPage === totalPages}>
           Próxima
         </button>
@@ -80,8 +80,8 @@ const WomenCategory = () => {
           <div key={product.id} className='product-item-women'>
             <h3>{product.title}</h3>
             <img src={product.image} alt={product.title} />
-            <p>{product.description}</p>
             <p className="product-price">Price: ${product.price.toFixed(2)}</p>
+            <p>{product.description}</p>
           </div>
         ))}
       </div>
