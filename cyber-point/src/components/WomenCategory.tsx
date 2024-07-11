@@ -53,7 +53,7 @@ const WomenCategory = () => {
   }
   if (loading) return <p>Loading...</p>
   return (
-    <div>
+    <div className='d-inline-flex p-2'>
       <h1>Women's Clothing</h1>
       <div>
         <input 
@@ -63,7 +63,7 @@ const WomenCategory = () => {
           onChange={handleSearch}
         />
       </div>
-      <div className="pagination">
+      <div className="p-2 m-2 bg-info text-white shadow rounded-2">
         <button onClick={goToPrevPage} disabled={currentPage === 1}>
           Anterior
         </button>
@@ -72,7 +72,7 @@ const WomenCategory = () => {
           Próxima
         </button>
       </div>
-      <div>
+      <div className='"p-2 m-2 bg-info text-white shadow rounded-2"'>
         {filteredProducts.map((product) => (
           <div key={product.id} className='product-item-women'>
             <h3>{product.title}</h3>
