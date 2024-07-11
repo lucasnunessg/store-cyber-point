@@ -1,7 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie'; 
-import RegisterComponent from './RegisterComponent' 
 import axios from 'axios';
 import '../css/Login.css';
 
@@ -63,7 +62,6 @@ function Login() {
         onChange={handleEmailChange}
         required
       />
-    {RegisterComponent()}
       <input
         id='inputPassword'
         type="password"

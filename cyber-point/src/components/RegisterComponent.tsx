@@ -36,7 +36,7 @@ const CreateClient = () => {
     <>
       {!showForm && (
         <button onClick={() => setShowForm(true)}>Criar conta</button>
-      )}
+      )}      
       {showForm && (
         <form onSubmit={handleSubmit}>
           <div>
@@ -71,9 +71,14 @@ const CreateClient = () => {
               onChange={(e) => setContact(e.target.value)}
             />
           </div>
+          
           <button type='submit'>Cadastrar</button>
+          <button onClick={() => setShowForm(false)}>Cancelar</button>
+ 
         </form>
       )}
+      
+      
     </>
   );
 };

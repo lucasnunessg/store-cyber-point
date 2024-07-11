@@ -1,4 +1,5 @@
 import Login from "./login";
+import RegisterComponent from "./RegisterComponent";
 
 const headerStyle = {
   backgroundColor: '#f0f0f0',
@@ -13,6 +14,7 @@ function MyHeader() {
       <header>
         <h1>Cyber Point Store</h1>
       <Login />
+      <RegisterComponent />
       
         <hr />
       </header>
