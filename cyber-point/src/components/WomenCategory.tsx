@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from './fetchApi';
 import Product from '../Interface/IProduct';
+import '../css/womenCategory.css'
 
 
 
@@ -53,7 +54,7 @@ const WomenCategory = () => {
   }
   if (loading) return <p>Loading...</p>
   return (
-    <div className='d-inline-flex p-2'>
+    <div className='womens-category'>
       <h1>Women's Clothing</h1>
       <div>
         <input 
@@ -63,21 +64,23 @@ const WomenCategory = () => {
           onChange={handleSearch}
         />
       </div>
-      <div className="p-2 m-2 bg-info text-white shadow rounded-2">
-        <button onClick={goToPrevPage} disabled={currentPage === 1}>
+      <div className='prev-button'>
+      <button onClick={goToPrevPage} disabled={currentPage === 1}>
           Anterior
         </button>
-        <span>Página: {currentPage} de {totalPages}</span>
+      </div>
+       <span>Página: {currentPage} de {totalPages}</span>
+        <div className='next-button'>
         <button onClick={goToNextPage} disabled={currentPage === totalPages}>
           Próxima
         </button>
       </div>
-      <div className='"p-2 m-2 bg-info text-white shadow rounded-2"'>
+      <div className='renderization-womens'>
         {filteredProducts.map((product) => (
           <div key={product.id} className='product-item-women'>
             <h3>{product.title}</h3>
-            <p>{product.description}</p>
             <img src={product.image} alt={product.title} />
+            <p>{product.description}</p>
             <p className="product-price">Price: ${product.price.toFixed(2)}</p>
           </div>
         ))}

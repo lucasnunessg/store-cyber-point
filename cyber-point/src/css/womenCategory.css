@@ -1,0 +1,103 @@
+.womens-category {
+  background-color:whitesmoke;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Estilizar o título dentro da .womens-category */
+.womens-category h1 {
+  font-size:50px;
+  color: #333;
+  justify-content: center;
+  display: center;
+  text-align: center;
+}
+
+/* Estilizar o input dentro da .womens-category */
+.womens-category input {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-image: url('https://w7.pngwing.com/pngs/33/796/png-transparent-magnifying-glass-computer-icons-easily-zooming-user-interface-computer-icons-web-search-engine.png');
+  background-size: 20px 20px; /* Tamanho da lupa */
+  background-position: 10px center; /* Posição da lupa */
+  background-repeat: no-repeat; /* Não repetir a imagem */
+  padding-left: 40px; /* Espaço para a imagem */
+}
+
+/* Opcional: Ajustar o estilo do input ao focar */
+.womens-category input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+/* Estilizar a div de paginação dentro da .womens-category */
+.womens-category .p-2 {
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #17a2b8;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+/* Estilizar o botão dentro da .womens-category */
+.womens-category button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 100px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.womens-category button:disabled {
+  background-color: #cccccc;
+}
+
+.renderization-womens {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+
+}
+
+/* Estilizar os itens do produto dentro da .womens-category */
+.womens-category .product-item-women {
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilizar o título do produto */
+.womens-category .product-item-women h3 {
+  font-size: 20px;
+  color: #555;
+}
+
+/* Estilizar a descrição do produto */
+.womens-category .product-item-women p {
+  font-size: 16px;
+  color: #777;
+}
+
+/* Estilizar a imagem do produto */
+.womens-category .product-item-women img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* Estilizar o preço do produto */
+.womens-category .product-price {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
