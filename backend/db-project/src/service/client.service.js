@@ -1,6 +1,7 @@
 const { Client } = require('../models');
 
 const getAllClient = async() => {
+
     const clients = await Client.findAll({
         attributes: ['fullName', 'address', 'contact']
     });
@@ -21,7 +22,7 @@ const getClientById = async(id) => {
         attributes: ['fullName', 'address', 'contact'] });
 
     return clients
-}
+};
 
 const updateClient = async (id, fullName, address, contact, email, password, role) => {
     const [updatedRows] = await Client.update(
@@ -30,13 +31,13 @@ const updateClient = async (id, fullName, address, contact, email, password, rol
     );
 
     return updatedRows; 
-}
+};
 
-const createClient = async(fullName, address, contact, email, password, role) => {
-    const newClient = await Client.create({ fullName, address, contact, email, password, role });
-  if(role === '') return 'client'
+const createClient = async(fullName, address, contact, email, password) => {
+    const newClient = await Client.create({ fullName, address, contact, email, password });
+ 
     return newClient
-}
+};
 
 const deleteClient = async(id) => {
     const client = await Client.destroy({ where: { id } })

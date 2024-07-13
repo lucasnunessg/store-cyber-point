@@ -1,4 +1,3 @@
-const { DataTypes } = require("sequelize");
 
 const ClientsModel = (sequelize, DataTypes) => {
   const Client = sequelize.define('Client', {

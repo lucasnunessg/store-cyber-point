@@ -17,7 +17,6 @@ const getProductByCategory = async(category) => {
 
   return pCategory;
 }
-
 const createProduct = async (title, price, description, image, category) => {
   const newProduct = await Product.create({ title, price, description, image, category});
 

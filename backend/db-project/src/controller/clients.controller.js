@@ -37,16 +37,16 @@ const getClientById = async (req, res) => {
     }
 };
 
-const createClient = async (req, res) => {
+const createClientController = async (req, res) => {
   try {
       const { fullName, address, contact, email, password } = req.body;
       let { role } = req.body;
 
-      if (role === null || role === undefined) {
+      if (role === null || role === undefined || role === '') {
           role = 'client'; 
       }
 
-      const newClient = await clientService.createClient(fullName, address, contact, email, password, role);
+      const newClient = await clientService.createClient({fullName, address, contact, email, password, role});
       return res.status(201).json(newClient);
   } catch (e) {
       console.error(e.message);
@@ -61,6 +61,7 @@ const updateClient = async(req,res) => {
 
         const updateClient = await clientService
         .updateClient(id, fullName, address, contact, email, password, role)
+        
         if(!updateClient) return res.status(404).json({ message: 'Não foi possível atualizar' });
         return res.status(200).json({ message: 'Usuário atualizado!' })
     }catch(e){
@@ -85,6 +86,6 @@ module.exports = {
     getClientById,
     getClientByName,
     updateClient,
-    createClient,
+    createClientController,
     deleteClient,
 }
