@@ -35,10 +35,8 @@ const updateClient = async (id, fullName, address, contact, email, password, rol
 
 
   const createClient = async (fullName, address, contact, email, password, role) => {
-    console.log("teste service 01 ", fullName, address, contact, email, password, role)
 
   const newClient = await Client.create({ fullName, address, contact, email, password, role});
-  console.log("teste service 02 ", fullName, address, contact, email, password, role)
   return newClient;
 };
 

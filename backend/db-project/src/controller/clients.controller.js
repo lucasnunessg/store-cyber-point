@@ -41,7 +41,7 @@ const createClientController = async (req, res) => {
   try {
       const { fullName, address, contact, email, password, role } = req.body;
       console.log("teste Controller 01", fullName, address, contact, email, password, role)
-      const newClient = await clientService.createClient({fullName, address, contact, email, password, role});
+      const newClient = await clientService.createClient(fullName, address, contact, email, password, role);
       console.log("teste Controller 02", fullName, address, contact, email, password, role)
       return res.status(201).json(newClient);
 
