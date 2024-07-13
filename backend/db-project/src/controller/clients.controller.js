@@ -39,13 +39,7 @@ const getClientById = async (req, res) => {
 
 const createClientController = async (req, res) => {
   try {
-      const { fullName, address, contact, email, password } = req.body;
-      let { role } = req.body;
-
-      if (role === null || role === undefined || role === '') {
-          role = 'client'; 
-      }
-
+      const { fullName, address, contact, email, password, role } = req.body;
       const newClient = await clientService.createClient({fullName, address, contact, email, password, role});
       return res.status(201).json(newClient);
   } catch (e) {

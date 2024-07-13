@@ -33,10 +33,11 @@ const updateClient = async (id, fullName, address, contact, email, password, rol
     return updatedRows; 
 };
 
-const createClient = async(fullName, address, contact, email, password) => {
-    const newClient = await Client.create({ fullName, address, contact, email, password });
- 
-    return newClient
+
+  const createClient = async (fullName, address, contact, email, password, role) => {
+    
+  const newClient = await Client.create({ fullName, address, contact, email, password, role});
+  return newClient;
 };
 
 const deleteClient = async(id) => {
