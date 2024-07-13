@@ -25,26 +25,30 @@ const CreateClient = () => {
       const response = await axios.post('http://localhost:3001/clients', newClient);
       console.log(response.data);
 
-      if (response.data && response.data.success) {
-        setSuccess('Cliente criado com sucesso!');
+      if (response.status === 201) {
+        setSuccess('Usuário criado com sucesso');
+        // Limpar os campos do formulário após sucesso
+        clearFormFields();
       } else {
-        setSuccess('Cliente criado, mas sem mensagem de confirmação do servidor.');
+        setError('Erro ao criar cliente. Por favor, tente novamente.');
       }
-      
-      setEmail('');
-      setPassword('');
-      setAddress('');
-      setContact('');
-      setFullName('');
-      setError('');
     } catch (error) {
+      console.error('Erro na requisição:', error);
       setError('Erro ao criar cliente. Por favor, tente novamente.');
-      setEmail('');
-      setPassword('');
-      setAddress('');
-      setContact('');
-      setFullName('');
     }
+  };
+
+  const clearFormFields = () => {
+    setEmail('');
+    setPassword('');
+    setAddress('');
+    setContact('');
+    setFullName('');
+  };
+
+  const handleCancel = () => {
+    clearFormFields();
+    setShowForm(false);
   };
 
   return (
@@ -88,7 +92,7 @@ const CreateClient = () => {
           </div>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <button type="submit">Cadastrar</button>
-          <button type="button" onClick={() => setShowForm(false)}>Cancelar</button>
+          <button type="button" onClick={handleCancel}>Cancelar</button>
         </form>
       )}
       {success && <p style={{ color: 'green' }}>{success}</p>}
@@ -97,6 +101,3 @@ const CreateClient = () => {
 };
 
 export default CreateClient;
-
-
-
