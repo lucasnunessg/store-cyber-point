@@ -9,7 +9,7 @@ const CreateClient = () => {
   const [contact, setContact] = useState('');
   const [fullName, setFullName] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(''); // Correção na grafia de "success"
+  const [success, setSuccess] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,18 +23,27 @@ const CreateClient = () => {
       };
       console.log(newClient);
       const response = await axios.post('http://localhost:3001/clients', newClient);
-      console.log(response.data)
-      setSuccess('Cliente criado com sucesso!');
+      console.log(response.data);
+
+      if (response.data && response.data.success) {
+        setSuccess('Cliente criado com sucesso!');
+      } else {
+        setSuccess('Cliente criado, mas sem mensagem de confirmação do servidor.');
+      }
+      
       setEmail('');
       setPassword('');
       setAddress('');
       setContact('');
       setFullName('');
-      setError(''); 
+      setError('');
     } catch (error) {
-      console.error('Erro ao criar cliente', error);
       setError('Erro ao criar cliente. Por favor, tente novamente.');
-      setSuccess(''); 
+      setEmail('');
+      setPassword('');
+      setAddress('');
+      setContact('');
+      setFullName('');
     }
   };
 
@@ -48,43 +57,46 @@ const CreateClient = () => {
           <div>
             <label>E-mail</label>
             <input
-              type='text'
+              type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <label>Senha</label>
             <input
-              type='password'
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <label>Nome completo</label>
             <input
-              type='text'
+              type="text"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
             />
             <label>Endereço</label>
             <input
-              type='text'
+              type="text"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
             <label>Contato</label>
             <input
-              type='text'
+              type="text"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
             />
           </div>
           {error && <p style={{ color: 'red' }}>{error}</p>}
-          <button type='submit'>Cadastrar</button>
-          <button type='button' onClick={() => setShowForm(false)}>Cancelar</button> {/* Correção: Adiciona type='button' */}
-          {success && <p style={{ color: 'green' }}>{success}</p>}
+          <button type="submit">Cadastrar</button>
+          <button type="button" onClick={() => setShowForm(false)}>Cancelar</button>
         </form>
       )}
+      {success && <p style={{ color: 'green' }}>{success}</p>}
     </>
   );
 };
 
 export default CreateClient;
+
+
+
