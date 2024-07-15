@@ -1,34 +1,42 @@
-version: '3.8'
+version: '3.9'
 
 services:
+  frontend:
+    container_name: app_cyberpoint
+    build: ./cyber-point
+    ports:
+      - 3000:3000
+  
+  
   db:
-    image: mysql:5.7
-    container_name: mysql
+    platform: linux/x86_64
+    image: mysql:8.0.32
+    container_name: db
+    ports:
+      - 3307:3306
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: db_store_cyber
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-    volumes:
-      - db-data:/var/lib/mysql
-    ports:
-      - "3306:3306"
+    restart:
+      'always'
+
 
   backend:
-    build:
-      context: ./backend/db-project
-    container_name: backend
-    environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: db_store_cyber
-      MYSQL_HOST: db
-    volumes:
-      - ./backend:/usr/src/app
+    container_name: app_backend
+    build: ./backend
     ports:
-      - "3000:3000"
+      - 3001:3001
+    command: dev 
+    volumes: 
+      - ./backend/db-project/src:/app-backend/db-project/src
     depends_on:
-      - db
+     - db
+    environment:
+      - APP_PORT=3001
+      - DB_USER=root
+      - DB_PASS=password
+      - DB_HOST=localhost
+      - DB_PORT=3306
 
 volumes:
   db-data:
