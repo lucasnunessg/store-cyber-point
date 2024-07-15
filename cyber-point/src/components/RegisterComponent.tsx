@@ -6,6 +6,7 @@ const CreateClient = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState('');
+  const [role] = useState('client');  
   const [contact, setContact] = useState('');
   const [fullName, setFullName] = useState('');
   const [error, setError] = useState('');
@@ -20,6 +21,7 @@ const CreateClient = () => {
         contact,
         email,
         password,
+        role,
       };
       console.log(newClient);
       const response = await axios.post('http://localhost:3001/clients', newClient);
@@ -27,7 +29,6 @@ const CreateClient = () => {
 
       if (response.status === 201) {
         setSuccess('Usuário criado com sucesso');
-        // Limpar os campos do formulário após sucesso
         clearFormFields();
       } else {
         setError('Erro ao criar cliente. Por favor, tente novamente.');
@@ -89,6 +90,7 @@ const CreateClient = () => {
               value={contact}
               onChange={(e) => setContact(e.target.value)}
             />
+      
           </div>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <button type="submit">Cadastrar</button>
