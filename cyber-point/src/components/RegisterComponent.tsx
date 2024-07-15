@@ -36,6 +36,7 @@ const CreateClient = () => {
     } catch (error) {
       console.error('Erro na requisição:', error);
       setError('Erro ao criar cliente. Por favor, tente novamente.');
+      clearFormFields();
     }
   };
 
