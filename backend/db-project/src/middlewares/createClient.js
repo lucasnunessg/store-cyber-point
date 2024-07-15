@@ -4,7 +4,7 @@
     try {
       const { fullName, address, contact, email, password } = req.body;
       let { role } = req.body;
-      
+
       if(!role) return role = 'client'
       
       if (!email || !password || !contact || !address || !fullName) {
@@ -24,5 +24,5 @@
   };
 
   module.exports = {
-    validateCreation,
+    validateCreation, 
   };
