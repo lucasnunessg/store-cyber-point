@@ -1,5 +1,6 @@
 const route = require('express').Router();
 const { commentsController } = require('../controller')
 
-route.get('/comments', commentsController.getAllC);
-route.post('/products/:comments', commentsController.addComment)
+router.get('/products/:id/comments', commentsController.getAllC);
+
+router.post('/products/:id/comments', commentsController.addComment);
