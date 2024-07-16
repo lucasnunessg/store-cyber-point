@@ -1,23 +1,44 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class comments extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+const CommentModel = (sequelize, DataTypes) => {
+  const Comment = sequelize.define('Comment', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    comment: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    productId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: 'product_id',
+    },
+    clientId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: 'client_id',
     }
-  }
-  comments.init({
-    comment: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'comments',
+  }, 
+  {
+    timestamps: true, // Inclui `createdAt` e `updatedAt`
+    underscored: true, 
+    tableName: 'comments', // Corrige o nome da tabela
   });
-  return comments;
+
+  Comment.associate = (models) => {
+    Comment.belongsTo(models.Product, {
+      foreignKey: 'productId',
+      as: 'product'
+    });
+    Comment.belongsTo(models.Client, {
+      foreignKey: 'clientId',
+      as: 'client'
+    });
+  };
+
+  return Comment;
 };
+
+module.exports = CommentModel;
