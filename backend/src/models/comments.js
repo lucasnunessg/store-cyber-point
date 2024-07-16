@@ -22,9 +22,9 @@ const CommentModel = (sequelize, DataTypes) => {
     }
   }, 
   {
-    timestamps: true, // Inclui `createdAt` e `updatedAt`
+    timestamps: true, 
     underscored: true, 
-    tableName: 'comments', // Corrige o nome da tabela
+    tableName: 'comments', 
   });
 
   Comment.associate = (models) => {
