@@ -4,7 +4,7 @@ const cors = require('cors');
 
 
 const { clientsRoute, loginRoute, productRoute, logoutRoute,
-productsElectronics, womenClothingRoute, jeweleryRoute, mensClothingRoute } = require('./routes') 
+productsElectronics, womenClothingRoute, jeweleryRoute, mensClothingRoute, commentsRoute } = require('./routes') 
 
 const app = express();
 
@@ -21,5 +21,6 @@ app.use('/', productsElectronics);
 app.use('/', womenClothingRoute);
 app.use('/', jeweleryRoute);
 app.use('/', mensClothingRoute);
+app.use('/', commentsRoute)
 
 module.exports = app;

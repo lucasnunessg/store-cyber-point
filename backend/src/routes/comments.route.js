@@ -1,6 +1,7 @@
 const route = require('express').Router();
-const { commentsController } = require('../controller')
+const { commentsController } = require('../controller');
+const { loginMiddleware } = require('../middlewares');
 
-router.get('/products/:id/comments', commentsController.getAllC);
+route.get('/products/:productId/comments', commentsController.getAllComments);
 
-router.post('/products/:id/comments', commentsController.addComment);
+route.post('/products/:productId/comments', loginMiddleware.validateLogin, commentsController.addComment);
