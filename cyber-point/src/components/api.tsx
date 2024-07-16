@@ -238,7 +238,7 @@ function Api({ onNextPageClick }: ApiProps) {
                 <span className="quantity">{quantityProducts[product.id] || 0}</span>
                 <button onClick={() => addProductCount(product.id)}>+</button>
               </div>
-              <Comments />
+              <Comments productId={product.id} />   
               <button onClick={() => handleProductCart(product.id)}>Adicionar ao carrinho</button>
               {isAuthenticated && (
                 <>
