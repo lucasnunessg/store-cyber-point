@@ -5,6 +5,7 @@ import DeleteProduct from './DeleteProduct';
 import AddProduct from './AddProduct'; 
 import Cookies from 'js-cookie'; 
 import Product from '../Interface/IProduct';
+import Comments from './Comments';
 
 interface ApiProps {
   onNextPageClick?: () => void;
@@ -221,7 +222,7 @@ function Api({ onNextPageClick }: ApiProps) {
       {isAuthenticated && (
         <AddProduct />
       )}
-
+      
       <div className="product-list">
         {loading ? (
           <p>Loading...</p>
@@ -237,6 +238,7 @@ function Api({ onNextPageClick }: ApiProps) {
                 <span className="quantity">{quantityProducts[product.id] || 0}</span>
                 <button onClick={() => addProductCount(product.id)}>+</button>
               </div>
+              <Comments />
               <button onClick={() => handleProductCart(product.id)}>Adicionar ao carrinho</button>
               {isAuthenticated && (
                 <>
