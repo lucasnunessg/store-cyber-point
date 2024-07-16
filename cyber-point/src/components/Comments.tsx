@@ -23,8 +23,8 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
     
     try {
       const newComment = {
-        clientId,
         productId,
+        clientId,
         comment: newCommentText,
       };
 
@@ -57,7 +57,8 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
             value={newCommentText}
             onChange={(e) => setNewCommentText(e.target.value)}
             placeholder="Adicione um comentário"
-          />
+            />
+            {<h4>{clientId}</h4>}
         
           <button type="submit">Adicionar Comentário</button>
         </div>
