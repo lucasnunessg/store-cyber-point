@@ -17,8 +17,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: db_store_cyber
-    restart:
-      'always'
 
 
   backend:
@@ -35,7 +33,6 @@ services:
       - APP_PORT=3001
       - DB_USER=root
       - DB_PASS=password
-      - DB_HOST=localhost
       - DB_PORT=3306
 
 volumes:
