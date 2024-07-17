@@ -18,7 +18,9 @@ const getAllC = async (req, res) => {
 
 const addComment = async (req, res) => {
   const { productId } = req.params;
-  const { clientId, comment } = req.body;
+  const clientId = 1;
+  console.log(req.body)
+  const { comment } = req.body;
 
   try {
     const newComment = await Comment.create({

@@ -22,7 +22,7 @@ const CommentModel = (sequelize, DataTypes) => {
     }
   }, 
   {
-    timestamps: true, 
+    timestamps: false, 
     underscored: true, 
     tableName: 'comments', 
   });
