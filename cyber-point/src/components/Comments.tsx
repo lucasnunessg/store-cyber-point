@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from './fetchApi';
 import Cookies from 'js-cookie'; 
 
@@ -15,12 +15,13 @@ interface CommentsProps {
 const Comments: React.FC<CommentsProps> = ({ productId }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newCommentText, setNewCommentText] = useState('');
-  const [clientId] = useState('');
+  const [clientId, setClientId] = useState<number | null>(null);
   const token = Cookies.get('token');
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("handlesubmit aqui")
+
 
     try {
       const newComment = {
@@ -28,7 +29,6 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
         clientId,
         comment: newCommentText,
       };
-      console.log("acima do post")
       const commentPost = await api.post(`/products/${productId}/comments`, newComment, {
         headers: {
           'Authorization': `Bearer ${token}`,
