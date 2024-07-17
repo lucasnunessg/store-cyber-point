@@ -20,7 +20,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("oiiiiiiiaaa")
+    console.log("handlesubmit aqui")
 
     try {
       const newComment = {
@@ -28,7 +28,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
         clientId,
         comment: newCommentText,
       };
-      console.log("oiiiiiii")
+      console.log("acima do post")
       const commentPost = await api.post(`/products/${productId}/comments`, newComment, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -37,7 +37,6 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
       });
       console.log("produto adicionado!", commentPost.data)
       setComments((prevComments) => [...prevComments, commentPost.data]);
-      setNewCommentText('');
     } catch (error) {
       console.error('Erro ao adicionar comentário', error);
     }

@@ -28,14 +28,14 @@ services:
       - 3001:3001
     command: dev 
     volumes: 
-      - ./backend/db-project/src:/app-backend/db-project/src
+      - ./backend/src:/app-backend/src
     depends_on:
      - db
     environment:
       - APP_PORT=3001
       - DB_USER=root
       - DB_PASS=password
-      - DB_HOST=localhost
+      - DB_HOST=db
       - DB_PORT=3306
 
 volumes:
