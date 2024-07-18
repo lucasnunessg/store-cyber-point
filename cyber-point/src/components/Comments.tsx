@@ -18,10 +18,28 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   const [clientId, setClientId] = useState<number | null>(null);
   const token = Cookies.get('token');
 
+  useEffect(() => {
+    const findClientId = async () => {
+      try {
+        const response = await api.get(`/clients/${clientId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        });
+        console.log(response.data);
+        setClientId(response.data.id);
+      } catch (error) {
+        console.error('Error fetching client data:', error);
+      }
+    };
+
+    if (clientId) {
+      findClientId();
+    }
+  }, [clientId, token]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
 
     try {
       const newComment = {
