@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from './fetchApi';
-import Cookies from 'js-cookie';
+import Cookies from 'js-cookie'; 
 
 interface Comment {
   clientId: number;
@@ -38,6 +38,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
     }
   }, [clientId, token]);
 
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -47,17 +48,14 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
         clientId,
         comment: newCommentText,
       };
-
       const commentPost = await api.post(`/products/${productId}/comments`, newComment, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
       });
-
-      console.log("produto adicionado!", commentPost.data);
+      console.log("comentario adicionado!", commentPost.data)
       setComments((prevComments) => [...prevComments, commentPost.data]);
-      setNewCommentText(''); 
     } catch (error) {
       console.error('Erro ao adicionar comentário', error);
     }
@@ -66,19 +64,21 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <h4>Comentários do produto:</h4>
-        <ul>
-          {comments.map((comment, index) => (
-            <li key={index}>{comment.comment}</li>
-          ))}
-        </ul>
+      <h4>Comentários do produto:</h4>
+      <ul>
+        {comments.map((comment, index) => (
+          <li key={index}>{comment.comment}</li>
+        ))}
+      </ul>
         <div>
+          {<h4>{clientId}</h4>}
           <input
             type="text"
             value={newCommentText}
             onChange={(e) => setNewCommentText(e.target.value)}
             placeholder="Adicione um comentário"
-          />
+            />
+        
           <button type="submit">Adicionar Comentário</button>
         </div>
       </form>
