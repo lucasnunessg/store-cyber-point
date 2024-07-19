@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from './fetchApi';
-import Cookies from 'js-cookie'; 
+import Cookies from 'js-cookie';
 
 interface Comment {
   clientId: number;
@@ -16,31 +16,53 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newCommentText, setNewCommentText] = useState('');
   const [clientId, setClientId] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const token = Cookies.get('token');
 
   useEffect(() => {
-    const findClientId = async () => {
+    const fetchComments = async () => {
+      try {
+        const response = await api.get(`/products/${productId}/comments`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        });
+        setComments(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar comentários', error);
+        setError('Não foi possível encontrar produto');
+      }
+    };
+
+    fetchComments();
+  }, [productId, token]);
+
+  useEffect(() => {
+    const fetchClientId = async () => {
       try {
         const response = await api.get(`/clients/${clientId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
         });
-        console.log(response.data);
         setClientId(response.data.id);
       } catch (error) {
-        console.error('Error fetching client data:', error);
+        console.error('Erro ao buscar clientId', error);
+        setError('Não foi possível encontrar cliente');
       }
     };
 
-    if (clientId) {
-      findClientId();
-    }
+    fetchClientId();
   }, [clientId, token]);
-
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (clientId === null) {
+      console.error('Client ID não encontrado');
+      setError('Client ID não encontrado');
+      return;
+    }
 
     try {
       const newComment = {
@@ -48,37 +70,41 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
         clientId,
         comment: newCommentText,
       };
+
       const commentPost = await api.post(`/products/${productId}/comments`, newComment, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
       });
-      console.log("comentario adicionado!", commentPost.data)
+
+      console.log('Comentário adicionado!', commentPost.data);
       setComments((prevComments) => [...prevComments, commentPost.data]);
+      setNewCommentText('');
+      setError(null); 
     } catch (error) {
       console.error('Erro ao adicionar comentário', error);
+      setError('Não foi possível adicionar comentário');
     }
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-      <h4>Comentários do produto:</h4>
-      <ul>
-        {comments.map((comment, index) => (
-          <li key={index}>{comment.comment}</li>
-        ))}
-      </ul>
+        <h4>Comentários do produto:</h4>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <ul>
+          {comments.map((comment, index) => (
+            <li key={index}>{comment.comment}</li>
+          ))}
+        </ul>
         <div>
-          {<h4>{clientId}</h4>}
           <input
             type="text"
             value={newCommentText}
             onChange={(e) => setNewCommentText(e.target.value)}
             placeholder="Adicione um comentário"
-            />
-        
+          />
           <button type="submit">Adicionar Comentário</button>
         </div>
       </form>
