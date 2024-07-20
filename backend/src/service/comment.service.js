@@ -5,6 +5,8 @@ const getAllComments = async () => {
   return comments;
 };
 
+
+
 module.exports = {
   getAllComments,
 }

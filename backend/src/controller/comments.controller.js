@@ -1,5 +1,5 @@
 const { commentsService } = require('../service');
-const { Comment } = require('../models');
+const { Comment, Client } = require('../models');
 
 const getAllC = async (req, res) => {
   const { productId } = req.params;
@@ -18,9 +18,8 @@ const getAllC = async (req, res) => {
 
 const addComment = async (req, res) => {
   const { productId } = req.params;
-  const clientId = 1;
-  console.log(req.body)
   const { comment } = req.body;
+  const clientId = req.user.id;
 
   try {
     const newComment = await Comment.create({
@@ -29,7 +28,12 @@ const addComment = async (req, res) => {
       comment,
     });
 
-    res.status(201).json(newComment);
+    const commentWithClient = await Comment.findOne({
+      where: { id: newComment.id },
+      include: [{ model: Client, attributes: ['fullName'] }],
+    });
+
+    res.status(201).json(commentWithClient);
   } catch (error) {
     console.log(error.message);
     return res.status(500).json({ message: 'Erro interno do servidor', error });

@@ -15,14 +15,14 @@ interface CommentsProps {
 const Comments: React.FC<CommentsProps> = ({ productId }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newCommentText, setNewCommentText] = useState('');
-  const [clientId, setClientId] = useState<number | null>(null);
+  const [clientId] = useState<null>(null)
   const [error, setError] = useState<string | null>(null);
   const token = Cookies.get('token');
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await api.get(`/products/${productId}/comments`, {
+        const response = await api.get(`/products`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
@@ -37,33 +37,12 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
     fetchComments();
   }, [productId, token]);
 
-  useEffect(() => {
-    const fetchClientId = async () => {
-      try {
-        const response = await api.get(`/clients/${clientId}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          }
-        });
-        setClientId(response.data.id);
-      } catch (error) {
-        console.error('Erro ao buscar clientId', error);
-        setError('Não foi possível encontrar cliente');
-      }
-    };
-
-    fetchClientId();
-  }, [clientId, token]);
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (clientId === null) {
-      console.error('Client ID não encontrado');
-      setError('Client ID não encontrado');
-      return;
-    }
-
+ 
     try {
       const newComment = {
         productId,
