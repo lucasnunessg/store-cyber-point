@@ -22,14 +22,14 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await api.get(`/products`, {
+        const response = await api.get(`/products/${productId}/comments`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
         });
         setComments(response.data);
       } catch (error) {
-        console.error('Erro ao buscar comentários', error);
+        console.error('Erro ao buscar produtos', error);
         setError('Não foi possível encontrar produto');
       }
     };
@@ -37,6 +37,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
     fetchComments();
   }, [productId, token]);
 
+  console.log(comments)
   
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,7 +64,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
       setError(null); 
     } catch (error) {
       console.error('Erro ao adicionar comentário', error);
-      setError('Não foi possível adicionar comentário');
+      setError('Não foi possível adicionar comentário, verifique se fez login.');
     }
   };
 
@@ -85,6 +86,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
             placeholder="Adicione um comentário"
           />
           <button type="submit">Adicionar Comentário</button>
+          {error && <p style={{color: 'red'}}>{error}</p>}
         </div>
       </form>
     </div>
