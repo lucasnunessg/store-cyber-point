@@ -22,7 +22,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await api.get(`/products/${productId}/comments`, {
+        const response = await api.get(`/products`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
