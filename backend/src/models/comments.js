@@ -14,11 +14,19 @@ const CommentModel = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       field: 'product_id',
+      references: {
+        model: 'products',
+        key: 'id'
+      }
     },
     clientId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       field: 'client_id',
+      references: {
+        model: 'clients',
+        key: 'id'
+      }
     }
   }, 
   {
