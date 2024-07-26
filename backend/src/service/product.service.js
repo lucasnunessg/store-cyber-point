@@ -13,7 +13,7 @@ const getProductsById = async (id) => {
 };
 
 const getProductByCategory = async(category) => {
-  const pCategory = await Product.findAll({ where: { category } })
+  const pCategory = await Product.findOne({ where: { category } })
 
   return pCategory;
 }

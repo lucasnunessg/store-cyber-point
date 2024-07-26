@@ -5,7 +5,7 @@ const getAllC = async (req, res) => {
   const { productId } = req.params;
 
   try {
-    const allComments = await commentsService.getAllComments(productId);
+    const allComments = await commentsService.getAllComments(parseInt(productId, 10));
     if (!allComments || !allComments.length) {
       return res.status(404).json({ message: 'Comentários não encontrados' });
     }
@@ -21,9 +21,13 @@ const addComment = async (req, res) => {
   const { comment } = req.body;
   const clientId = req.user.id;
 
+  if (!comment || comment.trim() === '') {
+    return res.status(400).json({ message: 'Não é permitido comentário vazio' });
+  }
+
   try {
     const newComment = await Comment.create({
-      productId,
+      productId: parseInt(productId, 10),
       clientId,
       comment,
     });
