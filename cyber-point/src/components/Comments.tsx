@@ -17,12 +17,13 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   const [newCommentText, setNewCommentText] = useState('');
   const [clientId] = useState<null>(null)
   const [error, setError] = useState<string | null>(null);
+  const [errorGet, setErrorGet] = useState<string | null>(null);
   const token = Cookies.get('token');
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await api.get(`/products`, {
+        const response = await api.get(`/products/productId/comments`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
@@ -51,7 +52,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
         comment: newCommentText,
       };
 
-      const commentPost = await api.post(`/products/${productId}/comments`, newComment, {
+      const commentPost = await api.post(`/products/productId/comments`, newComment, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -61,10 +62,10 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
       console.log('Comentário adicionado!', commentPost.data);
       setComments((prevComments) => [...prevComments, commentPost.data]);
       setNewCommentText('');
-      setError(null); 
+      setErrorGet(null); 
     } catch (error) {
       console.error('Erro ao adicionar comentário', error);
-      setError('Não foi possível adicionar comentário, verifique se fez login.');
+      setErrorGet('Não foi possível adicionar comentário, verifique se fez login.');
     }
   };
 
@@ -74,8 +75,8 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
         <h4>Comentários do produto:</h4>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <ul>
-          {comments.map((comment, index) => (
-            <li key={index}>{comment.comment}</li>
+          {comments.map((comment) => (
+            <li>{comment.comment}</li>
           ))}
         </ul>
         <div>
@@ -86,7 +87,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
             placeholder="Adicione um comentário"
           />
           <button type="submit">Adicionar Comentário</button>
-          {error && <p style={{color: 'red'}}>{error}</p>}
+          {errorGet && <p style={{color: 'red'}}>{errorGet}</p>}
         </div>
       </form>
     </div>

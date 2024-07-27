@@ -23,6 +23,10 @@ const ClientsModel = (sequelize, DataTypes) => {
     tableName: 'clients', 
   });
 
+  Client.associate = (models) => {
+    Client.hasMany(models.Comment, { foreignKey: 'clientId', as: 'comments' });
+  };
+
   return Client;
 };
 
