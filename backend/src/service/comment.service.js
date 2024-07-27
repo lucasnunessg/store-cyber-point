@@ -1,12 +1,14 @@
-const { Comment } = require('../models');
+const { Comment, Product } = require('../models');
 
-const getAllComments = async (productId) => {
-  const comments = await Comment.findAll({
+
+const getAllComments =  async (productId) => {
+
+  const comments = await Comment.findOne({
     where: { productId },
+    include: { model: Product, as: 'product' }
   });
-  console.log("to aqui", productId)
-  return comments;
-};
+  return comments
+}
 
 module.exports = {
   getAllComments,

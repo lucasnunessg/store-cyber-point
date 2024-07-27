@@ -1,32 +1,15 @@
-const CommentModel = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define('Comment', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false,
-    },
+
     comment: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
     productId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      field: 'product_id',
-      references: {
-        model: 'products',
-        key: 'id'
-      }
     },
     clientId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      field: 'client_id',
-      references: {
-        model: 'clients',
-        key: 'id'
-      }
     }
   }, 
   {
@@ -38,7 +21,7 @@ const CommentModel = (sequelize, DataTypes) => {
   Comment.associate = (models) => {
     Comment.belongsTo(models.Product, {
       foreignKey: 'productId',
-      as: 'product'
+      as: 'product'  
     });
     Comment.belongsTo(models.Client, {
       foreignKey: 'clientId',
@@ -48,5 +31,3 @@ const CommentModel = (sequelize, DataTypes) => {
 
   return Comment;
 };
-
-module.exports = CommentModel;
