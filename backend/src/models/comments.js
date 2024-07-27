@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     productId: {
       type: DataTypes.INTEGER,
+      foreignKey: true,
     },
     clientId: {
       type: DataTypes.INTEGER,
@@ -25,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
     });
     Comment.belongsTo(models.Client, {
       foreignKey: 'clientId',
-      as: 'client'
     });
   };
 
