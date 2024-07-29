@@ -5,7 +5,9 @@ const getAllComments =  async (productId) => {
 
   const comments = await Comment.findOne({
     where: { productId },
-    include: { model: Product, as: 'product' }
+    include: { model: Product, as: 'product' },
+    attributes: ['comments']
+
   });
   return comments
 }

@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   {
     timestamps: false, 
     underscored: true, 
-    tableName: 'comments', 
+    tableName: 'comments',
   });
 
   Comment.associate = (models) => {
@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     Comment.belongsTo(models.Client, {
       foreignKey: 'clientId',
+      as: 'client'
     });
   };
 

@@ -1,5 +1,6 @@
 const { clientService } = require('../service');
 
+
 const getAllClient = async (_req, res) => {
     try {
         const clients = await clientService.getAllClient()
