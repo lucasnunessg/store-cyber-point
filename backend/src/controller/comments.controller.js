@@ -1,12 +1,13 @@
 const { commentsService } = require('../service');
-const { Comment, Client } = require('../models');
+const { Comment } = require('../models');
 
 
 const getAllC = async (req, res) => {
-  const { productId } = req.params;
   try {
-    const allComments = await commentsService.getAllComments(productId);
-    if (!allComments) {  
+    const { productId } = req.params;  
+    const allComments = await commentsService.getAllComments(productId); 
+    console.log(allComments)
+    if (!allComments.length) { 
       return res.status(404).json({ message: 'Comentários não encontrados' });
     }
     return res.status(200).json(allComments);
@@ -14,9 +15,8 @@ const getAllC = async (req, res) => {
     console.log(error.message);
     return res.status(500).json({ message: 'Erro interno do servidor', error });
   }
-
-
 };
+
 
 const addComment = async (req, res) => {
   const { productId } = req.params;

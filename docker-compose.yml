@@ -16,6 +16,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: db_store_cyber
+    volumes:
+      - db-data:/var/lib/mysql
 
   backend:
     container_name: app_backend

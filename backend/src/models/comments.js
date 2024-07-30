@@ -1,13 +1,12 @@
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define('Comment', {
-
     comment: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
     productId: {
       type: DataTypes.INTEGER,
-      foreignKey: true,
+      allowNull: false,
     },
     clientId: {
       type: DataTypes.INTEGER,
