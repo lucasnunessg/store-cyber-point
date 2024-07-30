@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      comment: {
+      comments: {
         type: Sequelize.TEXT,
         allowNull: true,
         defaultValue: 'Valor Padrão'

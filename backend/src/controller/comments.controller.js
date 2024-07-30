@@ -29,7 +29,6 @@ const addComment = async (req, res) => {
   try {
     const newComment = await Comment.create({
       productId: parseInt(productId, 10),
-      comment: comments,  
     });
 
     const commentWithClient = await Comment.findOne({
