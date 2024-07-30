@@ -11,11 +11,12 @@ module.exports = {
       },
       comment: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true,
+        defaultValue: 'Valor Padrão'
       },
       productId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         field: 'product_id',
         references: {
           model: 'products',
@@ -25,7 +26,7 @@ module.exports = {
       },
       clientId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         field: 'client_id',
         references: {
           model: 'clients',
@@ -35,12 +36,12 @@ module.exports = {
         onUpdate: 'CASCADE'
       },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }

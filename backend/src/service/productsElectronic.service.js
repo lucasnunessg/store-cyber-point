@@ -2,7 +2,7 @@ const { Product } = require("../models");
 
 const getProductsElectronics = async () => {
   
-    const products = await Product.findOne({
+    const products = await Product.findAll({
       where: { category: 'electronics' },
       attributes: ['title', 'price', 'description', 'category', 'image']
     });

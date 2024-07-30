@@ -2,7 +2,7 @@ const { Client } = require('../models');
 
 const getAllClient = async() => {
 
-    const clients = await Client.findOne({
+    const clients = await Client.findAll({
         attributes: ['fullName', 'address', 'contact']
     });
 

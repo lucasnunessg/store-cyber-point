@@ -1,9 +1,9 @@
 const config = {
   username: process.env.DB_USER || 'root',
-  password: process.env.MYSQL_ROOT_PASSWORD || 'password',
+  password: process.env.DB_PASS || 'password',
   database: process.env.MYSQL_DATABASE || 'db_store_cyber',
-  host: 'localhost',
-  port: process.env.DB_PORT || 3307,
+  host: process.env.DB_HOST || 'localhost',
+  port: process.env.DB_PORT || 3307, 
   dialect: 'mysql',
 };
 
