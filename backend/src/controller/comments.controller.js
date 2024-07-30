@@ -2,11 +2,11 @@ const { commentsService } = require('../service');
 const { Comment, Client } = require('../models');
 
 
-const getAllC = async (_req, res) => {
+const getAllC = async (req, res) => {
   const { productId } = req.params;
   try {
     const allComments = await commentsService.getAllComments(productId);
-    if (!allComments.length) {  
+    if (!allComments) {  
       return res.status(404).json({ message: 'Comentários não encontrados' });
     }
     return res.status(200).json(allComments);
@@ -20,23 +20,23 @@ const getAllC = async (_req, res) => {
 
 const addComment = async (req, res) => {
   const { productId } = req.params;
-  const { comment } = req.body; 
-  const clientId = req.user.id;
+  const { comments } = req.body;
 
-  if (!comment || comment.trim() === '') {
+  if (!comments) {
     return res.status(400).json({ message: 'Não é permitido comentário vazio' });
   }
-
+  
   try {
     const newComment = await Comment.create({
       productId: parseInt(productId, 10),
-      clientId,
-      comment,
+      comment: comments,  
     });
 
     const commentWithClient = await Comment.findOne({
       where: { id: newComment.id },
-      include: [{ model: Client, attributes: ['fullName'] }],
+      include: [
+        { model: Product, as: 'product', attributes: ['title'] } 
+      ],
     });
 
     res.status(201).json(commentWithClient);

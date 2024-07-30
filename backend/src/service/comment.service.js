@@ -1,6 +1,6 @@
 const { Comment, Product } = require('../models');
 
-
+console.log("oii")
 const getAllComments =  async (productId) => {
 
   const comments = await Comment.findAll({
