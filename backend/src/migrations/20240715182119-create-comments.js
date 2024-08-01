@@ -10,9 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       comments: {
-        type: Sequelize.TEXT,
+        type: Sequelize.TEXT('tiny'),
         allowNull: true,
-        defaultValue: 'Valor Padrão'
       },
       productId: {
         type: Sequelize.INTEGER,
