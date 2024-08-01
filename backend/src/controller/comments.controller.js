@@ -17,32 +17,18 @@ const getAllC = async (req, res) => {
   }
 };
 
-
 const addComment = async (req, res) => {
   const { productId } = req.params;
-  const { comments } = req.body;
-
-  if (!comments) {
-    return res.status(400).json({ message: 'Não é permitido comentário vazio' });
+  const { comment } = req.body;
+  try{
+    const newComment = await commentsService.createAComment(productId, comment);
+    if(!newComment) return res.status(400).json({ message: 'não foi possível criar' })
+      return res.status(201).json(newComment);
+  }catch(e){
+    console.log(e.message)
+    return res.status(500).json({ message: 'internal error service' })
   }
   
-  try {
-    const newComment = await Comment.create({
-      productId: parseInt(productId, 10),
-    });
-
-    const commentWithClient = await Comment.findOne({
-      where: { id: newComment.id },
-      include: [
-        { model: Product, as: 'product', attributes: ['title'] } 
-      ],
-    });
-
-    res.status(201).json(commentWithClient);
-  } catch (error) {
-    console.log(error.message);
-    return res.status(500).json({ message: 'Erro interno do servidor', error });
-  }
 };
 
 module.exports = {

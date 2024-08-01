@@ -11,6 +11,13 @@ const getAllComments =  async (productId) => {
   return comments
 }
 
+const createAComment = async(productId, comment) => {
+  const newComment = await Comment.create({ productId, comment })
+
+  return newComment
+}
+
 module.exports = {
   getAllComments,
+  createAComment,
 };
