@@ -11,8 +11,10 @@ const getAllComments =  async (productId) => {
   return comments
 }
 
-const createAComment = async(productId, comment) => {
-  const newComment = await Comment.create({ productId, comment })
+const createAComment = async(productId, comments) => {
+  const newComment = await Comment.create({ productId, comments,
+    include: { model: Product, as: 'product' },
+   })
 
   return newComment
 }

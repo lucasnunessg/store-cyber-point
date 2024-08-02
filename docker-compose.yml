@@ -6,7 +6,7 @@ services:
     build: ./cyber-point
     ports:
       - 3000:3000
-  
+
   db:
     platform: linux/x86_64
     image: mysql:8.0.32

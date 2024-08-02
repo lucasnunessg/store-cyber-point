@@ -19,9 +19,12 @@ const getAllC = async (req, res) => {
 
 const addComment = async (req, res) => {
   const { productId } = req.params;
-  const { comment } = req.body;
+  const { comments } = req.body;
   try{
-    const newComment = await commentsService.createAComment(productId, comment);
+    console.log("to aqui ", comments)
+    const newComment = await commentsService.createAComment(productId, comments);
+    console.log("to aquiiiii ", comments)
+
     if(!newComment) return res.status(400).json({ message: 'não foi possível criar' })
       return res.status(201).json(newComment);
   }catch(e){
