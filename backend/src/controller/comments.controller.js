@@ -23,7 +23,7 @@ const addComment = async (req, res) => {
   try{
     console.log("to aqui ", comments)
     const newComment = await commentsService.createAComment(productId, comments);
-    console.log("to aquiiiii ", comments)
+    console.log("to aquiiii ", comments)
 
     if(!newComment) return res.status(400).json({ message: 'não foi possível criar' })
       return res.status(201).json(newComment);
