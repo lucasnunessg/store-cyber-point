@@ -1,12 +1,9 @@
 const { commentsService } = require('../service');
-const { Comment } = require('../models');
 
 
 const getAllC = async (req, res) => {
   try {
-    const { productId } = req.params;  
-    const allComments = await commentsService.getAllComments(productId); 
-    console.log(allComments)
+    const allComments = await commentsService.getAllComments();
     if (!allComments.length) { 
       return res.status(404).json({ message: 'Comentários não encontrados' });
     }
@@ -21,9 +18,7 @@ const addComment = async (req, res) => {
   const { productId } = req.params;
   const { comments } = req.body;
   try{
-    console.log("to aqui ", comments)
     const newComment = await commentsService.createAComment(productId, comments);
-    console.log("to aquiiii ", comments)
 
     if(!newComment) return res.status(400).json({ message: 'não foi possível criar' })
       return res.status(201).json(newComment);

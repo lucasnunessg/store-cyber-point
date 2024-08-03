@@ -23,7 +23,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await api.get(`/products/productId/comments`, {
+        const response = await api.get(`/products/`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
@@ -49,10 +49,10 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
       const newComment = {
         productId,
         clientId,
-        comment: newCommentText,
+        comments: newCommentText,
       };
 
-      const commentPost = await api.post(`/products/productId/comments`, newComment, {
+      const commentPost = await api.post(`/products/1/comments`, newComment, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

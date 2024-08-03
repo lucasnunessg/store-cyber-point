@@ -1,14 +1,12 @@
 const { Comment, Product } = require('../models');
 
-const getAllComments =  async (productId) => {
-
+const getAllComments = async () => {
   const comments = await Comment.findAll({
-    where: { productId },
+    where: { comments },
     include: { model: Product, as: 'product' },
     attributes: ['comments']
-
   });
-  return comments
+  return comments;
 }
 
 const createAComment = async(productId, comments) => {
