@@ -2,7 +2,6 @@ const { Comment, Product } = require('../models');
 
 const getAllComments = async () => {
   const comments = await Comment.findAll({
-    where: { comments },
     include: { model: Product, as: 'product' },
     attributes: ['comments']
   });
