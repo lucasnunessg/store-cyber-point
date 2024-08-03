@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 interface Comment {
   clientId: number;
   productId: number;
-  comment: string;
+  comments: string;
 }
 
 interface CommentsProps {
@@ -16,27 +16,22 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newCommentText, setNewCommentText] = useState('');
   // const [clientId] = useState<null>(null)
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
   const [errorGet, setErrorGet] = useState<string | null>(null);
   const token = Cookies.get('token');
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await api.get(`/products/${productId}/comments`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          }
-        });
+        const response = await api.get(`/products/${productId}/comments`);
         setComments(response.data);
       } catch (error) {
         console.error('Erro ao buscar produtos', error);
-        setError('Não foi possível encontrar produto');
       }
     };
 
     fetchComments();
-  }, [productId, token]);
+  }, [comments, productId]);
 
   console.log(comments)
 
@@ -75,7 +70,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <ul>
           {comments.map((comment) => (
-            <li>{comment.comment}</li>
+            <li>{comment.comments}</li>
           ))}
         </ul>
         <div>
