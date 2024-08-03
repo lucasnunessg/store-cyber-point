@@ -15,7 +15,7 @@ interface CommentsProps {
 const Comments: React.FC<CommentsProps> = ({ productId }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newCommentText, setNewCommentText] = useState('');
-  const [clientId] = useState<null>(null)
+  // const [clientId] = useState<null>(null)
   const [error, setError] = useState<string | null>(null);
   const [errorGet, setErrorGet] = useState<string | null>(null);
   const token = Cookies.get('token');
@@ -23,7 +23,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await api.get(`/products/`, {
+        const response = await api.get(`/comments`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
@@ -48,18 +48,16 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
     try {
       const newComment = {
         productId,
-        clientId,
+        // clientId,
         comments: newCommentText,
       };
 
-      const commentPost = await api.post(`/products/1/comments`, newComment, {
+      const commentPost = await api.post(`/products/productId/comments`, newComment, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
       });
-
-      console.log('Comentário adicionado!', commentPost.data);
       setComments((prevComments) => [...prevComments, commentPost.data]);
       setNewCommentText('');
       setErrorGet(null); 

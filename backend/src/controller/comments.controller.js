@@ -2,8 +2,9 @@ const { commentsService } = require('../service');
 
 
 const getAllC = async (req, res) => {
+  const { productId } = req.params;
   try {
-    const allComments = await commentsService.getAllComments();
+    const allComments = await commentsService.getAllComments(productId);
     if (!allComments.length) { 
       return res.status(404).json({ message: 'Comentários não encontrados' });
     }
