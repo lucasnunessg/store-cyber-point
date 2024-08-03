@@ -23,7 +23,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await api.get(`/comments`, {
+        const response = await api.get(`/products/${productId}/comments`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           }
@@ -39,7 +39,8 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   }, [productId, token]);
 
   console.log(comments)
-  
+
+ 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

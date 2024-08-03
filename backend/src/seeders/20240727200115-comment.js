@@ -4,16 +4,15 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
 await queryInterface.bulkInsert('comments', [{
-  
-}])
+  product_id: 1,
+  client_id: 2,
+  comments: 'Muito lindo!',
+  },
+
+])
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+await queryInterface.bulkDelete('comments')
   }
 };
