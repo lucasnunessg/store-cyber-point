@@ -31,11 +31,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
     };
 
     fetchComments();
-  }, [comments, productId]);
-
-  console.log(comments)
-
- 
+  }, [productId]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,7 +44,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
         comments: newCommentText,
       };
 
-      const commentPost = await api.post(`/products/productId/comments`, newComment, {
+      const commentPost = await api.post(`/products/${productId}/comments`, newComment, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -56,7 +52,6 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
       });
       setComments((prevComments) => [...prevComments, commentPost.data]);
       setNewCommentText('');
-      setErrorGet(null); 
     } catch (error) {
       console.error('Erro ao adicionar comentário', error);
       setErrorGet('Não foi possível adicionar comentário, verifique se fez login.');
@@ -70,7 +65,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <ul>
           {comments.map((comment) => (
-            <li>{comment.comments}</li>
+            <h5>{comment.comments}</h5>
           ))}
         </ul>
         <div>
