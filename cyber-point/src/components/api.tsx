@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import jwtDecode from 'jwt-decode';
 import api from './fetchApi';
 import EditProduct from './EditProduct';
 import DeleteProduct from './DeleteProduct';
 import AddProduct from './AddProduct'; 
-import Cookies from 'js-cookie'; 
 import Product from '../Interface/IProduct';
 import Comments from './Comments';
 
@@ -35,7 +35,7 @@ function Api({ onNextPageClick }: ApiProps) {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [cart, setCart] = useState<{ product: Product, quantity: number }[]>([]); 
   const [selectedCurrency, setSelectedCurrency] = useState<string>('USD'); 
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!Cookies.get('token'));
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!localStorage.getItem('token'));
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -58,7 +58,8 @@ function Api({ onNextPageClick }: ApiProps) {
     document.body.classList.toggle('light-mode', !isDarkMode);
   }, [isDarkMode]);
 
-  const token = Cookies.get('token');
+  const token = localStorage.getItem('token');
+
   
   useEffect(() => {
     const isAuthenticated = !!token;

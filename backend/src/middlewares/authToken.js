@@ -23,7 +23,7 @@ const generateToken = async (req, res) => {
       }
 
         const token = jwt.sign({ data: { email, role } }, secret, jwtConfig);
-        res.cookie('token', token, {httpOnly: true})
+        res.localStorage('token', token, {httpOnly: true})
         const path = req.originalUrl.replace(/\d+/g, '');
         const status = path === '/login' ? 200 : 201;
 

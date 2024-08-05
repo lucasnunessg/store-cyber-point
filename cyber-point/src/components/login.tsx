@@ -1,6 +1,5 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie'; 
 import axios from 'axios';
 import '../css/Login.css';
 
@@ -29,7 +28,7 @@ function Login() {
       .then(response => {
         const token = response.data.token;
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        Cookies.set('token', token);
+        localStorage.setItem('token', token);
         navigate('/');
         window.location.reload();
       })
@@ -40,7 +39,7 @@ function Login() {
   };
   
   const handleLogout = () => {
-    Cookies.remove('token');
+    localStorage.removeItem('token');
     delete axios.defaults.headers.common['Authorization'];
     setLogout(true)
     setTimeout(() => {

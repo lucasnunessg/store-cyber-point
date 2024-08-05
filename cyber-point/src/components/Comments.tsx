@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import api from './fetchApi';
-import Cookies from 'js-cookie';
 
 interface Comment {
   clientId: number;
@@ -18,7 +17,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   // const [clientId] = useState<null>(null)
   const [error] = useState<string | null>(null);
   const [errorGet, setErrorGet] = useState<string | null>(null);
-  const token = Cookies.get('token');
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchComments = async () => {

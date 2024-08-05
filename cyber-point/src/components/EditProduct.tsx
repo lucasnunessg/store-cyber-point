@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Product from '../Interface/IProduct';
-import Cookies from 'js-cookie'; 
 
 
 
@@ -17,7 +16,7 @@ const EditProduct: React.FC<EditProductProps> = ({ product, onSave, onCancel }) 
   const [price, setPrice] = useState<number>(product.price);
   const [description, setDescription] = useState<string>(product.description);
   const [image, setImage] = useState<string>(product.image);
-  const token = Cookies.get('token');
+  const token = localStorage.getItem('token');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
