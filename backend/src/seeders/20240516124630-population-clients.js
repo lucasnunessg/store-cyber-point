@@ -9,7 +9,8 @@ module.exports = {
         address: 'Rua Acioli Vaz de Andrade, 51, Bairro Andrade',
         contact: '55999909852',
         email: 'lucasnunespacheco@dev.com',
-        password: 'citytetra'
+        password: 'citytetra',
+        role: "admin"
       },
       {
         full_name: 'Cristian Pacheco Nunes',
