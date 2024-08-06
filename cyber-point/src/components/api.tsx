@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import jwtDecode from 'jwt-decode';
 import api from './fetchApi';
 import EditProduct from './EditProduct';
 import DeleteProduct from './DeleteProduct';
