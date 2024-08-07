@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import '../css/Login.css';
 
@@ -29,6 +30,10 @@ function Login() {
         const token = response.data.token;
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         localStorage.setItem('token', token);
+        const decodedToken = jwt_decode(token)
+        const fullName = decodedToken.data.fullName;
+        localStorage.setItem('fullName', fullName);
+
         navigate('/');
         window.location.reload();
       })
@@ -40,6 +45,7 @@ function Login() {
   
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('fullName')
     delete axios.defaults.headers.common['Authorization'];
     setLogout(true)
     setTimeout(() => {
