@@ -17,14 +17,16 @@ module.exports = {
         address: 'Rua Bahia, 190, Bairro Independência',
         contact: '55 99999 9999',
         email: 'cristianpacheconunes@gmail.com',
-        password: 'liveintexas'
+        password: 'liveintexas',
+        role: "client"
       },
       {
         full_name: 'Eloisa Pacheco Nunes',
         address: 'Rua Acioli Vaz de Andrade, 51, Bairro Andrade',
         contact: '5599989990',
         email: 'eloisapnunes@gmail.com',
-        password: '12345'
+        password: '12345',
+        role: "client"
       },
       {
         full_name: 'Eli Fernando Marques Nunes',
@@ -32,13 +34,15 @@ module.exports = {
         contact: '5599922999',
         email: 'elinunes@gmail.com',
         password: '123456',
+        role: "client"
       },
       {
         full_name: 'Julia Trindade Modernel',
         address: 'Rua sei la, 53, Bairro não sei',
         contact: '55 992393992',
         email: 'juliatrindade@gmail.com',
-        password: 'julia123'
+        password: 'julia123',
+        role: "client"
       },
     ], {} );
   },
