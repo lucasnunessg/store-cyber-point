@@ -1,8 +1,16 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import '../css/Login.css';
+
+interface DecodedToken {
+  data: {
+    email: string;
+    role: string;
+    fullName: string;
+  };
+}
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -26,66 +34,65 @@ function Login() {
         email: email,
         password: password,
       })
-      .then(response => {
+      .then((response) => {
         const token = response.data.token;
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         localStorage.setItem('token', token);
-        const decodedToken = jwt_decode(token)
+        const decodedToken = jwtDecode<DecodedToken>(token);
         const fullName = decodedToken.data.fullName;
         localStorage.setItem('fullName', fullName);
 
         navigate('/');
         window.location.reload();
       })
-      .catch(error => {
-        console.error("Error:", error);
+      .catch((error) => {
+        console.error('Error:', error);
         setError(error.response?.data.message || 'An error occurred');
       });
   };
-  
+
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('fullName')
+    localStorage.removeItem('fullName');
     delete axios.defaults.headers.common['Authorization'];
-    setLogout(true)
+    setLogout(true);
     setTimeout(() => {
-      setLogout(false)
+      setLogout(false);
       window.location.reload();
-    }, 500)
+    }, 500);
     navigate('/');
-  }; 
+  };
 
-  
   return (
     <form onSubmit={handleSubmit}>
-      <div className='login-inputs'>
-      <input
-        id='inputMail'
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={handleEmailChange}
-        required
-      />
-      <input
-        id='inputPassword'
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={handlePasswordChange}
-        required
-      />
-      <button type="submit">Login</button>
-      {error && <div className="error">{error}</div>}
-      { logout ? (
-        <p>Saindo...</p>
-      ) : (
-        <button type="button" onClick={handleLogout}>Logout</button>
-      )}
+      <div className="login-inputs">
+        <input
+          id="inputMail"
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={handleEmailChange}
+          required
+        />
+        <input
+          id="inputPassword"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={handlePasswordChange}
+          required
+        />
+        <button type="submit">Login</button>
+        {error && <div className="error">{error}</div>}
+        {logout ? (
+          <p>Saindo...</p>
+        ) : (
+          <button type="button" onClick={handleLogout}>
+            Logout
+          </button>
+        )}
       </div>
-
     </form>
-      
   );
 }
 
