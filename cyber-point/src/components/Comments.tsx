@@ -17,6 +17,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   const [clientId, setClientId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [errorGet, setErrorGet] = useState<string | null>(null);
+ // const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(true); // Adicionado para gerenciar o estado de carregamento
   const token = localStorage.getItem('token');
 
@@ -25,6 +26,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
       try {
         const response = await api.get(`/products/${productId}/comments`);
         setComments(response.data);
+       // setFullName(response.clientId)
       } catch (error) {
         console.error('Erro ao buscar comentários', error);
         setError('Não foi possível buscar comentários');
