@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
@@ -17,7 +17,15 @@ function Login() {
   const [password, setPassword] = useState('');
   const [logout, setLogout] = useState(false);
   const [error, setError] = useState('');
+  const [fullName, setFullName] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedFullname = localStorage.getItem('fullName');
+    if(storedFullname){
+      setFullName(storedFullname) //fiz um useEffect pra manter na tela apos o login
+    }
+  }, [])
 
   const handleEmailChange = (event: FormEvent<HTMLInputElement>) => {
     setEmail(event.currentTarget.value);
@@ -40,6 +48,7 @@ function Login() {
         localStorage.setItem('token', token);
         const decodedToken = jwtDecode<DecodedToken>(token);
         const fullName = decodedToken.data.fullName;
+        setFullName(fullName);
         localStorage.setItem('fullName', fullName);
 
         navigate('/');
@@ -63,6 +72,7 @@ function Login() {
     navigate('/');
   };
 
+  
   return (
     <form onSubmit={handleSubmit}>
       <div className="login-inputs">
@@ -92,7 +102,13 @@ function Login() {
           </button>
         )}
       </div>
+      {fullName && ( 
+        <div>
+          <p>Olá, {fullName}, seja bem-vindo!</p>
+        </div>
+      )}
     </form>
+    
   );
 }
 
