@@ -17,7 +17,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   const [clientId, setClientId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [errorGet, setErrorGet] = useState<string | null>(null);
- // const [fullName, setFullName] = useState('');
+  const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(true); // Adicionado para gerenciar o estado de carregamento
   const token = localStorage.getItem('token');
 
@@ -26,7 +26,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
       try {
         const response = await api.get(`/products/${productId}/comments`);
         setComments(response.data);
-       // setFullName(response.clientId)
+        fullName
       } catch (error) {
         console.error('Erro ao buscar comentários', error);
         setError('Não foi possível buscar comentários');
@@ -40,7 +40,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
     const fetchClientId = async () => {
       try {
         const client = await api.get('/clients');
-                setClientId(client.data.clientId);
+        setClientId(client.data.clientId);
         setLoading(false); // Define o carregamento como concluído
       } catch (error) {
         console.error('Erro ao obter clientId', error);
@@ -50,7 +50,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
     };
 
     fetchClientId();
-  }, []);
+  }, [clientId]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -106,6 +106,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
           />
           <button type="submit">Adicionar Comentário</button>
           {errorGet && <p style={{ color: 'red' }}>{errorGet}</p>}
+          {fullName}
         </div>
       </form>
     </div>
