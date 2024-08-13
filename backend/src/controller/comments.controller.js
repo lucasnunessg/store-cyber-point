@@ -19,6 +19,7 @@ const addComment = async (req, res) => {
   const { productId } = req.params;
   const { comments } = req.body;
   const { id: clientId } = req.user
+  console.log("to aquiiiiiiiiiiiiiiiiiIIII", clientId)
   try{
     const newComment = await commentsService.createAComment(productId, comments, clientId);
     console.log("to aqui ------------->      ", newComment)
