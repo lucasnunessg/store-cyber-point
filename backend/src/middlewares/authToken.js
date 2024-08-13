@@ -16,9 +16,9 @@ const generateToken = async (req, res) => {
             return res.status(400).json({ message: 'Credenciais inválidas' });
         }
 
-        const { role = 'client', fullName } = client;
+        const { id, role = 'client', fullName } = client;
 
-        const token = jwt.sign({ data: { email, role, fullName } }, secret, jwtConfig);
+        const token = jwt.sign({ data: { id, email, role, fullName } }, secret, jwtConfig);
 
         const path = req.originalUrl.replace(/\d+/g, '');
         const status = path === '/login' ? 200 : 201;
