@@ -32,7 +32,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
   const [clientId, setClientId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [errorGet, setErrorGet] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true); // Adicionado para gerenciar o estado de carregamento
+  const [loading, setLoading] = useState(true); 
   const token = localStorage.getItem('token');
   const decodedToken = token ? jwtDecode<DeecodedToken>(token) : null;
 
