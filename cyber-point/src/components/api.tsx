@@ -6,6 +6,7 @@ import AddProduct from './AddProduct';
 import Product from '../Interface/IProduct';
 import Comments from './Comments';
 import '../css/App.css';
+import  { jwtDecode } from 'jwt-decode';
 
 interface ApiProps {
   onNextPageClick?: () => void;
@@ -13,6 +14,10 @@ interface ApiProps {
 
 interface CurrencyRates {
   [key: string]: number;
+}
+
+interface DecodedToken {
+  role: string;
 }
 
 const currencyRates: CurrencyRates = {
@@ -35,7 +40,7 @@ function Api({ onNextPageClick }: ApiProps) {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [cart, setCart] = useState<{ product: Product, quantity: number }[]>([]); 
   const [selectedCurrency, setSelectedCurrency] = useState<string>('USD'); 
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!localStorage.getItem('token'));
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const productsPerPage = 4;
 
   useEffect(() => {
@@ -58,13 +63,23 @@ function Api({ onNextPageClick }: ApiProps) {
     document.body.classList.toggle('light-mode', !isDarkMode);
   }, [isDarkMode]);
 
-  const token = localStorage.getItem('token');
-
-    console.log(token)
+  
   useEffect(() => {
-    const isAuthenticated = !!token;
-    setIsAuthenticated(isAuthenticated);
-  }, [token]);
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decodedToken: DecodedToken = jwtDecode(token);
+        console.log("aqui ta o token decodificado", decodedToken)
+        setIsAuthenticated(decodedToken.role === 'admin');
+      } catch (error) {
+        console.error("Erro ao decodificar token:", error);
+        setIsAuthenticated(false);
+      }
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
+  
 
   const handleNextPage = useCallback(() => {
     setStartExibition(prev => prev + productsPerPage);
@@ -221,7 +236,9 @@ function Api({ onNextPageClick }: ApiProps) {
       </div>
 
       {isAuthenticated && (
+        <>
         <AddProduct />
+        </>
       )}
       
       <div className="product-list">

@@ -40,11 +40,10 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
     const fetchComments = async () => {
       try {
         const response = await api.get(`/products/${productId}/comments`);
-        console.log("to aqui, " , response.data)
         setComments(response.data);   
       } catch (error) {
         console.error('Erro ao buscar comentários', error);
-        setError('Não foi possível buscar comentários');
+        setError('Seja o primeiro a comentar');
       }
     };
 
@@ -123,7 +122,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
       <p>{comment.client.fullName}</p>
     </li>
   ))}
-</ul>
+  </ul>
         <div>
           <input
             type="text"
