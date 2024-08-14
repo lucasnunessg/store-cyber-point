@@ -5,7 +5,7 @@ import DeleteProduct from './DeleteProduct';
 import AddProduct from './AddProduct'; 
 import Product from '../Interface/IProduct';
 import Comments from './Comments';
-import { jwtDecode } from 'jwt-decode';
+import '../css/App.css';
 
 interface ApiProps {
   onNextPageClick?: () => void;
@@ -13,12 +13,6 @@ interface ApiProps {
 
 interface CurrencyRates {
   [key: string]: number;
-
-}
-
-interface DecodedToken {
-  role: string;
-  exp: number
 }
 
 const currencyRates: CurrencyRates = {
@@ -26,8 +20,6 @@ const currencyRates: CurrencyRates = {
   BRL: 5.5,
   EUR: 0.9
 };
-
-
 
 function Api({ onNextPageClick }: ApiProps) {
   const [products, setProducts] = useState<Product[]>([]);
@@ -66,21 +58,13 @@ function Api({ onNextPageClick }: ApiProps) {
     document.body.classList.toggle('light-mode', !isDarkMode);
   }, [isDarkMode]);
 
-  
+  const token = localStorage.getItem('token');
+
+    console.log(token)
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const decodedToken: DecodedToken = jwtDecode(token);
-        setIsAuthenticated(decodedToken.role === "admin");
-      } catch (error) {
-        console.error('Erro ao decodificar token', error);
-        setIsAuthenticated(false); 
-      }
-    } else {
-      setIsAuthenticated(false); 
-    }
-  }, []);
+    const isAuthenticated = !!token;
+    setIsAuthenticated(isAuthenticated);
+  }, [token]);
 
   const handleNextPage = useCallback(() => {
     setStartExibition(prev => prev + productsPerPage);
