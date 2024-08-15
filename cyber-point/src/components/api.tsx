@@ -17,7 +17,9 @@ interface CurrencyRates {
 }
 
 interface DecodedToken {
-  role: string;
+  data: {
+    role: string;
+  }
 }
 
 const currencyRates: CurrencyRates = {
@@ -70,15 +72,17 @@ function Api({ onNextPageClick }: ApiProps) {
       try {
         const decodedToken: DecodedToken = jwtDecode(token);
         console.log("aqui ta o token decodificado", decodedToken)
-        setIsAuthenticated(decodedToken.role === 'admin');
+        setIsAuthenticated(decodedToken.data.role === 'admin');
       } catch (error) {
         console.error("Erro ao decodificar token:", error);
         setIsAuthenticated(false);
       }
     } else {
+      console.log("Nenhum token encontrado");
       setIsAuthenticated(false);
     }
   }, []);
+  
   
 
   const handleNextPage = useCallback(() => {
@@ -200,6 +204,12 @@ function Api({ onNextPageClick }: ApiProps) {
     );
   };
 
+  if (isAuthenticated === null) {
+    return <p>Verificando autenticação...</p>;
+  }
+
+
+
   return (
     <div className="api-container">
       <div className="pagination-buttons">
@@ -234,11 +244,9 @@ function Api({ onNextPageClick }: ApiProps) {
         />
         <button onClick={applyPriceFilter}>Filtrar</button>
       </div>
-
+  
       {isAuthenticated && (
-        <>
-        <AddProduct />
-        </>
+        <AddProduct /> //tive q extrair de "data" antes no token, pq ele estava dentro do objeto data
       )}
       
       <div className="product-list">
