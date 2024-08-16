@@ -12,17 +12,20 @@ const getProductsPerPrice = async(price) => {
 
 }
 
-const calcularFrete = (getProductPerCategory, getProductsPerPrice) => {
+const calcularFrete = (productsPerCategory, productsPerPrice) => {
   const fretePadrao = 20
   const valorFreteGratis = 200
 
-  if(getProductPerPrice >= valorFreteGratis){
-    return 0
+  const priceComplete = productsPerPrice.reduce((total, product) => total + product.price, 0)
+  if (priceComplete >= valorFreteGratis) {
+  return 0
+}
+  const hasElectronics = productsPerCategory.some(product => product.category === 'electronic')
+  if (hasElectronics) {
+    return fretePadrao +10;
   }
 
-  if(getProductPerCategory === 'electronics'){
-    return fretePadrao + 10;
-  }
+
 
   return fretePadrao
 }

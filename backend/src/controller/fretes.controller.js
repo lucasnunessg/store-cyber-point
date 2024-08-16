@@ -1,18 +1,26 @@
-const { freteService } = require('../service')
+const { getProductPerCategory, getProductsPerPrice, calcularFrete } = require('../services/freteService');
 
-const valorFrete = (req, res) => {
-  const { price, category } = req.body 
-  try{
-    const fretePreco = freteService.calcularFrete(price, category)
-    if(!fretePreco) res.status(404).json({ message: 'não foi possível calcular frete' });
-    return res.status(200).json({ frete: fretePreco })
+const valorFrete = async (req, res) => {
+  const { price, category } = req.body;
 
-  }catch(error){
-    console.log("não foi possível calcular!", error)
+  try {
+    const productsPerCategory = await getProductPerCategory(category);
+    const productsPerPrice = await getProductsPerPrice(price);
+
+    const fretePreco = calcularFrete(productsPerCategory, productsPerPrice);
+
+    if (fretePreco === undefined) {
+      return res.status(404).json({ message: 'Não foi possível calcular o frete' });
+    }
+
+    return res.status(200).json({ frete: fretePreco });
+
+  } catch (error) {
+    console.error("Não foi possível calcular o frete:", error);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
   }
-} //fazer as rotas e testar calculo do frete
-
+};
 
 module.exports = {
   valorFrete,
-}
+};
