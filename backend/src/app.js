@@ -3,7 +3,7 @@ const cors = require('cors');
 
 
 const { clientsRoute, loginRoute, productRoute, logoutRoute,
-productsElectronics, womenClothingRoute, jeweleryRoute, mensClothingRoute, commentsRoute } = require('./routes') 
+productsElectronics, womenClothingRoute, jeweleryRoute,freteRoute, mensClothingRoute, commentsRoute } = require('./routes') 
 
 const app = express();
 
@@ -19,6 +19,7 @@ app.use('/', productsElectronics);
 app.use('/', womenClothingRoute);
 app.use('/', jeweleryRoute);
 app.use('/', mensClothingRoute);
-app.use('/', commentsRoute)
+app.use('/', commentsRoute);
+app.use('/', freteRoute);
 
 module.exports = app;

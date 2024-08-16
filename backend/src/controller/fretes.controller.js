@@ -10,7 +10,7 @@ const valorFrete = (req, res) => {
   }catch(error){
     console.log("não foi possível calcular!", error)
   }
-}
+} //fazer as rotas e testar calculo do frete
 
 
 module.exports = {

@@ -7,6 +7,7 @@ const womenClothingRoute = require('./womenCategory.route');
 const jeweleryRoute = require('./jewelery.route');
 const mensClothingRoute = require('./mensClothing.route');
 const commentsRoute = require('./comments.route');
+const freteRoute = require('./frete.route')
 
 module.exports = {
     clientsRoute,
@@ -18,4 +19,5 @@ module.exports = {
     jeweleryRoute,
     mensClothingRoute,
     commentsRoute,
+    freteRoute,
 }
