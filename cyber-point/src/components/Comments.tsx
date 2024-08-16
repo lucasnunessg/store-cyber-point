@@ -87,6 +87,7 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
         clientId,
         comments: newCommentText,
         fullName,
+        
       };
       console.log("oii", clientId)
 
@@ -99,6 +100,8 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
 
       setComments((prevComments) => [...prevComments, commentPost.data]);
       setNewCommentText('');
+      window.location.reload();
+
     } catch (error) {
       console.error('Erro ao adicionar comentário', error);
       setErrorGet('Não foi possível adicionar comentário, verifique se fez login.');

@@ -55,6 +55,7 @@ const CreateClient = () => {
 
   return (
     <>
+    <p>Não é cadastrado? Cadastre-se</p>
       {!showForm && (
         <button onClick={() => setShowForm(true)}>Criar conta</button>
       )}

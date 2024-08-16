@@ -74,8 +74,10 @@ function Login() {
 
   
   return (
+
     <form onSubmit={handleSubmit}>
-      <div className="login-inputs">
+    
+        <div className="login-inputs">
         <input
           id="inputMail"
           type="email"

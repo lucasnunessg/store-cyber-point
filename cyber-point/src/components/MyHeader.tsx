@@ -1,4 +1,6 @@
 import Login from "./login";
+import { useState } from 'react';
+
 import RegisterComponent from "./RegisterComponent";
 
 const headerStyle = {
@@ -9,11 +11,20 @@ const headerStyle = {
 };
 
 function MyHeader() {
+  const [showForm, setShowForm] = useState(false);
   return (
     <div className="myHeader" style={headerStyle}>
       <header>
+        
         <h1>Cyber Point Store</h1>
+        {!showForm && (
+        <button onClick={() => setShowForm(true)}>Entrar</button>
+      )}
+      {showForm && (
+
       <Login />
+      )}
+        
       <RegisterComponent />
       
         <hr />
