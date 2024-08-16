@@ -6,6 +6,7 @@ const womenClothingService = require ('./womenClothing.service');
 const jeweleryService = require('./jewelery.service')
 const menClothingService = require('./mensClothing.service');
 const commentsService = require('./comment.service');
+const freteService = require('./frete.products.service');
 
 
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
     productElectronicService,
     womenClothingService,
     jeweleryService,
+    freteService,
     menClothingService,
     commentsService,
 }
