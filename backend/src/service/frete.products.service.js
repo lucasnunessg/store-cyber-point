@@ -2,12 +2,12 @@ const { Product } = require('../models')
 
 const getProductPerCategory = async (category) => {
 
-  const productsPerCategory = await Product.findAll({ where: 'category' })
+  const productsPerCategory = await Product.findAll({ where: { category } })
   return productsPerCategory;
 };
 
 const getProductsPerPrice = async(price) => {
-  const productsPerPrice = await Product.findAll({ where: price })
+  const productsPerPrice = await Product.findAll({ where: { price } })
   return productsPerPrice;
 
 }
