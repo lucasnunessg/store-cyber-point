@@ -2,7 +2,7 @@ const { Product } = require('../models')
 
 const getProductPerCategory = async (category) => {
 
-  const productsPerCategory = await Product.findAll({ where: category })
+  const productsPerCategory = await Product.findAll({ where: 'category' })
   return productsPerCategory;
 };
 
@@ -15,6 +15,8 @@ const getProductsPerPrice = async(price) => {
 const calcularFrete = (productsPerCategory, productsPerPrice) => {
   const fretePadrao = 20
   const valorFreteGratis = 200
+  console.log("aqui ---- service", productsPerCategory)
+  console.log("aquiii --- service", productsPerPrice)
 
   const priceComplete = productsPerPrice.reduce((total, product) => total + product.price, 0)
   if (priceComplete >= valorFreteGratis) {

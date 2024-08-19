@@ -16,7 +16,7 @@ module.exports = {
     productElectronicService,
     womenClothingService,
     jeweleryService,
-    freteService,
     menClothingService,
     commentsService,
+    freteService,
 }

@@ -1,14 +1,14 @@
-const { getProductPerCategory, getProductsPerPrice, calcularFrete } = require('../services/freteService');
+const { freteService } = require('../service');
 
 const valorFrete = async (req, res) => {
   const { price, category } = req.body;
 
   try {
-    const productsPerCategory = await getProductPerCategory(category);
-    const productsPerPrice = await getProductsPerPrice(price);
+    const productsPerCategory = await freteService.getProductPerCategory(category);
+    const productsPerPrice = await freteService.getProductsPerPrice(price);
 
-    const fretePreco = calcularFrete(productsPerCategory, productsPerPrice);
-
+    const fretePreco = freteService.calcularFrete(productsPerCategory, productsPerPrice);
+    console.log("aqui, controller ----------------", fretePreco)
     if (fretePreco === undefined) {
       return res.status(404).json({ message: 'Não foi possível calcular o frete' });
     }
