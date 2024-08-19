@@ -1,11 +1,13 @@
-import { expect } from 'chai';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-import chai from 'chai';
-import chaiHttp from 'chai-http';
-import { clientService } from '../service';
-import app from '../app';
-import { clientMock } from './mocks/client.mock';
+const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const { clientService } = require('../service/client.service');
+const { clientController } = require('../controller/clients.controller')
+const { app } = require('../app');
+const { clientMock } = require('./mocks/client.mock');
+
+const { expect } = chai;
 
 chai.use(sinonChai);
 chai.use(chaiHttp);
