@@ -8,7 +8,6 @@ const getProductPerCategory = async (category) => {
 
 const getProductsPerPrice = async(price) => {
   const productsPerPrice = await Product.findAll({ where: { price } })
-  console.log("return aqui" , productsPerPrice)
   return productsPerPrice;
 
 }
@@ -16,19 +15,21 @@ const getProductsPerPrice = async(price) => {
 const calcularFrete = (productsPerCategory, productsPerPrice) => {
   const fretePadrao = 20
   const valorFreteGratis = 200
-  console.log("aquiii --- service", productsPerPrice)
+  console.log("eu to aqui, " , productsPerCategory)
 
-  if (productsPerCategory === 'electronics') {
-    return fretePadrao +10;
-  }
+const hasElectronics = productsPerCategory.some(product => product.category === 'electronics')
+if(hasElectronics) {
+  return fretePadrao + 10;
+}
   
-  if (productsPerPrice >= valorFreteGratis) {
-  return 0
+const priceComplete = productsPerPrice.reduce((total, product) => total + product.price, 0);
+
+if (priceComplete >= valorFreteGratis) {
+  return 0; 
 }
 
-
-  return fretePadrao
-}
+return fretePadrao;
+};
 
 
 

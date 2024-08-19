@@ -8,7 +8,6 @@ const valorFrete = async (req, res) => {
     const productsPerPrice = await freteService.getProductsPerPrice(price);
 
     const fretePreco = freteService.calcularFrete(productsPerCategory, productsPerPrice);
-    console.log("aqui, controller ----------------", fretePreco)
     if (fretePreco === undefined) {
       return res.status(404).json({ message: 'Não foi possível calcular o frete' });
     }
