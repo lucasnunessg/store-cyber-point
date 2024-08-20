@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from './fetchApi';
+import '../css/App.css';
 import { jwtDecode } from 'jwt-decode';
 
 interface Comment {
@@ -132,8 +133,9 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
             value={newCommentText}
             onChange={(e) => setNewCommentText(e.target.value)}
             placeholder="Adicione um comentário"
+            className="custom-input"
           />
-          <button type="submit">Adicionar Comentário</button>
+          <button type="submit" className="btn btn-outline-primary">Adicionar Comentário</button>
           {errorGet && (
           <div className="alert alert-warning alert-dismissible fade show" role="alert">
           {errorGet}
