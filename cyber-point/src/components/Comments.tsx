@@ -134,7 +134,14 @@ const Comments: React.FC<CommentsProps> = ({ productId }) => {
             placeholder="Adicione um comentário"
           />
           <button type="submit">Adicionar Comentário</button>
-          {errorGet && <p style={{ color: 'red' }}>{errorGet}</p>}
+          {errorGet && (
+          <div className="alert alert-warning alert-dismissible fade show" role="alert">
+          {errorGet}
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+         </button>
+         </div>
+)}
         
         </div>
       </form>
