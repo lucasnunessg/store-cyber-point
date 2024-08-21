@@ -1,107 +1,96 @@
-
-.renderization-womens {
-  display: flex;
-  flex-wrap: wrap; /* Permite que os itens se ajustem em várias linhas */
-  justify-content: center; /* Centraliza os itens horizontalmente */
-  gap: 20px; /* Espaçamento entre os itens */
-  border: 1px solid;
-  
-}
-
+/* Container principal do componente WomenCategory */
 .womens-category {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border: 20px solid;
+  display: flex; /* Define o container como flexível */
+  flex-direction: column; /* Alinha os itens verticalmente */
+  justify-content: center; /* Centraliza os itens verticalmente */
+  align-items: center; /* Centraliza os itens horizontalmente */
+  background-color: #e2effd;
+  min-height: 100vh; /* Garante que o container ocupe a altura total da viewport */
+  padding: 1rem; /* Adiciona um espaçamento interno ao container */
 }
 
-
+/* Estilo para o título da página */
 .womens-category h1 {
-  font-size: 50px;
-  color: #333;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-.womens-category input {
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-image: url('https://w7.pngwing.com/pngs/33/796/png-transparent-magnifying-glass-computer-icons-easily-zooming-user-interface-computer-icons-web-search-engine.png');
-  background-size: 20px 20px; /* Tamanho da lupa */
-  background-position: 10px center; /* Posição da lupa */
-  background-repeat: no-repeat; /* Não repetir a imagem */
-  padding-left: 40px; /* Espaço para a imagem */
+/* Estilo para a barra de busca */
+.womens-category input[type="text"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 1rem;
 }
 
-.womens-category .nagivations-buttons button {
+/* Estilo para a navegação de páginas */
+.nagivations-buttons {
+  display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
-  border-radius: 10px; /* Adicionei 'px' para corrigir o erro de sintaxe */
-  background-color: cornflowerblue;
+  margin-bottom: 1rem;
 }
 
-.womens-category button:disabled {
-  background-color: #cccccc;
-}
-
-
-.product-item-women {
-  flex: 0 1 calc(25% - 20px); /* Ajusta o item para ocupar 25% da largura menos o espaço de gap */
-  box-sizing: border-box;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.product-item-women h3 {
-  font-size: 20px;
-  color: black;
-  margin: 10px 0;
-  font-family: 'Times New Roman', Times, serif;
-}
-
-.product-item-women p {
-  font-size: 16px;
-  color:black;
-  font-family: 'Times New Roman', Times, serif;
-}
-
-.product-price {
-  font-size: 18px;
-  color: #333;
-  font-weight: bold;
-  margin-top: auto; 
-}
-
-
-
-body.dark-mode {
-  background-color: #121212;
-  color: #ffffff;
-}
-
-body.light-mode {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-.darkmode button {
-  padding: 10px 20px;
-  justify-content: start;
+.nagivations-buttons button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
   cursor: pointer;
-  margin-inline-start: auto;
 }
 
-.darkmode button:hover {
-  background-color: #cccccc;
+.nagivations-buttons button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Estilo para a lista de produtos */
+.renderization-womens {
+  display: flex; /* Define a lista como flexível */
+  flex-wrap: wrap; /* Permite que os produtos se movam para a linha seguinte quando necessário */
+  gap: 1rem; /* Espaçamento entre os produtos */
+  justify-content: center; /* Centraliza os produtos horizontalmente */
+}
+
+/* Cada produto */
+.product-item-women {
+  display: flex; /* Define o produto como flexível */
+  flex-direction: column; /* Alinha o conteúdo do produto verticalmente */
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  background-color: #e2effd;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 5px;
+  width: calc(25% - 1rem); /* Ajuste o tamanho do produto conforme necessário */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para o título do produto */
+.product-item-women h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para a imagem do produto */
+.product-item-women img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para o preço do produto */
+.product-price {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para a descrição do produto */
+.description-women {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
 }

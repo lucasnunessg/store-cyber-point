@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Navbar = styled.nav`
-  background-color: pink;
+  background-color: black;
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: center; /* Centraliza o conteúdo horizontalmente */

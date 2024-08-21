@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from './fetchApi';
 import Product from '../Interface/IProduct';
+import '../css/jewelery.css'
 
 const JeweleryCategory = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
@@ -43,9 +44,11 @@ const JeweleryCategory = () => {
   const goToPrevPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
-  if(loading) return <p>Loading...</p>
+
+  if(loading) return <p>Loading...</p>;
+
   return (
-    <div>
+    <div className="jewelery-category">
       <h1>Jewelery</h1>
       <input
         type='text'
@@ -58,14 +61,16 @@ const JeweleryCategory = () => {
         <span>Página: {currentPage} de {totalPages}</span>
         <button onClick={goToNextPage} disabled={currentPage === totalPages}>Próxima</button>
       </div>
-      {filteredProducts.map((product) => (
-        <div key={product.id} className='jewelery-products'>
-          <h3>{product.title}</h3>
-          <p>{product.description}</p>
-          <img src={product.image} alt={product.title} />
-          <p className="product-price">Price: ${product.price.toFixed(2)}</p>
-        </div>
-      ))}
+      <div className="products-grid">
+        {filteredProducts.map((product) => (
+          <div key={product.id} className='jewelery-product'>
+            <h3>{product.title}</h3>
+            <p>{product.description}</p>
+            <img src={product.image} alt={product.title} />
+            <p className="product-price">Price: ${product.price.toFixed(2)}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

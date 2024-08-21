@@ -1,28 +1,219 @@
-/* Adicione este CSS ao seu arquivo de estilo */
-.custom-input {
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.custom-input:focus {
-  border-color: #5ca6f5;
-  outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-}
-
-.custom-input::placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-
+/* Container principal da aplicação */
 .api-container {
+  display: flex; /* Define o container como flexível */
+  flex-direction: column; /* Alinha os itens verticalmente */
+  justify-content: center; /* Centraliza os itens verticalmente */
+  align-items: center; /* Centraliza os itens horizontalmente */
+  background-color: #e2effd;
+  min-height: 100vh; /* Garante que o container ocupe a altura total da viewport */
+  padding: 1rem; /* Adiciona um espaçamento interno ao container */
+}
+
+/* Lista de produtos */
+.product-list {
+  display: flex; /* Define a lista como flexível */
+  flex-wrap: wrap; /* Permite que os produtos se movam para a linha seguinte quando necessário */
+  gap: 1rem; /* Espaçamento entre os produtos */
+  justify-content: center; /* Centraliza os produtos horizontalmente */
+}
+
+/* Cada produto */
+.product {
+  display: flex; /* Define o produto como flexível */
+  flex-direction: column; /* Alinha o conteúdo do produto verticalmente */
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  background-color: #e2effd;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 5px;
+  width: calc(25% - 1rem); /* Ajuste o tamanho do produto conforme necessário */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Título do produto */
+.product-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Imagem do produto */
+.product-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+/* Descrição do produto */
+.product-description {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Preço do produto */
+.product-price {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Controle de quantidade do produto */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para os botões de controle de quantidade */
+.quantity-control button {
+  margin: 0 0.25rem;
+}
+
+/* Estilo para o span que mostra a quantidade */
+.quantity {
+  margin: 0 0.5rem;
+}
+
+/* Estilo para a seção de comentários */
+.comments {
+  margin-top: 1rem;
+}
+
+/* Estilo para a seção do carrinho */
+.cart {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Estilo para os itens do carrinho */
+.cart ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Estilo para cada item do carrinho */
+.cart li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para o botão de remover do carrinho */
+.cart button {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Estilo para o botão de remover do carrinho ao passar o mouse */
+.cart button:hover {
+  background-color: #d32f2f;
+}
+
+
+/* Container principal do componente Electronics */
+.electronics-container {
+  display: flex; /* Define o container como flexível */
+  flex-direction: column; /* Alinha os itens verticalmente */
+  justify-content: center; /* Centraliza os itens verticalmente */
+  align-items: center; /* Centraliza os itens horizontalmente */
+  background-color: #e2effd;
+  min-height: 100vh; /* Garante que o container ocupe a altura total da viewport */
+  padding: 1rem; /* Adiciona um espaçamento interno ao container */
+}
+
+/* Estilo para o título da página */
+.electronics-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Estilo para a barra de busca */
+.search-bar {
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Estilo para a navegação de páginas */
+.pagination {
+  display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e2effd;
+  margin-bottom: 1rem;
 }
+
+.pagination button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Lista de produtos */
+.product-list {
+  display: flex; /* Define a lista como flexível */
+  flex-wrap: wrap; /* Permite que os produtos se movam para a linha seguinte quando necessário */
+  gap: 1rem; /* Espaçamento entre os produtos */
+  justify-content: center; /* Centraliza os produtos horizontalmente */
+}
+
+/* Cada produto */
+.product-item {
+  display: flex; /* Define o produto como flexível */
+  flex-direction: column; /* Alinha o conteúdo do produto verticalmente */
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 5px;
+  width: calc(25% - 1rem); /* Ajuste o tamanho do produto conforme necessário */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para o título do produto */
+.product-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para a descrição do produto */
+.product-item p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para o preço do produto */
+.product-price {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para a imagem do produto */
+.product-item img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import api from './fetchApi';
 import Product from '../Interface/IProduct';
 
-
-
 const Electronics = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]); 
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]); 
@@ -56,9 +54,9 @@ const Electronics = () => {
   if (error) return <p>Error loading products: {error.message}</p>;
 
   return (
-    <div>
-      <h1>Electronics</h1>
-      <div>
+    <div className="electronics-container">
+      <h1 className="electronics-title">Electronics</h1>
+      <div className="search-bar">
         <input
           type='text'
           placeholder='Digite o nome do produto'
@@ -70,7 +68,6 @@ const Electronics = () => {
         <button onClick={goToPrevPage} disabled={currentPage === 1}>Anterior</button>
         <span>Página: {currentPage} de {totalPages}</span>
         <button onClick={goToNextPage} disabled={currentPage === totalPages}>Próxima</button>
-
       </div>
       <div className="product-list">
         {filteredProducts.map(product => (
@@ -82,7 +79,6 @@ const Electronics = () => {
           </div>
         ))}
       </div>
-
     </div>
   );
 };

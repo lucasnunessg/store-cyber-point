@@ -1,0 +1,99 @@
+/* Container principal do componente Jewelery */
+.jewelery-category {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #e2effd;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+/* Estilo para o título da página */
+.jewelery-category h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Estilo para a barra de busca */
+.jewelery-category input[type="text"] {
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Estilo para a navegação de páginas */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.pagination button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Grid para os produtos */
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Estilo individual para cada produto */
+.jewelery-product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #e2effd;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 5px;
+  width: calc(25% - 1rem);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para o título do produto */
+.jewelery-product h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* Estilo para a descrição do produto */
+.jewelery-product p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* Estilo para o preço do produto */
+.product-price {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo para a imagem do produto */
+.jewelery-product img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
